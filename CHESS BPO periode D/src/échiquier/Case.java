@@ -1,11 +1,12 @@
-package appli;
+package échiquier;
+
+import piece.Piece;
 
 import java.util.ArrayList;
 
 public class Case {
-    private ArrayList<Piece> pieceActuelle;
+    private ArrayList<Piece> pieceActuelle;/*grace a l'interface-> se renseigner*/
     private boolean estOccupé;
-
 
     public Case(){
         this.pieceActuelle = new ArrayList<>();

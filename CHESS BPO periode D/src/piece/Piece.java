@@ -1,8 +1,8 @@
-package appli;
+package piece;
 
 public abstract class Piece {
-    private char signe;
-    private couleurPiece couleur;
+    private final char signe;
+    private final couleurPiece couleur;
 
     private int posX;
     private int posY;

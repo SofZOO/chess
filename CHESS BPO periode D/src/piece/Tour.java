@@ -1,4 +1,4 @@
-package appli;
+package piece;
 
 public class Tour extends Piece{
 
@@ -11,9 +11,6 @@ public class Tour extends Piece{
         if (getPosX() == x && getPosY() !=y){
             return true;
         }
-        if (getPosX() == y && getPosY() !=x){
-            return true;
-        }
-        return false;
+        return getPosX() == y && getPosY() != x;
     }
 }

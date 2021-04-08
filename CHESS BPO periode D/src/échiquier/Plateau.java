@@ -1,4 +1,9 @@
-package appli;
+package échiquier;
+
+import piece.Piece;
+import piece.Roi;
+import piece.Tour;
+import piece.couleurPiece;
 
 import java.util.ArrayList;
 
