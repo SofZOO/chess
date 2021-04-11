@@ -20,11 +20,11 @@ public abstract class Piece {
 
     }
 
-    public void changeCoord(int x, int y){
-        posX = x;
-        posY = y;
+    public void changeCoord(Coord c){
+        posX = c.getX();
+        posY = c.getY();
     }
-    public abstract boolean peutJouer(int x, int y);
+    public abstract boolean peutJouer(Coord c);
 
     public char toChar(){
         return this.signe;

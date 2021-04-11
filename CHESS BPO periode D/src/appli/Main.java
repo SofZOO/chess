@@ -14,6 +14,9 @@ public class Main {
         System.out.println(p);
         p.déplacer("e2e4");
         System.out.println(p);
-
+        p.déplacer("a6b5");
+        System.out.println(p);
+        p.déplacer("a8a9");
+        System.out.println(p);
     }
 }

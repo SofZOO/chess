@@ -20,8 +20,17 @@ public class Case {
             return Character.toString(pieceActuelle.get(0).toChar());
     }
 
+    public boolean isEstOccupé(){
+        return !(this.pieceActuelle.size() == 0);
+    }
+
     public void rajouterPiece(Piece p){
-        pieceActuelle.add(p);
+        if (isEstOccupé()){
+            pieceActuelle.add(p);
+            pieceActuelle.remove(0);
+        }
+        else
+            pieceActuelle.add(p);
     }
     public void retirerPiece(){
         pieceActuelle.remove(0);

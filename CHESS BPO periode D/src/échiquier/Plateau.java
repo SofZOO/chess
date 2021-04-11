@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Plateau {
     private final Case[][] echiquier;
     private final int HAUTEUR = 8, LONGUEUR = 8;
-    private ArrayList<Piece> listePieces;
+    private final ArrayList<Piece> listePieces;
 
     public Plateau(){
         echiquier = new Case[LONGUEUR][HAUTEUR];
@@ -24,15 +24,20 @@ public class Plateau {
     }
 
     public void déplacer(String coup){
+        if (!coupValableSurPlateau(coup)) {
+            System.out.println("pine ta grand mere");
+        }
         char x = coup.charAt(0), x2 = coup.charAt(2);            /*b7b8*/
         int y = Integer.parseInt(String.valueOf(coup.charAt(1))),y2 = Integer.parseInt(String.valueOf(coup.charAt(3)));
         Coord coordIni,coordFin;
 
         coordIni = getCoord(x, y);
         coordFin = getCoord(x2, y2);
-        if (echiquier[coordIni.getX()][coordIni.getY()].getPieceActuelle().peutJouer(coordFin.getX(),coordFin.getY())){
+
+
+        if (echiquier[coordIni.getX()][coordIni.getY()].getPieceActuelle().peutJouer(coordFin)){
             System.out.println("YOUPI");
-            echiquier[coordIni.getX()][coordIni.getY()].getPieceActuelle().changeCoord(coordFin.getX(),coordFin.getY());
+            echiquier[coordIni.getX()][coordIni.getY()].getPieceActuelle().changeCoord(coordFin);
             echiquier[(coordFin.getX())][coordFin.getY()].rajouterPiece(echiquier[coordIni.getX()][coordIni.getY()].getPieceActuelle());
             echiquier[coordIni.getX()][coordIni.getY()].retirerPiece();
             System.out.println("Normalement y'a un changement ici");
@@ -40,17 +45,31 @@ public class Plateau {
         else System.out.println("nike ta soeur tu peux pas faire ");
     }
 
+    private boolean coupValableSurPlateau(String coup){
+        int intoInt = Integer.parseInt(String.valueOf(coup.charAt(1)));
+        int intoInt2 = Integer.parseInt(String.valueOf(coup.charAt(3)));
+
+        if (coup.length()!=4)
+            return false;
+        if(coup.charAt(0)<'a'||coup.charAt(2)<'a' || coup.charAt(0)>'h'|| coup.charAt(2)>'h')
+            return false;
+
+        if(intoInt <1 || intoInt >7 || intoInt2<1 || intoInt2>7)
+            return false;
+
+        return true;
+    }
+
     private Coord getCoord(char x2, int y2) {
-        Coord coordFin;
-        coordFin = switch (x2) {
-            case 'a' -> coordFin = new Coord(8 - y2, 0);
-            case 'b' -> coordFin = new Coord(8 - y2, 1);
-            case 'c' -> coordFin = new Coord(8 - y2, 2);
-            case 'd' -> coordFin = new Coord(8 - y2, 3);
-            case 'e' -> coordFin = new Coord(8 - y2, 4);
-            case 'f' -> coordFin = new Coord(8 - y2, 5);
-            case 'g' -> coordFin = new Coord(8 - y2, 6);
-            case 'h' -> coordFin = new Coord(8 - y2, 7);
+        Coord coordFin = switch (x2) {
+            case 'a' -> new Coord(8 - y2, 0);
+            case 'b' -> new Coord(8 - y2, 1);
+            case 'c' -> new Coord(8 - y2, 2);
+            case 'd' -> new Coord(8 - y2, 3);
+            case 'e' -> new Coord(8 - y2, 4);
+            case 'f' -> new Coord(8 - y2, 5);
+            case 'g' -> new Coord(8 - y2, 6);
+            case 'h' -> new Coord(8 - y2, 7);
             default -> new Coord(0, 0);// TODO: DINGUERIE A CHANGER
         };
         return coordFin;

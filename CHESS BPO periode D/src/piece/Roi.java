@@ -1,5 +1,7 @@
 package piece;
 
+import appli.Coord;
+
 public class Roi extends Piece {
 
     public Roi(couleurPiece coul, int x, int y){
@@ -7,22 +9,22 @@ public class Roi extends Piece {
     }
 
     @Override
-    public boolean peutJouer(int x, int y) {
-        if (x == getPosX() && y == getPosY() + 1)
+    public boolean peutJouer(Coord c) {
+        if (c.getX() == getPosX() && c.getY() == getPosY() + 1)
             return true;
-        if (x == getPosX()+1 && y == getPosY() + 1)
+        if (c.getX() == getPosX()+1 && c.getY() == getPosY() + 1)
             return true;
-        if (x == getPosX()+1 && y == getPosY())
+        if (c.getX() == getPosX()+1 && c.getY() == getPosY())
             return true;
-        if (x == getPosX() +1 && y == getPosY()-1)
+        if (c.getX() == getPosX() +1 && c.getY() == getPosY()-1)
             return true;
-        if (x == getPosX() && y == getPosY() -1)
+        if (c.getX() == getPosX() && c.getY() == getPosY() -1)
             return true;
-        if (x == getPosX() - 1  && y == getPosY() - 1)
+        if (c.getX() == getPosX() - 1  && c.getY() == getPosY() - 1)
             return true;
-        if (x == getPosX() -1 && y == getPosY())
+        if (c.getX() == getPosX() -1 && c.getY() == getPosY())
             return true;
-        if (x == getPosX() -1 && y == getPosY()+1)
+        if (c.getX() == getPosX() -1 && c.getY() == getPosY()+1)
             return true;
         return false;
     }

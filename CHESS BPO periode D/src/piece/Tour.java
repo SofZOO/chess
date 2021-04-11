@@ -1,5 +1,7 @@
 package piece;
 
+import appli.Coord;
+
 public class Tour extends Piece{
 
     public Tour(couleurPiece couleur, int x, int y){
@@ -7,7 +9,8 @@ public class Tour extends Piece{
     }
 
     @Override
-    public boolean peutJouer(int x, int y) {
-        return getPosX() == x && getPosY() !=y || getPosY() == y && getPosX() != x;
+    public boolean peutJouer(Coord c) {
+        return getPosX() == c.getX() && getPosY() !=c.getY() || getPosY() == c.getY() && getPosX() != c.getX();
     }
+
 }
