@@ -5,10 +5,13 @@ public class Coord {
     private int Y;
 
     public Coord(int x, int y){
-        this.X=x;
-        this.Y=y;
+        placer(x,y);
     }
 
+    public void placer(int x , int y){
+        this.X = x;
+        this.Y = y;
+    }
     public int getX() {
         return X;
     }

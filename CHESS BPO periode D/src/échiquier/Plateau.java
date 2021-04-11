@@ -24,50 +24,37 @@ public class Plateau {
     }
 
     public void déplacer(String coup){
-
         char x = coup.charAt(0), x2 = coup.charAt(2);            /*b7b8*/
         int y = Integer.parseInt(String.valueOf(coup.charAt(1))),y2 = Integer.parseInt(String.valueOf(coup.charAt(3)));
         Coord coordIni,coordFin;
 
-        switch (x){
-            case 'a' : coordIni = new Coord(8-y,0);
-            case 'b' : coordIni = new Coord(8-y,1);
-            case 'c' : coordIni = new Coord(8-y,2);
-            case 'd' : coordIni = new Coord(8-y,3);
-            case 'e' : coordIni = new Coord(8-y,4);
-            case 'f' : coordIni = new Coord(8-y,5);
-            case 'g' : coordIni = new Coord(8-y,6);
-            case 'h' : coordIni = new Coord(8-y,7);
-            default: coordIni = new Coord(0,0);// TODO: DINGUERIE A CHANGER
-                break;
-
-        }
-        switch (x2) {
-            case 'a':
-                coordFin = new Coord(8 - y2, 0);
-            case 'b':
-                coordFin = new Coord(8 - y2, 1);
-            case 'c':
-                coordFin = new Coord(8 - y2, 2);
-            case 'd':
-                coordFin = new Coord(8 - y2, 3);
-            case 'e':
-                coordFin = new Coord(8 - y2, 4);
-            case 'f':
-                coordFin = new Coord(8 - y2, 5);
-            case 'g':
-                coordFin = new Coord(8 - y2, 6);
-            case 'h':
-                coordFin = new Coord(8 - y2, 7);
-            default: coordFin = new Coord(0,0);// TODO: DINGUERIE A CHANGER
-                break;
-        }
-
-        if (echiquier[coordIni.getX()][coordIni.getY()].getPieceActuelle().peutJouer(coordFin.getX(),coordFin.getY()))
+        coordIni = getCoord(x, y);
+        coordFin = getCoord(x2, y2);
+        if (echiquier[coordIni.getX()][coordIni.getY()].getPieceActuelle().peutJouer(coordFin.getX(),coordFin.getY())){
             System.out.println("YOUPI");
-        else System.out.println("nike");
+            echiquier[coordIni.getX()][coordIni.getY()].getPieceActuelle().changeCoord(coordFin.getX(),coordFin.getY());
+            echiquier[(coordFin.getX())][coordFin.getY()].rajouterPiece(echiquier[coordIni.getX()][coordIni.getY()].getPieceActuelle());
+            echiquier[coordIni.getX()][coordIni.getY()].retirerPiece();
+            System.out.println("Normalement y'a un changement ici");
+        }
+        else System.out.println("nike ta soeur tu peux pas faire ");
     }
 
+    private Coord getCoord(char x2, int y2) {
+        Coord coordFin;
+        coordFin = switch (x2) {
+            case 'a' -> coordFin = new Coord(8 - y2, 0);
+            case 'b' -> coordFin = new Coord(8 - y2, 1);
+            case 'c' -> coordFin = new Coord(8 - y2, 2);
+            case 'd' -> coordFin = new Coord(8 - y2, 3);
+            case 'e' -> coordFin = new Coord(8 - y2, 4);
+            case 'f' -> coordFin = new Coord(8 - y2, 5);
+            case 'g' -> coordFin = new Coord(8 - y2, 6);
+            case 'h' -> coordFin = new Coord(8 - y2, 7);
+            default -> new Coord(0, 0);// TODO: DINGUERIE A CHANGER
+        };
+        return coordFin;
+    }
 
 
     public String toString() {
