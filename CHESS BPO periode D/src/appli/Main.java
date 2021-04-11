@@ -33,7 +33,7 @@ public class Main {
         p.déplacer("a6a8");
         p.déplacer("a8e8");
         p.déplacer("e8h8");
-        /*okook*/
+        /*wsh la zone en moula*/
         System.out.println(p);
     }
 }
