@@ -33,6 +33,7 @@ public class Main {
         p.déplacer("a6a8");
         p.déplacer("a8e8");
         p.déplacer("e8h8");
+        /*okook*/
         System.out.println(p);
     }
 }
