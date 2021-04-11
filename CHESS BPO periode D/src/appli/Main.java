@@ -9,5 +9,12 @@ public class Main {
         p.initialiserEchiquier();
         System.out.println(p);
 
+        p.déplacer("e1e2");
+
+        System.out.println(p);
+
+
+
+
     }
 }

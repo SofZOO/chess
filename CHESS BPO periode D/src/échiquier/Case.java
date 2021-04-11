@@ -23,4 +23,8 @@ public class Case {
     public void rajouterPiece(Piece p){
         pieceActuelle.add(p);
     }
+
+    public Piece getPieceActuelle() {
+        return pieceActuelle.get(0);
+    }
 }

@@ -8,9 +8,6 @@ public class Tour extends Piece{
 
     @Override
     public boolean peutJouer(int x, int y) {
-        if (getPosX() == x && getPosY() !=y){
-            return true;
-        }
-        return getPosX() == y && getPosY() != x;
+        return getPosX() == x && getPosY() !=y || getPosY() == y && getPosX() != x;
     }
 }
