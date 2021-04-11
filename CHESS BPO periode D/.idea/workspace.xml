@@ -1,7 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0dab4499-b86d-4ffd-89fe-3e544c9244e1" name="Default Changelist" comment="" />
+    <list default="true" id="0dab4499-b86d-4ffd-89fe-3e544c9244e1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CHESS BPO periode D/appli/Case.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CHESS BPO periode D/appli/Coord.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CHESS BPO periode D/appli/Jeu.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CHESS BPO periode D/appli/Joueur.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CHESS BPO periode D/appli/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CHESS BPO periode D/appli/Piece.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CHESS BPO periode D/appli/Plateau.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CHESS BPO periode D/appli/Roi.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CHESS BPO periode D/appli/Tour.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CHESS BPO periode D/appli/couleurPiece.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CHESS BPO periode D/piece/Piece.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CHESS BPO periode D/piece/Roi.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CHESS BPO periode D/piece/Tour.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CHESS BPO periode D/piece/couleurPiece.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CHESS BPO periode D/échiquier/Case.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CHESS BPO periode D/échiquier/Plateau.class" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,7 +34,11 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="ProjectId" id="1qkR89b9a26SUOHRiQhAh7IReDV" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
       <flattenPackages />
@@ -76,6 +99,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="codeWithMe.voiceChat.enabledByDefault" value="false" />
@@ -88,17 +112,6 @@
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -122,10 +135,22 @@
       <workItem from="1617798129302" duration="11000" />
       <workItem from="1617798188347" duration="53000" />
       <workItem from="1617891025285" duration="3788000" />
+      <workItem from="1618162597038" duration="212000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
