@@ -23,42 +23,59 @@ public class Plateau {
         listePieces=new ArrayList<>();
     }
 
-    public void déplacer(String coup){
-        if (!coupValableSurPlateau(coup)) {
-            System.out.println("pine ta grand mere");
-        }
-        char x = coup.charAt(0), x2 = coup.charAt(2);            /*b7b8*/
-        int y = Integer.parseInt(String.valueOf(coup.charAt(1))),y2 = Integer.parseInt(String.valueOf(coup.charAt(3)));
-        Coord coordIni,coordFin;
+    private int intoInt(String coup,int position){
+        return Integer.parseInt(String.valueOf(coup.charAt(position)));
+    }
 
+    public void placerNouvelleCoord(Coord coordIni , Coord coordFin){
+
+        laCase(coordIni).getPieceActuelle().changeCoord(coordFin);
+        laCase(coordFin).rajouterPiece(laCase(coordIni).getPieceActuelle());
+        laCase(coordIni).retirerPiece();
+    }
+    public void déplacer(String coup){
+        Coord coordIni,coordFin;
+        if (!coupValableSurPlateau(coup)) {
+            System.out.println("coup pas valable sur plateau");
+        }
+        char x = coup.charAt(0), x2 = coup.charAt(2);/*b7b8*/
+        int y = intoInt(coup,1),y2 = intoInt(coup,3);
         coordIni = getCoord(x, y);
         coordFin = getCoord(x2, y2);
-
-
-        if (echiquier[coordIni.getX()][coordIni.getY()].getPieceActuelle().peutJouer(coordFin)){
-            System.out.println("YOUPI");
-            echiquier[coordIni.getX()][coordIni.getY()].getPieceActuelle().changeCoord(coordFin);
-            echiquier[(coordFin.getX())][coordFin.getY()].rajouterPiece(echiquier[coordIni.getX()][coordIni.getY()].getPieceActuelle());
-            echiquier[coordIni.getX()][coordIni.getY()].retirerPiece();
-            System.out.println("Normalement y'a un changement ici");
+        if (laCase(coordIni).getPieceActuelle().peutJouer(coordFin)){
+            System.out.println("Le coup est jouable");
+            if (coupValableSurPiece(coordIni,coordFin)) {
+                placerNouvelleCoord(coordIni, coordFin);
+                System.out.println("Normalement y'a un changement ici");
+            }
+            else System.out.println("bassem VENISSIEUX 69200 en esperant que les choses se passent");
         }
         else System.out.println("nike ta soeur tu peux pas faire ");
     }
 
     private boolean coupValableSurPlateau(String coup){
-        int intoInt = Integer.parseInt(String.valueOf(coup.charAt(1)));
-        int intoInt2 = Integer.parseInt(String.valueOf(coup.charAt(3)));
-
         if (coup.length()!=4)
             return false;
         if(coup.charAt(0)<'a'||coup.charAt(2)<'a' || coup.charAt(0)>'h'|| coup.charAt(2)>'h')
             return false;
-
-        if(intoInt <1 || intoInt >7 || intoInt2<1 || intoInt2>7)
+        if(intoInt(coup,1) <1 || intoInt(coup,1) >7 || intoInt(coup,3)<1 || intoInt(coup,3)>7)
             return false;
-
         return true;
     }
+
+    private boolean coupValableSurPiece(Coord coordIni, Coord coordFin){
+        if (laCase(coordFin).isEstOccupé())
+            return !(laCase(coordIni).getPieceActuelle().getCouleur().
+                    equals(laCase(coordFin).getPieceActuelle().getCouleur()));
+
+        /*si le roi est en echec, il est obligé de déplacer son roi*/
+        return true;
+    }
+
+    private Case laCase(Coord c){
+        return echiquier[c.getX()][c.getY()];
+    }
+
 
     private Coord getCoord(char x2, int y2) {
         Coord coordIni;

@@ -35,6 +35,7 @@ public class Case {
     public void retirerPiece(){
         pieceActuelle.remove(0);
     }
+
     public Piece getPieceActuelle() {
         return pieceActuelle.get(0);
     }

@@ -38,4 +38,7 @@ public abstract class Piece {
         return posY;
     }
 
+    public couleurPiece getCouleur() {
+        return couleur;
+    }
 }
