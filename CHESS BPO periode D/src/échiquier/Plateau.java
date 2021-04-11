@@ -63,14 +63,38 @@ public class Plateau {
     private Coord getCoord(char x2, int y2) {
         Coord coordIni;
         switch(x2){
-            case 'a' : coordIni = new Coord(8 - y2, 0);
-            case 'b' : coordIni = new Coord(8 - y2, 1);
-            case 'c' : coordIni = new Coord(8 - y2, 2);
-            case 'd' : coordIni = new Coord(8 - y2, 3);
-            case 'e' : coordIni = new Coord(8 - y2, 4);
-            case 'f' : coordIni = new Coord(8 - y2, 5);
-            case 'g' : coordIni = new Coord(8 - y2, 6);
-            case 'h' : coordIni = new Coord(8 - y2, 7);
+            case 'a' : {
+                coordIni = new Coord(8 - y2, 0);
+                break;
+            }
+            case 'b' : {
+                coordIni = new Coord(8 - y2, 1);
+                break;
+            }
+            case 'c' : {
+                coordIni = new Coord(8 - y2, 2);
+                break;
+            }
+            case 'd' : {
+                coordIni = new Coord(8 - y2, 3);
+                break;
+            }
+            case 'e' : {
+                coordIni = new Coord(8 - y2, 4);
+                break;
+            }
+            case 'f' : {
+                coordIni = new Coord(8 - y2, 5);
+                break;
+            }
+            case 'g' : {
+                coordIni = new Coord(8 - y2, 6);
+                break;
+            }
+            case 'h' : {
+                coordIni = new Coord(8 - y2, 7);
+                break;
+            }
             default : coordIni = new Coord(0, 0);// TODO: DINGUERIE A CHANGER
         };
         return coordIni;
