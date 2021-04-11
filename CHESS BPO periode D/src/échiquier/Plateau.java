@@ -61,7 +61,7 @@ public class Plateau {
     }
 
     private Coord getCoord(char x2, int y2) {
-        Coord coordFin = switch (x2) {
+        return switch (x2) {
             case 'a' -> new Coord(8 - y2, 0);
             case 'b' -> new Coord(8 - y2, 1);
             case 'c' -> new Coord(8 - y2, 2);
@@ -72,7 +72,6 @@ public class Plateau {
             case 'h' -> new Coord(8 - y2, 7);
             default -> new Coord(0, 0);// TODO: DINGUERIE A CHANGER
         };
-        return coordFin;
     }
 
 
