@@ -1,5 +1,4 @@
 -nombre magique
 -Corriger le bug du passage en force
--nom collone ligne a la place de x et y
 - diviser en 2 la methode avec la String coup (pour mettre nos pions avec un emplacement du type "h4" ou "b2" etc)
 -hashmap clé : coord valeur : case ?
