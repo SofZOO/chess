@@ -10,7 +10,7 @@ public class Tour extends Piece{
 
     @Override
     public boolean peutJouer(Coord c) {
-        return getPosX() == c.getX() && getPosY() !=c.getY() || getPosY() == c.getY() && getPosX() != c.getX();
+        return getColonne() == c.getColonne() && getLigne() !=c.getLigne() || getLigne() == c.getLigne() && getColonne() != c.getColonne();
     }
 
 }

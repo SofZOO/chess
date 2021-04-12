@@ -28,11 +28,11 @@ public class Plateau {
     }
 
     public void placerNouvelleCoord(Coord coordIni , Coord coordFin){
-
         laCase(coordIni).getPieceActuelle().changeCoord(coordFin);
         laCase(coordFin).rajouterPiece(laCase(coordIni).getPieceActuelle());
         laCase(coordIni).retirerPiece();
     }
+
     public void déplacer(String coup){
         Coord coordIni,coordFin;
         if (!coupValableSurPlateau(coup)) {
@@ -58,7 +58,7 @@ public class Plateau {
             return false;
         if(coup.charAt(0)<'a'||coup.charAt(2)<'a' || coup.charAt(0)>'h'|| coup.charAt(2)>'h')
             return false;
-        if(intoInt(coup,1) <1 || intoInt(coup,1) >7 || intoInt(coup,3)<1 || intoInt(coup,3)>7)
+        if(intoInt(coup,1) <1 || intoInt(coup,1) >8 || intoInt(coup,3)<1 || intoInt(coup,3)>8)
             return false;
         return true;
     }
@@ -73,7 +73,7 @@ public class Plateau {
     }
 
     private Case laCase(Coord c){
-        return echiquier[c.getX()][c.getY()];
+        return echiquier[c.getColonne()][c.getLigne()];
     }
 
     private Coord getCoord(char x2, int y2) {
@@ -112,7 +112,7 @@ public class Plateau {
                 break;
             }
             default : coordIni = new Coord(0, 0);// TODO: DINGUERIE A CHANGER
-        };
+        }
         return coordIni;
     }
 
@@ -144,6 +144,6 @@ public class Plateau {
         listePieces.add(r2);
 
         for(Piece p : listePieces)
-            echiquier[p.getPosX()][p.getPosY()].rajouterPiece(p);
+            echiquier[p.getColonne()][p.getLigne()].rajouterPiece(p);
     }
 }

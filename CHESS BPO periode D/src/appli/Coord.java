@@ -1,22 +1,22 @@
 package appli;
 
 public class Coord {
-    private int X;
-    private int Y;
+    private int colonne;
+    private int ligne;
 
-    public Coord(int x, int y){
-        placer(x,y);
+    public Coord(int colonne, int ligne){
+        placer(colonne,ligne);
     }
 
-    public void placer(int x , int y){
-        this.X = x;
-        this.Y = y;
+    public void placer(int colonne , int ligne){
+        this.colonne = colonne;
+        this.ligne = ligne;
     }
-    public int getX() {
-        return X;
+    public int getColonne() {
+        return colonne;
     }
 
-    public int getY() {
-        return Y;
+    public int getLigne() {
+        return ligne;
     }
 }

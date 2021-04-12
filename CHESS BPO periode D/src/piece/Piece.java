@@ -6,14 +6,14 @@ public abstract class Piece {
     private final char signe;
     private final couleurPiece couleur;
     Coord coord;
-    private int posX;
-    private int posY;
+    private int colonne;
+    private int ligne;
 
-    public Piece(char sig,couleurPiece coul, int X, int Y){
+    public Piece(char sig,couleurPiece coul, int colonne, int ligne){
         this.couleur=coul;
-        this.posX=X;
-        this.posY=Y;
-        coord = new Coord(X,Y);
+        this.colonne=colonne;
+        this.ligne=ligne;
+        coord = new Coord(colonne,ligne);
         if (coul.equals(couleurPiece.BLANC))
             this.signe=Character.toUpperCase(sig);
         else this.signe=Character.toLowerCase(sig);
@@ -21,8 +21,8 @@ public abstract class Piece {
     }
 
     public void changeCoord(Coord c){
-        posX = c.getX();
-        posY = c.getY();
+        colonne = c.getColonne();
+        ligne = c.getLigne();
     }
     public abstract boolean peutJouer(Coord c);
 
@@ -30,12 +30,12 @@ public abstract class Piece {
         return this.signe;
     }
 
-    public int getPosX() {
-        return posX;
+    public int getColonne() {
+        return colonne;
     }
 
-    public int getPosY() {
-        return posY;
+    public int getLigne() {
+        return ligne;
     }
 
     public couleurPiece getCouleur() {

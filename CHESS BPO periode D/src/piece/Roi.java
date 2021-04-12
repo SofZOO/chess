@@ -10,21 +10,21 @@ public class Roi extends Piece {
 
     @Override
     public boolean peutJouer(Coord c) {
-        if (c.getX() == getPosX() && c.getY() == getPosY() + 1)
+        if (c.getColonne() == getColonne() && c.getLigne() == getLigne() + 1)
             return true;
-        if (c.getX() == getPosX()+1 && c.getY() == getPosY() + 1)
+        if (c.getColonne() == getColonne()+1 && c.getLigne() == getLigne() + 1)
             return true;
-        if (c.getX() == getPosX()+1 && c.getY() == getPosY())
+        if (c.getColonne() == getColonne()+1 && c.getLigne() == getLigne())
             return true;
-        if (c.getX() == getPosX() +1 && c.getY() == getPosY()-1)
+        if (c.getColonne() == getColonne() +1 && c.getLigne() == getLigne()-1)
             return true;
-        if (c.getX() == getPosX() && c.getY() == getPosY() -1)
+        if (c.getColonne() == getColonne() && c.getLigne() == getLigne() -1)
             return true;
-        if (c.getX() == getPosX() - 1  && c.getY() == getPosY() - 1)
+        if (c.getColonne() == getColonne() - 1  && c.getLigne() == getLigne() - 1)
             return true;
-        if (c.getX() == getPosX() -1 && c.getY() == getPosY())
+        if (c.getColonne() == getColonne() -1 && c.getLigne() == getLigne())
             return true;
-        if (c.getX() == getPosX() -1 && c.getY() == getPosY()+1)
+        if (c.getColonne() == getColonne() -1 && c.getLigne() == getLigne()+1)
             return true;
         return false;
     }
