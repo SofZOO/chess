@@ -76,7 +76,6 @@ public class Plateau {
         return echiquier[c.getX()][c.getY()];
     }
 
-
     private Coord getCoord(char x2, int y2) {
         Coord coordIni;
         switch(x2){

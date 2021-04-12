@@ -30,10 +30,14 @@ public class Main {
         p.déplacer("d2a2");
         System.out.println(p);
         p.déplacer("a2a6");
+        System.out.println(p);
         p.déplacer("a6a8");
+        System.out.println(p);
         p.déplacer("a8e8");
+        System.out.println(p);
         p.déplacer("e8h8");
-        /*wsh la zone en moula*/
+        System.out.println(p);
+        p.déplacer("h8e8");
         System.out.println(p);
     }
 }
