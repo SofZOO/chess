@@ -1,4 +1,4 @@
-package appli;
+package échiquier;
 
 public class Coord {
     private int colonne;
@@ -18,5 +18,13 @@ public class Coord {
 
     public int getLigne() {
         return ligne;
+    }
+
+    public void setColonne(int colonne) {
+        this.colonne = colonne;
+    }
+
+    public void setLigne(int ligne) {
+        this.ligne = ligne;
     }
 }

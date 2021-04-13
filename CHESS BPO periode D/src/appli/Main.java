@@ -1,5 +1,6 @@
 package appli;
 
+import piece.FabriquePiece;
 import échiquier.Plateau;
 
 public class Main {
@@ -8,8 +9,7 @@ public class Main {
     }
 //TODO : penser a faire l'affichage des pièces mangées par les joueurs
     public static void main(String[] args) {
-        Plateau p = new Plateau();
-        p.initialiserEchiquier();
+        Plateau p = new Plateau(new FabriquePiece());
         System.out.println(p);
         p.déplacer("e1e2");
         System.out.println(p);
@@ -38,6 +38,8 @@ public class Main {
         p.déplacer("e8h8");
         System.out.println(p);
         p.déplacer("h8e8");
+        System.out.println(p);
+        p.déplacer("e8e3");
         System.out.println(p);
     }
 }

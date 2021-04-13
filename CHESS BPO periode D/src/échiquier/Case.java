@@ -1,11 +1,9 @@
 package échiquier;
 
-import piece.Piece;
-
 import java.util.ArrayList;
 
 public class Case {
-    private ArrayList<Piece> pieceActuelle;/*grace a l'interface-> se renseigner*/
+    private ArrayList<IPiece> pieceActuelle;/*grace a l'interface-> se renseigner*/
     private boolean estOccupé;
 
     public Case(){
@@ -24,7 +22,7 @@ public class Case {
         return !(this.pieceActuelle.size() == 0);
     }
 
-    public void rajouterPiece(Piece p){
+    public void rajouterPiece(IPiece p){
         if (isEstOccupé()){
             pieceActuelle.add(p);
             pieceActuelle.remove(0);
@@ -36,7 +34,7 @@ public class Case {
         pieceActuelle.remove(0);
     }
 
-    public Piece getPieceActuelle() {
+    public IPiece getPieceActuelle() {
         return pieceActuelle.get(0);
     }
 }

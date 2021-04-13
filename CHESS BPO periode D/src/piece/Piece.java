@@ -1,44 +1,47 @@
 package piece;
 
-import appli.Coord;
+import échiquier.Coord;
+import échiquier.IPiece;
 
-public abstract class Piece {
+public class Piece implements IPiece {
     private final char signe;
-    private final couleurPiece couleur;
-    Coord coord;
-    private int colonne;
-    private int ligne;
+    private final CouleurPiece couleur;
+    private Coord coord;
 
-    public Piece(char sig,couleurPiece coul, int colonne, int ligne){
+    public Piece(char sig, CouleurPiece coul, int colonne, int ligne){
         this.couleur=coul;
-        this.colonne=colonne;
-        this.ligne=ligne;
         coord = new Coord(colonne,ligne);
-        if (coul.equals(couleurPiece.BLANC))
+        if (coul.equals(CouleurPiece.BLANC))
             this.signe=Character.toUpperCase(sig);
         else this.signe=Character.toLowerCase(sig);
-
     }
 
+    @Override
     public void changeCoord(Coord c){
-        colonne = c.getColonne();
-        ligne = c.getLigne();
+        this.coord.setColonne(c.getColonne());
+        this.coord.setLigne(c.getLigne());
     }
-    public abstract boolean peutJouer(Coord c);
 
+    @Override
+    public boolean peutJouer(Coord c){return true;}
+
+    @Override
     public char toChar(){
         return this.signe;
     }
 
+    @Override
     public int getColonne() {
-        return colonne;
+        return coord.getColonne();
     }
 
+    @Override
     public int getLigne() {
-        return ligne;
+        return coord.getLigne();
     }
 
-    public couleurPiece getCouleur() {
+    @Override
+    public CouleurPiece getCouleur() {
         return couleur;
     }
 }

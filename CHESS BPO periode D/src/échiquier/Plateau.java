@@ -1,19 +1,13 @@
 package échiquier;
 
-import appli.Coord;
-import piece.Piece;
-import piece.Roi;
-import piece.Tour;
-import piece.couleurPiece;
-
 import java.util.ArrayList;
 
 public class Plateau {
     private final Case[][] echiquier;
     private final int HAUTEUR = 8, LONGUEUR = 8;
-    private final ArrayList<Piece> listePieces;
+    private final ArrayList<IPiece> listePieces;
 
-    public Plateau(){
+    public Plateau(IFabriquePiece fab){
         echiquier = new Case[LONGUEUR][HAUTEUR];
         for(int x = 0; x < this.LONGUEUR; x++){
             for(int y = 0; y <this.HAUTEUR; y++){
@@ -21,6 +15,17 @@ public class Plateau {
             }
         }
         listePieces=new ArrayList<>();
+        this.initialiserEchiquier(fab);
+    }
+
+    public void initialiserEchiquier(IFabriquePiece fab){
+        listePieces.add(fab.fabrique(0,new Coord(0,0),false));
+        listePieces.add(fab.fabrique(0,new Coord(7,0),true));
+        listePieces.add(fab.fabrique(1,new Coord(7,4),true));
+        listePieces.add(fab.fabrique(1,new Coord(0,4),false));
+
+        for(IPiece p : listePieces)
+            echiquier[p.getColonne()][p.getLigne()].rajouterPiece(p);
     }
 
     private int intoInt(String coup,int position){
@@ -133,17 +138,4 @@ public class Plateau {
         return sb.toString();
     }
 
-    public void initialiserEchiquier(){
-        Tour t1= new Tour(couleurPiece.NOIR ,0,0);
-        Tour t2 = new Tour(couleurPiece.BLANC, 7,0);
-        Roi r1 = new Roi(couleurPiece.BLANC,7,4);
-        Roi r2 = new Roi(couleurPiece.NOIR,0,4);
-        listePieces.add(t1);
-        listePieces.add(t2);
-        listePieces.add(r1);
-        listePieces.add(r2);
-
-        for(Piece p : listePieces)
-            echiquier[p.getColonne()][p.getLigne()].rajouterPiece(p);
-    }
 }

@@ -1,10 +1,10 @@
 package piece;
 
-import appli.Coord;
+import échiquier.Coord;
 
 public class Roi extends Piece {
 
-    public Roi(couleurPiece coul, int x, int y){
+    public Roi(CouleurPiece coul, int x, int y){
         super('r',coul,x,y);
     }
 

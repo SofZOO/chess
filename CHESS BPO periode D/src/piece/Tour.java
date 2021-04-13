@@ -1,10 +1,10 @@
 package piece;
 
-import appli.Coord;
+import échiquier.Coord;
 
 public class Tour extends Piece{
 
-    public Tour(couleurPiece couleur, int x, int y){
+    public Tour(CouleurPiece couleur, int x, int y){
         super('t',couleur,x,y);
     }
 
