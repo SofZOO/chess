@@ -2,3 +2,9 @@
 -Corriger le bug du passage en force
 - diviser en 2 la methode avec la String coup (pour mettre nos pions avec un emplacement du type "h4" ou "b2" etc)
 -hashmap clé : coord valeur : case ?
+
+
+-Finir les methodes peux jouer
+-mettre le bail de l'echec pour le Roi
+-faire l'algo pour gagner ou perdre
+-Faire le bail des joueurs et interface
