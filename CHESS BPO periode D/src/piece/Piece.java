@@ -1,5 +1,6 @@
 package piece;
 
+import échiquier.Case;
 import échiquier.Coord;
 import échiquier.IPiece;
 
@@ -23,7 +24,7 @@ public class Piece implements IPiece {
     }
 
     @Override
-    public boolean peutJouer(Coord c){return true;}
+    public boolean peutJouer(Coord c, Case[][] echiquier){return true;}
 
     @Override
     public char toChar(){

@@ -1,5 +1,6 @@
 package piece;
 
+import échiquier.Case;
 import échiquier.Coord;
 
 public class Tour extends Piece{
@@ -9,8 +10,12 @@ public class Tour extends Piece{
     }
 
     @Override
-    public boolean peutJouer(Coord c) {
-        return getColonne() == c.getColonne() && getLigne() !=c.getLigne() || getLigne() == c.getLigne() && getColonne() != c.getColonne();
-    }
+    public boolean peutJouer(Coord c, Case[][] echiquier) {
+        if (!(getColonne() == c.getColonne() && getLigne() !=c.getLigne() || getLigne() == c.getLigne() && getColonne() != c.getColonne()))
+            return false;
 
+
+
+        return true;
+    }
 }

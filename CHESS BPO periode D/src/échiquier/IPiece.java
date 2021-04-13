@@ -6,7 +6,7 @@ public interface IPiece {
 
     void changeCoord(Coord c);
 
-    boolean peutJouer(Coord c);
+    boolean peutJouer(Coord c, Case[][] echiquier);
 
     char toChar();
 

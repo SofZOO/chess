@@ -47,7 +47,7 @@ public class Plateau {
         int y = intoInt(coup,1),y2 = intoInt(coup,3);
         coordIni = getCoord(x, y);
         coordFin = getCoord(x2, y2);
-        if (laCase(coordIni).getPieceActuelle().peutJouer(coordFin)){
+        if (laCase(coordIni).getPieceActuelle().peutJouer(coordFin, echiquier)){
             System.out.println("Le coup est jouable");
             if (coupValableSurPiece(coordIni,coordFin)) {
                 placerNouvelleCoord(coordIni, coordFin);
