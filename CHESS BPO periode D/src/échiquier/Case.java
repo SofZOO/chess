@@ -35,6 +35,8 @@ public class Case {
     }
 
     public IPiece getPieceActuelle() {
-        return pieceActuelle.get(0);
+        if (isEstOccupé())
+            return pieceActuelle.get(0);
+        return null;
     }
 }

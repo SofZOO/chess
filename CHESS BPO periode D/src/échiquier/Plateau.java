@@ -7,116 +7,133 @@ public class Plateau {
     private final int HAUTEUR = 8, LONGUEUR = 8;
     private final ArrayList<IPiece> listePieces;
 
-    public Plateau(IFabriquePiece fab){
+    public Plateau(IFabriquePiece fab) {
         echiquier = new Case[LONGUEUR][HAUTEUR];
-        for(int x = 0; x < this.LONGUEUR; x++){
-            for(int y = 0; y <this.HAUTEUR; y++){
+        for (int x = 0; x < this.LONGUEUR; x++) {
+            for (int y = 0; y < this.HAUTEUR; y++) {
                 echiquier[x][y] = new Case();
             }
         }
-        listePieces=new ArrayList<>();
+        listePieces = new ArrayList<>();
         this.initialiserEchiquier(fab);
     }
 
-    public void initialiserEchiquier(IFabriquePiece fab){
+    public void initialiserEchiquier(IFabriquePiece fab) {
         listePieces.add(fab.fabrique(0,new Coord(0,0),false));
         listePieces.add(fab.fabrique(0,new Coord(7,0),true));
         listePieces.add(fab.fabrique(1,new Coord(7,4),true));
         listePieces.add(fab.fabrique(1,new Coord(0,4),false));
 
-        for(IPiece p : listePieces)
-            echiquier[p.getColonne()][p.getLigne()].rajouterPiece(p);
+        for (IPiece p : listePieces)
+            echiquier[p.getX()][p.getY()].rajouterPiece(p);
     }
 
-    private int intoInt(String coup,int position){
+    private int intoInt(String coup, int position) {
         return Integer.parseInt(String.valueOf(coup.charAt(position)));
     }
 
-    public void placerNouvelleCoord(Coord coordIni , Coord coordFin){
+    public boolean estJouable(int colSrc, int liSrc, int colDst, int liDst) {
+        IPiece p = echiquier[colSrc][liSrc].getPieceActuelle();
+        if (p == null)
+            return false;
+//		2- La destination est libre ou est occupée par une pièce adverse
+        if (!(coupValableSurPiece(new Coord(colSrc, liSrc), new Coord(colDst, liDst))))
+            return false;
+
+//		3- la pièce autorise ce déplacement
+        if (!(p.peutJouer(new Coord(colDst, liDst), this.echiquier)))
+            return false;
+
+//		4- si c'est un roi alors la destination n'est pas attaquable par une pièce adverse
+        if (p.craintEchec())
+            //la destination n'est pas attaquable par une pièce adverse
+            return false;
+        return false;
+    }
+
+    public void placerNouvelleCoord(Coord coordIni, Coord coordFin) {
         laCase(coordIni).getPieceActuelle().changeCoord(coordFin);
         laCase(coordFin).rajouterPiece(laCase(coordIni).getPieceActuelle());
         laCase(coordIni).retirerPiece();
     }
 
-    public void déplacer(String coup){
-        Coord coordIni,coordFin;
+    public void déplacer(String coup) {
+        Coord coordIni, coordFin;
         if (!coupValableSurPlateau(coup)) {
             System.out.println("coup pas valable sur plateau");
         }
         char x = coup.charAt(0), x2 = coup.charAt(2);/*b7b8*/
-        int y = intoInt(coup,1),y2 = intoInt(coup,3);
+        int y = intoInt(coup, 1), y2 = intoInt(coup, 3);
         coordIni = getCoord(x, y);
         coordFin = getCoord(x2, y2);
-        if (laCase(coordIni).getPieceActuelle().peutJouer(coordFin, echiquier)){
+        if (laCase(coordIni).getPieceActuelle().peutJouer(coordFin, echiquier)) {
             System.out.println("Le coup est jouable");
-            if (coupValableSurPiece(coordIni,coordFin)) {
+            if (coupValableSurPiece(coordIni, coordFin)) {
                 placerNouvelleCoord(coordIni, coordFin);
                 System.out.println("Normalement y'a un changement ici");
-            }
-            else System.out.println("bassem VENISSIEUX 69200 en esperant que les choses se passent");
-        }
-        else System.out.println("nike ta soeur tu peux pas faire ");
+            } else System.out.println("bassem VENISSIEUX 69200 en esperant que les choses se passent");
+        } else System.out.println("nike ta soeur tu peux pas faire ");
     }
 
-    private boolean coupValableSurPlateau(String coup){
-        if (coup.length()!=4)
+    private boolean coupValableSurPlateau(String coup) {
+        if (coup.length() != 4)
             return false;
-        if(coup.charAt(0)<'a'||coup.charAt(2)<'a' || coup.charAt(0)>'h'|| coup.charAt(2)>'h')
+        if (coup.charAt(0) < 'a' || coup.charAt(2) < 'a' || coup.charAt(0) > 'h' || coup.charAt(2) > 'h')
             return false;
-        if(intoInt(coup,1) <1 || intoInt(coup,1) >8 || intoInt(coup,3)<1 || intoInt(coup,3)>8)
+        if (intoInt(coup, 1) < 1 || intoInt(coup, 1) > 8 || intoInt(coup, 3) < 1 || intoInt(coup, 3) > 8)
             return false;
         return true;
     }
 
-    private boolean coupValableSurPiece(Coord coordIni, Coord coordFin){
+    private boolean coupValableSurPiece(Coord coordIni, Coord coordFin) {
         if (laCase(coordFin).isEstOccupé())
-            return !(laCase(coordIni).getPieceActuelle().getCouleur().
-                    equals(laCase(coordFin).getPieceActuelle().getCouleur()));
+            return !(laCase(coordIni).getPieceActuelle().compareCouleur(laCase(coordFin).getPieceActuelle()));
 
         /*si le roi est en echec, il est obligé de déplacer son roi*/
         return true;
     }
 
-    private Case laCase(Coord c){
-        return echiquier[c.getColonne()][c.getLigne()];
+    private Case laCase(Coord c) {
+        return echiquier[c.getX()][c.getY()];
     }
 
     private Coord getCoord(char x2, int y2) {
         Coord coordIni;
-        switch(x2){
-            case 'a' : {
+        switch (x2) {
+            case 'a': {
                 coordIni = new Coord(8 - y2, 0);
                 break;
             }
-            case 'b' : {
+            case 'b': {
                 coordIni = new Coord(8 - y2, 1);
                 break;
             }
-            case 'c' : {
+            case 'c': {
                 coordIni = new Coord(8 - y2, 2);
                 break;
             }
-            case 'd' : {
+            case 'd': {
                 coordIni = new Coord(8 - y2, 3);
                 break;
             }
-            case 'e' : {
+            case 'e': {
                 coordIni = new Coord(8 - y2, 4);
                 break;
             }
-            case 'f' : {
+            case 'f': {
                 coordIni = new Coord(8 - y2, 5);
                 break;
             }
-            case 'g' : {
+            case 'g': {
                 coordIni = new Coord(8 - y2, 6);
                 break;
             }
-            case 'h' : {
+            case 'h': {
                 coordIni = new Coord(8 - y2, 7);
                 break;
             }
-            default : coordIni = new Coord(0, 0);// TODO: DINGUERIE A CHANGER
+            default:
+                coordIni = new Coord(0, 0);// TODO: DINGUERIE A CHANGER
         }
         return coordIni;
     }
@@ -125,7 +142,7 @@ public class Plateau {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("     a     b     c     d     e     f     g     h \n");
-        for (int cmpHauteur = 0,cmp = 8; cmpHauteur < HAUTEUR; cmpHauteur++,cmp--) {
+        for (int cmpHauteur = 0, cmp = 8; cmpHauteur < HAUTEUR; cmpHauteur++, cmp--) {
             sb.append("    ---   ---   ---   ---   ---   ---   ---   ---\n");
             sb.append(cmp).append(" | ");
             for (int cmpLongueur = 0; cmpLongueur < LONGUEUR; cmpLongueur++) {

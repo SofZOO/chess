@@ -1,30 +1,30 @@
 package échiquier;
 
 public class Coord {
-    private int colonne;
-    private int ligne;
+    private int X;
+    private int Y;
 
-    public Coord(int colonne, int ligne){
-        placer(colonne,ligne);
+    public Coord(int X, int Y){
+        placer(X,Y);
     }
 
-    public void placer(int colonne , int ligne){
-        this.colonne = colonne;
-        this.ligne = ligne;
+    public void placer(int X , int ligne){
+        this.X = X;
+        this.Y = Y;
     }
-    public int getColonne() {
-        return colonne;
-    }
-
-    public int getLigne() {
-        return ligne;
+    public int getX() {
+        return X;
     }
 
-    public void setColonne(int colonne) {
-        this.colonne = colonne;
+    public int getY() {
+        return Y;
     }
 
-    public void setLigne(int ligne) {
-        this.ligne = ligne;
+    public void setX(int X) {
+        this.X = X;
+    }
+
+    public void setY(int Y) {
+        this.Y = Y;
     }
 }

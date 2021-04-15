@@ -19,8 +19,8 @@ public class Piece implements IPiece {
 
     @Override
     public void changeCoord(Coord c){
-        this.coord.setColonne(c.getColonne());
-        this.coord.setLigne(c.getLigne());
+        this.coord.setX(c.getX());
+        this.coord.setY(c.getY());
     }
 
     @Override
@@ -32,17 +32,27 @@ public class Piece implements IPiece {
     }
 
     @Override
-    public int getColonne() {
-        return coord.getColonne();
+    public int getX() {
+        return coord.getX();
     }
 
     @Override
-    public int getLigne() {
-        return coord.getLigne();
+    public int getY() {
+        return coord.getY();
     }
 
     @Override
     public CouleurPiece getCouleur() {
         return couleur;
+    }
+
+    @Override
+    public boolean craintEchec(){
+        return false;
+    }
+
+    @Override
+    public boolean compareCouleur(IPiece p) {
+        return this.couleur.equals(p.getCouleur());
     }
 }
