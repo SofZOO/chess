@@ -11,7 +11,7 @@ public class Tour extends Piece{
 
     @Override
     public boolean peutJouer(Coord c, Case[][] echiquier) {
-        if (!(getColonne() == c.getColonne() && getLigne() !=c.getLigne() || getLigne() == c.getLigne() && getColonne() != c.getColonne()))
+        if (!(getColonne() == c.getLigne() && getLigne() !=c.getColonne() || getLigne() == c.getColonne() && getColonne() != c.getLigne()))
             return false;
 
 

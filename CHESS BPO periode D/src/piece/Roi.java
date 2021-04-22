@@ -11,21 +11,21 @@ public class Roi extends Piece {
 
     @Override
     public boolean peutJouer(Coord c, Case[][] echiquier) {
-        if (c.getColonne() == getColonne() && c.getLigne() == getLigne() + 1)
+        if (c.getLigne() == getColonne() && c.getColonne() == getLigne() + 1)
             return true;
-        if (c.getColonne() == getColonne()+1 && c.getLigne() == getLigne() + 1)
+        if (c.getLigne() == getColonne()+1 && c.getColonne() == getLigne() + 1)
             return true;
-        if (c.getColonne() == getColonne()+1 && c.getLigne() == getLigne())
+        if (c.getLigne() == getColonne()+1 && c.getColonne() == getLigne())
             return true;
-        if (c.getColonne() == getColonne() +1 && c.getLigne() == getLigne()-1)
+        if (c.getLigne() == getColonne() +1 && c.getColonne() == getLigne()-1)
             return true;
-        if (c.getColonne() == getColonne() && c.getLigne() == getLigne() -1)
+        if (c.getLigne() == getColonne() && c.getColonne() == getLigne() -1)
             return true;
-        if (c.getColonne() == getColonne() - 1  && c.getLigne() == getLigne() - 1)
+        if (c.getLigne() == getColonne() - 1  && c.getColonne() == getLigne() - 1)
             return true;
-        if (c.getColonne() == getColonne() -1 && c.getLigne() == getLigne())
+        if (c.getLigne() == getColonne() -1 && c.getColonne() == getLigne())
             return true;
-        if (c.getColonne() == getColonne() -1 && c.getLigne() == getLigne()+1)
+        if (c.getLigne() == getColonne() -1 && c.getColonne() == getLigne()+1)
             return true;
         return false;
     }

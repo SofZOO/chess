@@ -13,9 +13,9 @@ public class FabriquePiece implements IFabriquePiece {
         else couleur = CouleurPiece.NOIR;
 
         if (numero == 1)
-            return new Roi(couleur,coord.getColonne(),coord.getLigne());
+            return new Roi(couleur,coord.getLigne(),coord.getColonne());
 
-        else return new Tour(couleur,coord.getColonne(),coord.getLigne());
+        else return new Tour(couleur,coord.getLigne(),coord.getColonne());
     }
 
 }

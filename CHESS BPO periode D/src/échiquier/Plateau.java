@@ -55,7 +55,7 @@ public class Plateau {
             }
             else System.out.println("bassem VENISSIEUX 69200 en esperant que les choses se passent");
         }
-        else System.out.println("nike ta soeur tu peux pas faire ");
+        else System.out.println("Coup pas possible");
     }
 
     private boolean coupValableSurPlateau(String coup){
@@ -78,7 +78,7 @@ public class Plateau {
     }
 
     private Case laCase(Coord c){
-        return echiquier[c.getColonne()][c.getLigne()];
+        return echiquier[c.getLigne()][c.getColonne()];
     }
 
     private Coord getCoord(char x2, int y2) {
