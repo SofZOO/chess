@@ -32,17 +32,27 @@ public class Piece implements IPiece {
     }
 
     @Override
-    public int getColonne() {
+    public int getLigne() {
         return coord.getLigne();
     }
 
     @Override
-    public int getLigne() {
+    public int getColonne() {
         return coord.getColonne();
     }
 
     @Override
     public CouleurPiece getCouleur() {
         return couleur;
+    }
+
+    @Override
+    public boolean craintEchec(){
+        return false;
+    }
+
+    @Override
+    public boolean compareCouleur(IPiece p) {
+        return this.couleur.equals(p.getCouleur());
     }
 }

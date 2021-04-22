@@ -10,9 +10,13 @@ public interface IPiece {
 
     char toChar();
 
-    int getColonne();
-
     int getLigne();
 
+    int getColonne();
+
     CouleurPiece getCouleur();
+
+    boolean craintEchec();
+
+    boolean compareCouleur(IPiece p);
 }

@@ -4,11 +4,9 @@ import java.util.ArrayList;
 
 public class Case {
     private ArrayList<IPiece> pieceActuelle;/*grace a l'interface-> se renseigner*/
-    private boolean estOccupé;
 
     public Case(){
         this.pieceActuelle = new ArrayList<>();
-        estOccupé = false;
     }
 
     public String toString(){
@@ -19,7 +17,7 @@ public class Case {
     }
 
     public boolean isEstOccupé(){
-        return !(this.pieceActuelle.size() == 0);
+        return (this.pieceActuelle.size() > 0);
     }
 
     public void rajouterPiece(IPiece p){
@@ -35,6 +33,9 @@ public class Case {
     }
 
     public IPiece getPieceActuelle() {
-        return pieceActuelle.get(0);
+        if (isEstOccupé())
+            return pieceActuelle.get(0);
+        return null;
     }
+
 }

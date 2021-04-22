@@ -11,9 +11,17 @@ public class Main {
     public static void main(String[] args) {
         Plateau p = new Plateau(new FabriquePiece());
         System.out.println(p);
-        p.déplacer("a8a7");
+        p.déplacer("a8g8");
         System.out.println(p);
-        p.déplacer("a1a8");
+        p.déplacer("a8a6");
         System.out.println(p);
+        p.déplacer("a1a7");
+        System.out.println(p);
+
+
+
+
+
+
     }
 }

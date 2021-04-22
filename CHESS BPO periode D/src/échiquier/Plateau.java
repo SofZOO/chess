@@ -25,7 +25,7 @@ public class Plateau {
         listePieces.add(fab.fabrique(1,new Coord(0,4),false));
 
         for(IPiece p : listePieces)
-            echiquier[p.getColonne()][p.getLigne()].rajouterPiece(p);
+            echiquier[p.getLigne()][p.getColonne()].rajouterPiece(p);
     }
 
     private int intoInt(String coup,int position){
@@ -38,6 +38,32 @@ public class Plateau {
         laCase(coordIni).retirerPiece();
     }
 
+    public boolean estJouable(int liSrc, int colSrc, int liDst, int colDst) {
+        IPiece p = echiquier[liSrc][colSrc].getPieceActuelle();
+        if (p == null) {
+            System.out.println("LA CASE SOURCE EST VIDE");
+            return false;
+        }
+//		2- La destination est libre ou est occupée par une pièce adverse
+        if (!(coupValableSurPiece(new Coord(liSrc, colSrc), new Coord(liDst, colDst)))){
+            System.out.println("coup PAS ValableSurPiece");
+            return false;
+        }
+
+//		3- la pièce autorise ce déplacement
+        if (!(p.peutJouer(new Coord(liDst, colDst), this.echiquier))) {
+            System.out.println("coup pas valable pour la piece");
+            return false;
+        }
+
+//		4- si c'est un roi alors la destination n'est pas attaquable par une pièce adverse
+//        if (p.craintEchec())
+            //la destination n'est pas attaquable par une pièce adverse
+//            return false;
+        return true;
+    }
+
+
     public void déplacer(String coup){
         Coord coordIni,coordFin;
         if (!coupValableSurPlateau(coup)) {
@@ -47,13 +73,20 @@ public class Plateau {
         int y = intoInt(coup,1),y2 = intoInt(coup,3);
         coordIni = getCoord(x, y);
         coordFin = getCoord(x2, y2);
+
+        if (estJouable(coordIni.getLigne(),coordIni.getColonne(),coordFin.getLigne(),coordFin.getColonne()))
+            System.out.println("METHODE VALIDE");
+        else System.out.println("METHODE PAS VALID22");
+
+
         if (laCase(coordIni).getPieceActuelle().peutJouer(coordFin, echiquier)){
             System.out.println("Le coup est jouable");
+
             if (coupValableSurPiece(coordIni,coordFin)) {
                 placerNouvelleCoord(coordIni, coordFin);
-                System.out.println("Normalement y'a un changement ici");
+                System.out.println("coupValableSurPiece");
             }
-            else System.out.println("bassem VENISSIEUX 69200 en esperant que les choses se passent");
+            else System.out.println("coup PAS ValableSurPiece");
         }
         else System.out.println("Coup pas possible");
     }
