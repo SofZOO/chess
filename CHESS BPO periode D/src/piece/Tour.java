@@ -11,16 +11,48 @@ public class Tour extends Piece{
 
     @Override
     public boolean peutJouer(Coord c, Case[][] echiquier) {
-        if (!(getX() == c.getX() && getY() !=c.getY() || getY() == c.getY() && getX() != c.getX()))
+        if (!(getLigne() == c.getLigne() && getColonne() !=c.getColonne() || getColonne() == c.getColonne() && getLigne() != c.getLigne()))
             return false;
-        if (getX() == c.getX() && getY() !=c.getY()){
-            if(getY() < c.getY())
-                for (int cmp = c.getY()-1; cmp > getY(); cmp--){
-                    if (echiquier[getX()][cmp].isEstOccupé())
+
+        if (getLigne() != c.getLigne() && getColonne() == c.getColonne()){
+            if(getLigne() < c.getLigne()) {
+                for (int cmp = c.getLigne() - 1; cmp > getLigne(); cmp--) {
+                    if (echiquier[cmp][getColonne()].isEstOccupé()) {
+                        System.out.println("piece sur le passage de haut en bas");
                         return false;
+                    }
                 }
+            }
+
+            else if(getLigne() > c.getLigne()) {
+                for (int cmp = c.getLigne() + 1; cmp < getLigne(); cmp++) {
+                    if (echiquier[cmp][getColonne()].isEstOccupé()) {
+                        System.out.println("piece sur le passage de bas en haut");
+                        return false;
+                    }
+                }
+            }
         }
 
+        if (getLigne() == c.getLigne() && getColonne() != c.getColonne()){
+            if(getColonne() < c.getColonne()) {
+                for (int cmp = c.getColonne() - 1; cmp > getColonne(); cmp--) {
+                    if (echiquier[getLigne()][cmp].isEstOccupé()) {
+                        System.out.println("piece sur le passage de gauche vers droite");
+                        return false;
+                    }
+                }
+            }
+
+            if(getColonne() > c.getColonne()) {
+                for (int cmp = c.getColonne() + 1; cmp < getColonne(); cmp++) {
+                    if (echiquier[getLigne()][cmp].isEstOccupé()) {
+                        System.out.println("piece sur le passage de droite vers gauche");
+                        return false;
+                    }
+                }
+            }
+        }
         return true;
     }
 }

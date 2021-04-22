@@ -19,8 +19,8 @@ public class Piece implements IPiece {
 
     @Override
     public void changeCoord(Coord c){
-        this.coord.setX(c.getX());
-        this.coord.setY(c.getY());
+        this.coord.setLigne(c.getLigne());
+        this.coord.setColonne(c.getColonne());
     }
 
     @Override
@@ -32,13 +32,13 @@ public class Piece implements IPiece {
     }
 
     @Override
-    public int getX() {
-        return coord.getX();
+    public int getLigne() {
+        return coord.getLigne();
     }
 
     @Override
-    public int getY() {
-        return coord.getY();
+    public int getColonne() {
+        return coord.getColonne();
     }
 
     @Override

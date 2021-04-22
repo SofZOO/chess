@@ -1,7 +1,6 @@
 package échiquier;
 
 import piece.CouleurPiece;
-import piece.Piece;
 
 public interface IPiece {
 
@@ -11,9 +10,9 @@ public interface IPiece {
 
     char toChar();
 
-    int getX();
+    int getLigne();
 
-    int getY();
+    int getColonne();
 
     CouleurPiece getCouleur();
 
