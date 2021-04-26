@@ -11,23 +11,11 @@ public class Roi extends Piece {
 
     @Override
     public boolean peutJouer(Coord c, Case[][] echiquier) {
-        if (c.getLigne() == getLigne() && c.getColonne() == getColonne() + 1)
-            return true;
-        if (c.getLigne() == getLigne()+1 && c.getColonne() == getColonne() + 1)
-            return true;
-        if (c.getLigne() == getLigne()+1 && c.getColonne() == getColonne())
-            return true;
-        if (c.getLigne() == getLigne() +1 && c.getColonne() == getColonne()-1)
-            return true;
-        if (c.getLigne() == getLigne() && c.getColonne() == getColonne() -1)
-            return true;
-        if (c.getLigne() == getLigne() - 1  && c.getColonne() == getColonne() - 1)
-            return true;
-        if (c.getLigne() == getLigne() -1 && c.getColonne() == getColonne())
-            return true;
-        if (c.getLigne() == getLigne() -1 && c.getColonne() == getColonne()+1)
-            return true;
-        return false;
+        if (Math.abs(getColonne() - c.getColonne()) > 1 || Math.abs(getLigne() - c.getLigne()) > 1)
+        {
+            return false;
+        }
+        return true;
     }
 
     @Override
