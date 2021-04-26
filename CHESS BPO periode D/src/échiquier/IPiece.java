@@ -14,6 +14,8 @@ public interface IPiece {
 
     int getColonne();
 
+    Coord getCoord();
+
     CouleurPiece getCouleur();
 
     boolean craintEchec();

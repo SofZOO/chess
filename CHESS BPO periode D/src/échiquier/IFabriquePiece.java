@@ -1,6 +1,8 @@
 package échiquier;
 
+import java.util.ArrayList;
+
 public interface IFabriquePiece {
 
-    IPiece fabrique(int numero, Coord coord, boolean estBlanc);
+    ArrayList<IPiece> fabrique(boolean estBlanc);
 }
