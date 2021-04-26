@@ -9,10 +9,10 @@ public class Joueur {
     private String nom;
     private boolean echec;
     private boolean estBlanc;
-    private ArrayList<IPiece> pieces;
+    private final ArrayList<IPiece> pieces;
 
-    public Joueur (boolean blanc, IFabriquePiece fab){
-        this.nom=nom;
+    public Joueur (String nom, boolean blanc, IFabriquePiece fab){
+        this.nom= nom;
         this.estBlanc=blanc;
         this.echec=false;
         this.pieces = fab.fabrique(estBlanc);
@@ -20,5 +20,13 @@ public class Joueur {
 
     public ArrayList<IPiece> getPieces() {
         return pieces;
+    }
+
+    public IPiece leRoi(){
+        return pieces.get(0);
+    }
+
+    public String getNom() {
+        return nom;
     }
 }

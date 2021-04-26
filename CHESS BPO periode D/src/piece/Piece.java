@@ -42,6 +42,11 @@ public class Piece implements IPiece {
     }
 
     @Override
+    public Coord getCoord() {
+        return new Coord(getLigne(),getColonne());
+    }
+
+    @Override
     public CouleurPiece getCouleur() {
         return couleur;
     }
