@@ -24,7 +24,7 @@ public class Joueur {
 
     public IPiece leRoi(){
         return pieces.get(0);
-    }
+    }/*reste bizarre car n'est pas logique, on return l'indice 0 puisqu'on insère le roi en premier*/
 
     public String getNom() {
         return nom;

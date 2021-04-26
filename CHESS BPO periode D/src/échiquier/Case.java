@@ -16,12 +16,12 @@ public class Case {
             return Character.toString(pieceActuelle.get(0).toChar());
     }
 
-    public boolean isEstOccupé(){
+    public boolean estOccupé(){
         return (this.pieceActuelle.size() > 0);
     }
 
     public void rajouterPiece(IPiece p){
-        if (isEstOccupé()){
+        if (estOccupé()){
             pieceActuelle.add(p);
             pieceActuelle.remove(0);
         }
@@ -33,7 +33,7 @@ public class Case {
     }
 
     public IPiece getPieceActuelle() {
-        if (isEstOccupé())
+        if (estOccupé())
             return pieceActuelle.get(0);
         return null;
     }

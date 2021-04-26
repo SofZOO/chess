@@ -126,7 +126,7 @@ public class Plateau {
     }
 
     private boolean coupValableSurPiece(Coord coordIni, Coord coordFin) {
-        if (laCase(coordFin).isEstOccupé())
+        if (laCase(coordFin).estOccupé())
             return !(laCase(coordIni).getPieceActuelle().getCouleur().
                     equals(laCase(coordFin).getPieceActuelle().getCouleur()));
 
