@@ -42,7 +42,7 @@ public class Main {
         Thread.sleep(1000);
         try
         {
-            InputStream in = new FileInputStream("audio/tennisball.wav");
+            InputStream in = new FileInputStream("audio/move.wav");
             AudioStream as = new AudioStream(in);
             AudioPlayer.player.start(as);
         }
