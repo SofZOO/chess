@@ -38,28 +38,36 @@ public class Plateau {
         laCase(coordIni).retirerPiece();
     }
 
-    public boolean estJouable(int liSrc, int colSrc, int liDst, int colDst) {
-        IPiece p = echiquier[liSrc][colSrc].getPieceActuelle();
+    public boolean estJouable(Coord caseSource, Coord caseDest) {
+        IPiece p = echiquier[caseSource.getLigne()][caseSource.getColonne()].getPieceActuelle();
         if (p == null) {
             System.out.println("LA CASE SOURCE EST VIDE");
             return false;
         }
 //		2- La destination est libre ou est occupée par une pièce adverse
-        if (!(coupValableSurPiece(new Coord(liSrc, colSrc), new Coord(liDst, colDst)))){
+        if (!(coupValableSurPiece(caseSource, caseDest))){
             System.out.println("coup PAS ValableSurPiece");
             return false;
         }
 
 //		3- la pièce autorise ce déplacement
-        if (!(p.peutJouer(new Coord(liDst, colDst), this.echiquier))) {
+        if (!(p.peutJouer(caseDest, this.echiquier))) {
             System.out.println("coup pas valable pour la piece");
             return false;
         }
 
-//		4- si c'est un roi alors la destination n'est pas attaquable par une pièce adverse
-//        if (p.craintEchec())
-            //la destination n'est pas attaquable par une pièce adverse
-//            return false;
+//      4- si c'est un roi alors la destination n'est pas attaquable par une pièce adverse
+        if (p.craintEchec()){
+            for (IPiece piece : listePieces){
+                if (!(piece.getCouleur().equals(p.getCouleur()))){
+                    if(piece.peutJouer(caseDest,echiquier)){
+                        System.out.println("Le roi sera mis en echec");
+                        return false;
+                    }
+                }
+            }
+        }
+
         return true;
     }
 
@@ -74,21 +82,11 @@ public class Plateau {
         coordIni = getCoord(x, y);
         coordFin = getCoord(x2, y2);
 
-        if (estJouable(coordIni.getLigne(),coordIni.getColonne(),coordFin.getLigne(),coordFin.getColonne()))
+        if (estJouable(coordIni,coordFin)) {
             System.out.println("METHODE VALIDE");
-        else System.out.println("METHODE PAS VALID22");
-
-
-        if (laCase(coordIni).getPieceActuelle().peutJouer(coordFin, echiquier)){
-            System.out.println("Le coup est jouable");
-
-            if (coupValableSurPiece(coordIni,coordFin)) {
-                placerNouvelleCoord(coordIni, coordFin);
-                System.out.println("coupValableSurPiece");
-            }
-            else System.out.println("coup PAS ValableSurPiece");
+            placerNouvelleCoord(coordIni, coordFin);
         }
-        else System.out.println("Coup pas possible");
+        else System.out.println("METHODE PAS VALID22");
     }
 
     private boolean coupValableSurPlateau(String coup){
