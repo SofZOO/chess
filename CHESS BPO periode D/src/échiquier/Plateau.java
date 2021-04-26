@@ -1,5 +1,8 @@
 package échiquier;
 
+import appli.IJoueur;
+import appli.Joueur;
+
 import java.util.ArrayList;
 
 public class Plateau {
@@ -7,7 +10,7 @@ public class Plateau {
     private final int HAUTEUR = 8, LONGUEUR = 8;
     private final ArrayList<IPiece> listePieces;
 
-    public Plateau(IFabriquePiece fab){
+    public Plateau(Joueur j1, Joueur j2){
         echiquier = new Case[LONGUEUR][HAUTEUR];
         for(int x = 0; x < this.LONGUEUR; x++){
             for(int y = 0; y <this.HAUTEUR; y++){
@@ -15,14 +18,12 @@ public class Plateau {
             }
         }
         listePieces=new ArrayList<>();
-        this.initialiserEchiquier(fab);
+        this.initialiserEchiquier(j1,j2);
     }
 
-    public void initialiserEchiquier(IFabriquePiece fab){
-        listePieces.add(fab.fabrique(0,new Coord(0,0),false));
-        listePieces.add(fab.fabrique(0,new Coord(7,0),true));
-        listePieces.add(fab.fabrique(1,new Coord(7,4),true));
-        listePieces.add(fab.fabrique(1,new Coord(0,4),false));
+    public void initialiserEchiquier(Joueur joueur1, Joueur joueur2){
+        listePieces.addAll(joueur1.getPieces());
+        listePieces.addAll(joueur2.getPieces());
 
         for(IPiece p : listePieces)
             echiquier[p.getLigne()][p.getColonne()].rajouterPiece(p);
@@ -67,7 +68,6 @@ public class Plateau {
                 }
             }
         }
-
         return true;
     }
 
