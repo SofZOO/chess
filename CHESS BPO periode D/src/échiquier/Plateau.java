@@ -107,11 +107,18 @@ public class Plateau {
 
     public boolean echec(Joueur bangbang) {
         for (IPiece piece : listePieces) {
-            if (!(piece.getCouleur().equals(bangbang.leRoi().getCouleur()))) {
+            if (!(piece.compareCouleur(bangbang.leRoi()))) {
                 if (piece.peutJouer(bangbang.leRoi().getCoord(), echiquier))
                     return true;
             }
         }
+        return false;
+    }
+
+    public boolean chessmat(Joueur enparametre){
+        // 1) Si le roi peux se deplacer
+        // 2) Si la piece qui met en echec peux etre mangé
+        // 3) Si une piece allié peut proteger le roi (se mettre devant)
         return false;
     }
 
