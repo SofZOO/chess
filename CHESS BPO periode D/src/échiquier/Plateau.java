@@ -67,7 +67,7 @@ public class Plateau {
         }
 
 //      5- si le joueur courant est echec
-        if (echec(courant)){
+        if (echec(courant)) {
             placerNouvelleCoord(caseSource, caseDest);
             if (echec(courant)) {
                 System.out.println("le coup ne peut pas etre joue car le roi est toujours en echec");
