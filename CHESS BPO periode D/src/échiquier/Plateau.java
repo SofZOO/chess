@@ -1,7 +1,6 @@
 package échiquier;
 
 import appli.Joueur;
-
 import java.util.ArrayList;
 
 public class Plateau {
@@ -34,6 +33,9 @@ public class Plateau {
     }
 
     public boolean estJouable(Coord caseSource, Coord caseDest, Joueur courant) {
+        if ((caseDest.getLigne()>7 || caseDest.getLigne()<0 || caseDest.getColonne()>7 || caseDest.getColonne()<0 )) {
+            return false;
+        }
         IPiece p = echiquier[caseSource.getLigne()][caseSource.getColonne()].getPieceActuelle();
         if (p == null) {
             System.out.println("LA CASE SOURCE EST VIDE");
@@ -67,21 +69,19 @@ public class Plateau {
         }
 
 //      5- si le joueur courant est echec
+        placerNouvelleCoord(caseSource, caseDest);
         if (echec(courant)) {
-            placerNouvelleCoord(caseSource, caseDest);
-            if (echec(courant)) {
-                System.out.println("le coup ne peut pas etre joue car le roi est toujours en echec");
-                placerNouvelleCoord(caseDest, caseSource);
-                return false;
-            } else {
-                placerNouvelleCoord(caseDest, caseSource);
-            }
+            System.out.println("le coup ne peut pas etre joue car le roi est toujours en echec");
+            placerNouvelleCoord(caseDest, caseSource);
+            return false;
+        } else {
+            placerNouvelleCoord(caseDest, caseSource);
         }
+
         return true;
     }
 
     public void déplacer(String coup, Joueur courant, Joueur pasCourant) {
-
         Coord coordIni, coordFin;
         if (!coupValableSurPlateau(coup)) {
             System.out.println("coup pas valable sur plateau");
@@ -96,13 +96,38 @@ public class Plateau {
             placerNouvelleCoord(coordIni, coordFin);
             if (echec(courant)) {
                 System.out.println("le joueur " + courant.getNom() + " est echec");
-
             }
             if (echec(pasCourant)) {
                 System.out.println("le joueur " + pasCourant.getNom() + " est echec");
-
+                if (chessmat(pasCourant))
+                    System.out.println("ECHEC ET MAT");
             }
         } else System.out.println("METHODE PAS VALID22");
+    }
+
+    public boolean chessmat(Joueur joueur){
+        IPiece roiDuJou = joueur.leRoi();
+        Coord c = roiDuJou.getCoord();
+
+        // 1) Déplacement du Roi
+        for(int cmp = -1; cmp<2;cmp++){
+            for (int cmp2 = -1; cmp <2; cmp++){
+                if(cmp==0 && cmp2==0)
+                    continue;
+                else if(estJouable(c,new Coord(c.getLigne()+cmp,c.getColonne()+cmp2),joueur)){
+                    return false;
+                }
+            }
+        }
+
+        // 2) Déplacement si on mange la piece qui met en echec
+
+//        for(IPiece piece : listePieces){
+//            if (piece.compareCouleur(roiDuJou)){
+//                if(estJouable(piece.getCoord(), ))
+//            }
+//        }
+        return true;
     }
 
     public boolean echec(Joueur bangbang) {
