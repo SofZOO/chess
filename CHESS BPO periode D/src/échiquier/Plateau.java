@@ -2,6 +2,7 @@ package échiquier;
 
 import appli.Joueur;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Plateau {
@@ -34,6 +35,9 @@ public class Plateau {
     }
 
     public boolean estJouable(Coord caseSource, Coord caseDest, Joueur courant) {
+        if ((caseDest.getLigne()>7 || caseDest.getLigne()<0 || caseDest.getColonne()>7 || caseDest.getColonne()<0 )) {
+            return false;
+        }
         IPiece p = echiquier[caseSource.getLigne()][caseSource.getColonne()].getPieceActuelle();
         if (p == null) {
             System.out.println("LA CASE SOURCE EST VIDE");
@@ -67,21 +71,19 @@ public class Plateau {
         }
 
 //      5- si le joueur courant est echec
-        if (echec(courant)){
-            placerNouvelleCoord(caseSource, caseDest);
-            if (echec(courant)) {
-                System.out.println("le coup ne peut pas etre joue car le roi est toujours en echec");
-                placerNouvelleCoord(caseDest, caseSource);
-                return false;
-            } else {
-                placerNouvelleCoord(caseDest, caseSource);
-            }
+        placerNouvelleCoord(caseSource, caseDest);
+        if (echec(courant)) {
+            System.out.println("le coup ne peut pas etre joue car le roi est toujours en echec");
+            placerNouvelleCoord(caseDest, caseSource);
+            return false;
+        } else {
+            placerNouvelleCoord(caseDest, caseSource);
         }
+
         return true;
     }
 
     public void déplacer(String coup, Joueur courant, Joueur pasCourant) {
-
         Coord coordIni, coordFin;
         if (!coupValableSurPlateau(coup)) {
             System.out.println("coup pas valable sur plateau");
@@ -96,14 +98,65 @@ public class Plateau {
             placerNouvelleCoord(coordIni, coordFin);
             if (echec(courant)) {
                 System.out.println("le joueur " + courant.getNom() + " est echec");
-
             }
             if (echec(pasCourant)) {
                 System.out.println("le joueur " + pasCourant.getNom() + " est echec");
-
+                if (chessmat(pasCourant,courant))
+                    System.out.println("ECHEC ET MAT");
             }
         } else System.out.println("METHODE PAS VALID22");
     }
+
+    public boolean chessmat(Joueur joueur, Joueur autreJoueur) {
+        ArrayList<IPiece> piecesoupieceQuiMetEnEchec = new ArrayList<>();
+        IPiece roiDuJou = joueur.leRoi();
+        Coord c = roiDuJou.getCoord();
+        Case[][] copieEchiquier = echiquier.clone();
+
+        // 1) Déplacement du Roi
+        for (int cmp = -1; cmp < 2; cmp++) {
+            for (int cmp2 = -1; cmp < 2; cmp++) {
+                if (cmp != 0 && cmp2 != 0) {
+                    if (estJouable(c, new Coord(c.getLigne() + cmp, c.getColonne() + cmp2), joueur)) {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        // 2) Déplacement si on mange la piece qui met en echec
+
+
+        // On cherche les pieces qui mettent en echec
+        for (IPiece pi : listePieces){
+            if (!pi.compareCouleur(roiDuJou)){
+                if(estJouable(pi.getCoord(), roiDuJou.getCoord(), autreJoueur)){
+                    piecesoupieceQuiMetEnEchec.add(pi);
+                }
+            }
+        }
+
+        // on essaye de les manger avec les pieces alliées
+        for (IPiece pipi: piecesoupieceQuiMetEnEchec){
+            for (IPiece piAllie : listePieces){
+                if(piAllie.compareCouleur(roiDuJou)){
+                    if(estJouable(piAllie.getCoord(),pipi.getCoord(),autreJoueur)){
+                        copieEchiquier[piAllie.getLigne()][piAllie.getColonne()].retirerPiece();
+                         copieEchiquier[pipi.getLigne()][pipi.getColonne()].rajouterPiece(piAllie);
+                         if(!echec(joueur)){
+                             return false;
+                         }
+                         else{
+                             copieEchiquier[pipi.getLigne()][pipi.getColonne()].rajouterPiece(pipi);
+                             copieEchiquier[piAllie.getLigne()][piAllie.getColonne()].rajouterPiece(piAllie);
+                         }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
 
     public boolean echec(Joueur bangbang) {
         for (IPiece piece : listePieces) {
