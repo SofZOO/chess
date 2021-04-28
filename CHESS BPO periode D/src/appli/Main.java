@@ -44,33 +44,21 @@ public class Main {
          Joueur joueurNoir = new Joueur("NOIR",false,new FabriquePiece());
          Plateau p = new Plateau(joueurBlanc,joueurNoir);
          System.out.println(p);
-
-        p.déplacer("e1f1",joueurBlanc,joueurNoir);
-        System.out.println(p);
-        p.déplacer("f1g1",joueurBlanc,joueurNoir);
-        System.out.println(p);
-        p.déplacer("g1h1",joueurBlanc,joueurNoir);
-        System.out.println(p);
-
-         p.déplacer("e8e7",joueurNoir,joueurBlanc);
+         p.déplacer("a1a7",joueurBlanc,joueurNoir);
          System.out.println(p);
-         p.déplacer("e7e6",joueurNoir,joueurBlanc);
-         System.out.println(p);
-         p.déplacer("e6e5",joueurNoir,joueurBlanc);
-         System.out.println(p);
-        p.déplacer("e5e4",joueurNoir,joueurBlanc);
+        p.déplacer("e1e2",joueurBlanc,joueurNoir);
         System.out.println(p);
-        p.déplacer("e4e3",joueurNoir,joueurBlanc);
+        p.déplacer("e2e3",joueurBlanc,joueurNoir);
         System.out.println(p);
-        p.déplacer("e3f3",joueurNoir,joueurBlanc);
+        p.déplacer("e3e4",joueurBlanc,joueurNoir);
         System.out.println(p);
+        p.déplacer("e4e5",joueurBlanc,joueurNoir);
+        System.out.println(p);
+        p.déplacer("e5e6",joueurBlanc,joueurNoir);
+        System.out.println(p);
+        /*p.déplacer("a7a8",joueurBlanc,joueurNoir);
+        System.out.println(p);*///TODO : c la merde
 
-        p.déplacer("a8b8",joueurNoir,joueurBlanc);
-        System.out.println(p);
-        p.déplacer("a1a8",joueurBlanc,joueurNoir);
-        System.out.println(p);
-        p.déplacer("b8h8",joueurNoir,joueurBlanc);
-        System.out.println(p);
 
 
     }

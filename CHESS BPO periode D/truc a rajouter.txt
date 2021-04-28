@@ -1,10 +1,30 @@
--nombre magique
--Corriger le bug du passage en force
-- diviser en 2 la methode avec la String coup (pour mettre nos pions avec un emplacement du type "h4" ou "b2" etc)
--hashmap clé : coord valeur : case ?
+test 1 (la piece alliée peut manger une piece qui peut mettre en echec la piece adverse:
+        p.déplacer("e1f1",joueurBlanc,joueurNoir);
+        System.out.println(p);
+        p.déplacer("f1g1",joueurBlanc,joueurNoir);
+        System.out.println(p);
 
+        p.déplacer("g1h1",joueurBlanc,joueurNoir);
+        System.out.println(p);
+        p.déplacer("e8e7",joueurNoir,joueurBlanc);
+        System.out.println(p);
+        p.déplacer("e7e6",joueurNoir,joueurBlanc);
+        System.out.println(p);
+        p.déplacer("e6e5",joueurNoir,joueurBlanc);
+        System.out.println(p);
+        p.déplacer("e5e4",joueurNoir,joueurBlanc);
+        System.out.println(p);
+        p.déplacer("e4e3",joueurNoir,joueurBlanc);
+        System.out.println(p);
+        p.déplacer("e3f3",joueurNoir,joueurBlanc);
+        System.out.println(p);
+        p.déplacer("f3f2",joueurNoir,joueurBlanc);
+        System.out.println(p);
 
--Finir les methodes peux jouer
--mettre le bail de l'echec pour le Roi
--faire l'algo pour gagner ou perdre
--Faire le bail des joueurs et interface
+        p.déplacer("a8b8",joueurNoir,joueurBlanc);
+        System.out.println(p);
+        p.déplacer("a1a8",joueurBlanc,joueurNoir);
+        System.out.println(p);
+        p.déplacer("b8h8",joueurNoir,joueurBlanc);
+        System.out.println(p);
+
