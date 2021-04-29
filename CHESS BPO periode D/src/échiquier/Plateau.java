@@ -28,6 +28,8 @@ public class Plateau {
     }
 
     public void placerNouvelleCoord(Coord coordIni, Coord coordFin) {
+        if (laCase(coordFin).isEstOccupé())
+            listePieces.remove(laCase(coordFin).getPieceActuelle());
         laCase(coordIni).getPieceActuelle().changeCoord(coordFin);
         laCase(coordFin).rajouterPiece(laCase(coordIni).getPieceActuelle());
         laCase(coordIni).retirerPiece();
@@ -77,21 +79,22 @@ public class Plateau {
 
             laCase(caseSource).retirerPiece();
             laCase(caseDest).rajouterPiece(src);
+            ArrayList<IPiece> test = new ArrayList<>(listePieces);
             if (dst != null)
-                listePieces.remove(dst);
+                test.remove(dst);
 
-            if (echec(courant)) {//TODO a revoir
+            if (echec(courant,test)) {//TODO a revoir
                 System.out.println("le coup ne peut pas etre joue car le roi est toujours en echec");
                 laCase(caseSource).rajouterPiece(src);
                 laCase(caseDest).rajouterPiece(dst);
                 if (dst != null)
-                    listePieces.add(dst);
+                    test.add(dst);
                 return false;
             }
             laCase(caseSource).rajouterPiece(src);
             laCase(caseDest).rajouterPiece(dst);
             if (dst != null)
-                listePieces.add(dst);
+                test.add(dst);
             return true;
         }
 
@@ -110,7 +113,7 @@ public class Plateau {
         if (estJouable(coordIni, coordFin, courant)) {
             System.out.println("METHODE VALIDE");
             placerNouvelleCoord(coordIni, coordFin);
-            if (echec(pasCourant)) {
+            if (echec(pasCourant,listePieces)) {
                 System.out.println("le joueur " + pasCourant.getNom() + " est echec");
                 if (chessmat(pasCourant, courant))
                     System.out.println("ECHEC ET MAT");
@@ -158,7 +161,7 @@ public class Plateau {
                         laCase(piAllie.getCoord()).retirerPiece();
                         laCase(pipi.getCoord()).rajouterPiece(piAllie);
                         listePieces.remove(pipi);
-                        if (!echec(joueur)) {
+                        if (!echec(joueur,listePieces)) {
                             laCase(piAllie.getCoord()).rajouterPiece(piAllie);
                             laCase(pipi.getCoord()).rajouterPiece(pipi);
                             listePieces.add(pipi);
@@ -176,8 +179,8 @@ public class Plateau {
     }
 
 
-    public boolean echec(Joueur bangbang) {
-        for (IPiece piece : listePieces) {
+    public boolean echec(Joueur bangbang, ArrayList<IPiece> list) {
+        for (IPiece piece : list) {
             if (!(piece.getCouleur().equals(bangbang.leRoi().getCouleur()))) {
                 if (piece.peutJouer(bangbang.leRoi().getCoord(), echiquier))
                     return true;

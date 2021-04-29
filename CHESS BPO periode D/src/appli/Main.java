@@ -5,6 +5,7 @@ import com.sun.security.jgss.GSSUtil;
 import piece.FabriquePiece;
 import échiquier.Plateau;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Scanner;
@@ -46,18 +47,21 @@ public class Main {
          System.out.println(p);
          p.déplacer("a1a7",joueurBlanc,joueurNoir);
          System.out.println(p);
-        p.déplacer("e1e2",joueurBlanc,joueurNoir);
-        System.out.println(p);
-        p.déplacer("e2e3",joueurBlanc,joueurNoir);
-        System.out.println(p);
-        p.déplacer("e3e4",joueurBlanc,joueurNoir);
-        System.out.println(p);
-        p.déplacer("e4e5",joueurBlanc,joueurNoir);
-        System.out.println(p);
-        p.déplacer("e5e6",joueurBlanc,joueurNoir);
-        System.out.println(p);
-        /*p.déplacer("a7a8",joueurBlanc,joueurNoir);
-        System.out.println(p);*///TODO : c la merde
+         p.déplacer("e1e2",joueurBlanc,joueurNoir);
+         System.out.println(p);
+         p.déplacer("e2e3",joueurBlanc,joueurNoir);
+         System.out.println(p);
+         p.déplacer("e3e4",joueurBlanc,joueurNoir);
+         System.out.println(p);
+         p.déplacer("e4e5",joueurBlanc,joueurNoir);
+         System.out.println(p);
+         p.déplacer("e5e6",joueurBlanc,joueurNoir);
+         System.out.println(p);
+         p.déplacer("a7a8",joueurBlanc,joueurNoir);
+         System.out.println(p);//TODO : c la merde
+
+
+
 
 
 
