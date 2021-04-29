@@ -89,3 +89,30 @@ test 3 :
                 p.déplacer("f2e2",joueurNoir,joueurBlanc);
                 System.out.println(p);
 
+test 4 :
+            p.déplacer("e1f1",joueurBlanc,joueurNoir);
+                    System.out.println(p);
+                    p.déplacer("f1g1",joueurBlanc,joueurNoir);
+                    System.out.println(p);
+                    p.déplacer("g1h1",joueurBlanc,joueurNoir);
+                    System.out.println(p);
+                    p.déplacer("e8e7",joueurNoir,joueurBlanc);
+                    System.out.println(p);
+                    p.déplacer("e7e6",joueurNoir,joueurBlanc);
+                    System.out.println(p);
+                    p.déplacer("e6e5",joueurNoir,joueurBlanc);
+                    System.out.println(p);
+                    p.déplacer("e5e4",joueurNoir,joueurBlanc);
+                    System.out.println(p);
+                    p.déplacer("e4e3",joueurNoir,joueurBlanc);
+                    System.out.println(p);
+                    p.déplacer("e3f2",joueurNoir,joueurBlanc);
+                    System.out.println(p);
+                    p.déplacer("b8h8",joueurNoir,joueurBlanc);
+                    System.out.println(p);
+
+                    p.déplacer("a1a3", joueurBlanc,joueurNoir);
+                    System.out.println(p);
+                    p.déplacer("a8h8",joueurNoir,joueurBlanc);
+                    System.out.println(p);
+

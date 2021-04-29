@@ -1,6 +1,7 @@
 package échiquier;
 
 import appli.Joueur;
+import com.sun.jdi.ClassObjectReference;
 
 import java.util.ArrayList;
 
@@ -172,6 +173,22 @@ public class Plateau {
                             laCase(piAllie.getCoord()).rajouterPiece(piAllie);
                             laCase(pipi.getCoord()).rajouterPiece(pipi);
                             listePieces.add(pipi);
+                        }
+                    }
+                }
+            }
+        }
+        //todo : big dinguerie
+        /*une piece alliée peut couvrir le roi en allant sur le chemin ou la piece ennemie met en echec le roi qui met en echec*/
+        for (IPiece piece : listePieces){
+            if (piece.compareCouleur(roiDuJou)){
+                for(int cmp1 = 0; cmp1 < 8; cmp1++){
+                    for(int cmp2 = 0; cmp2 < 8 ; cmp2++) {
+                        if (piece.getCoord().compare(new Coord(cmp1, cmp2))) {
+                            continue;
+                        }
+                        else if (estJouable(piece.getCoord(), new Coord(cmp1, cmp2), joueur)) {
+                            return false;
                         }
                     }
                 }

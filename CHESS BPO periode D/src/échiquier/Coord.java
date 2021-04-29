@@ -12,6 +12,11 @@ public class Coord {
         this.ligne = li;
         this.colonne = co;
     }
+
+    public boolean compare(Coord coord){
+        return ligne == coord.ligne && colonne == coord.colonne;
+    }
+
     public int getLigne() {
         return ligne;
     }
