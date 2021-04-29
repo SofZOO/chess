@@ -10,7 +10,7 @@ public class Case {
     }
 
     public String toString(){
-        if (pieceActuelle.size()==0)
+        if (pieceActuelle.size()==0 ||pieceActuelle.get(0) == null)
             return " ";
         else
             return Character.toString(pieceActuelle.get(0).toChar());

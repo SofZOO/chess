@@ -1,10 +1,91 @@
--nombre magique
--Corriger le bug du passage en force
-- diviser en 2 la methode avec la String coup (pour mettre nos pions avec un emplacement du type "h4" ou "b2" etc)
--hashmap clé : coord valeur : case ?
+test 1 (la piece alliée peut manger une piece qui peut mettre en echec la piece adverse:
+        p.déplacer("e1f1",joueurBlanc,joueurNoir);
+        System.out.println(p);
+        p.déplacer("f1g1",joueurBlanc,joueurNoir);
+        System.out.println(p);
 
+        p.déplacer("g1h1",joueurBlanc,joueurNoir);
+        System.out.println(p);
+        p.déplacer("e8e7",joueurNoir,joueurBlanc);
+        System.out.println(p);
+        p.déplacer("e7e6",joueurNoir,joueurBlanc);
+        System.out.println(p);
+        p.déplacer("e6e5",joueurNoir,joueurBlanc);
+        System.out.println(p);
+        p.déplacer("e5e4",joueurNoir,joueurBlanc);
+        System.out.println(p);
+        p.déplacer("e4e3",joueurNoir,joueurBlanc);
+        System.out.println(p);
+        p.déplacer("e3f3",joueurNoir,joueurBlanc);
+        System.out.println(p);
+        p.déplacer("f3f2",joueurNoir,joueurBlanc);
+        System.out.println(p);
 
--Finir les methodes peux jouer
--mettre le bail de l'echec pour le Roi
--faire l'algo pour gagner ou perdre
--Faire le bail des joueurs et interface
+        p.déplacer("a8b8",joueurNoir,joueurBlanc);
+        System.out.println(p);
+        p.déplacer("a1a8",joueurBlanc,joueurNoir);
+        System.out.println(p);
+        p.déplacer("b8h8",joueurNoir,joueurBlanc);
+        System.out.println(p);
+
+test 2 : echec et mat classique le roi ne peut rien faire
+
+        Joueur joueurBlanc = new Joueur("BLANC",true,new FabriquePiece());
+        Joueur joueurNoir = new Joueur("NOIR",false,new FabriquePiece());
+        Plateau p = new Plateau(joueurBlanc,joueurNoir);
+        System.out.println(p);
+        p.déplacer("a1a7",joueurBlanc,joueurNoir);
+        System.out.println(p);
+        p.déplacer("e1e2",joueurBlanc,joueurNoir);
+        System.out.println(p);
+        p.déplacer("e2e3",joueurBlanc,joueurNoir);
+        System.out.println(p);
+        p.déplacer("e3e4",joueurBlanc,joueurNoir);
+        System.out.println(p);
+        p.déplacer("e4e5",joueurBlanc,joueurNoir);
+        System.out.println(p);
+        p.déplacer("e5e6",joueurBlanc,joueurNoir);
+        System.out.println(p);
+        p.déplacer("a7a8",joueurBlanc,joueurNoir);
+        System.out.println(p);//TODO : c plus la merde
+
+test 3 :
+        p.déplacer("e1f1",joueurBlanc,joueurNoir);
+                System.out.println(p);
+                p.déplacer("f1g1",joueurBlanc,joueurNoir);
+                System.out.println(p);
+
+                p.déplacer("g1h1",joueurBlanc,joueurNoir);
+                System.out.println(p);
+                p.déplacer("e8e7",joueurNoir,joueurBlanc);
+                System.out.println(p);
+                p.déplacer("e7e6",joueurNoir,joueurBlanc);
+                System.out.println(p);
+                p.déplacer("e6e5",joueurNoir,joueurBlanc);
+                System.out.println(p);
+                p.déplacer("e5e4",joueurNoir,joueurBlanc);
+                System.out.println(p);
+                p.déplacer("e4e3",joueurNoir,joueurBlanc);
+                System.out.println(p);
+                p.déplacer("e3f3",joueurNoir,joueurBlanc);
+                System.out.println(p);
+                p.déplacer("f3f2",joueurNoir,joueurBlanc);
+                System.out.println(p);
+
+                p.déplacer("a8b8",joueurNoir,joueurBlanc);
+                System.out.println(p);
+                p.déplacer("a1a8",joueurBlanc,joueurNoir);
+                System.out.println(p);
+                p.déplacer("b8h8",joueurNoir,joueurBlanc);
+                System.out.println(p);
+                p.déplacer("a8h8",joueurBlanc,joueurNoir);
+                System.out.println(p);
+                p.déplacer("h1h2",joueurBlanc,joueurNoir);
+                System.out.println(p);
+                p.déplacer("h8f8",joueurBlanc,joueurNoir);
+                System.out.println(p);
+                p.déplacer("f2g2",joueurNoir,joueurBlanc);
+                System.out.println(p);
+                p.déplacer("f2e2",joueurNoir,joueurBlanc);
+                System.out.println(p);
+
