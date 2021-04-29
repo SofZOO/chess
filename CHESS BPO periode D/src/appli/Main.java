@@ -1,11 +1,9 @@
 package appli;
 
 
-import com.sun.security.jgss.GSSUtil;
+
 import piece.FabriquePiece;
 import échiquier.Plateau;
-
-import java.util.Arrays;
 import java.util.Locale;
 import java.util.Scanner;
 
