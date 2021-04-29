@@ -1,10 +1,9 @@
 package appli;
 
-
-
 import piece.FabriquePiece;
-import échiquier.Plateau;
 import java.util.Locale;
+import échiquier.Plateau;
+
 import java.util.Scanner;
 
 
@@ -46,7 +45,6 @@ public class Main {
         System.out.println(p);
         p.déplacer("f1g1",joueurBlanc,joueurNoir);
         System.out.println(p);
-
         p.déplacer("g1h1",joueurBlanc,joueurNoir);
         System.out.println(p);
         p.déplacer("e8e7",joueurNoir,joueurBlanc);
@@ -59,15 +57,16 @@ public class Main {
         System.out.println(p);
         p.déplacer("e4e3",joueurNoir,joueurBlanc);
         System.out.println(p);
-        p.déplacer("e3f3",joueurNoir,joueurBlanc);
-        System.out.println(p);
-        p.déplacer("f3f2",joueurNoir,joueurBlanc);
-        System.out.println(p);
-
-        p.déplacer("a8b8",joueurNoir,joueurBlanc);
+        p.déplacer("e3f2",joueurNoir,joueurBlanc);
         System.out.println(p);
         p.déplacer("b8h8",joueurNoir,joueurBlanc);
         System.out.println(p);
+
+        p.déplacer("a1a3", joueurBlanc,joueurNoir);
+        System.out.println(p);
+        p.déplacer("a8h8",joueurNoir,joueurBlanc);
+        System.out.println(p);
+
 
     }
 }

@@ -36,6 +36,8 @@ public class Plateau {
     }
 
     public boolean estJouable(Coord caseSource, Coord caseDest, Joueur courant) {
+        IPiece src;
+        IPiece dst;
         if ((caseDest.getLigne() > 7 || caseDest.getLigne() < 0 || caseDest.getColonne() > 7 || caseDest.getColonne() < 0)) {
             return false;
         }
@@ -74,28 +76,28 @@ public class Plateau {
         else {
 //      5- si le joueur courant est echec
 
-            IPiece src = laCase(caseSource).getPieceActuelle();
-            IPiece dst = laCase(caseDest).getPieceActuelle();
+         src = laCase(caseSource).getPieceActuelle();
+         dst = laCase(caseDest).getPieceActuelle();
 
-            laCase(caseSource).retirerPiece();
-            laCase(caseDest).rajouterPiece(src);
-            ArrayList<IPiece> test = new ArrayList<>(listePieces);
-            if (dst != null)
-                test.remove(dst);
+         laCase(caseSource).retirerPiece();
+         laCase(caseDest).rajouterPiece(src);
+         ArrayList<IPiece> test = new ArrayList<>(listePieces);
+         if (dst != null)
+             test.remove(dst);
 
-            if (echec(courant,test)) {//TODO a revoir
-                System.out.println("le coup ne peut pas etre joue car le roi est toujours en echec");
-                laCase(caseSource).rajouterPiece(src);
-                laCase(caseDest).rajouterPiece(dst);
-                if (dst != null)
-                    test.add(dst);
-                return false;
-            }
-            laCase(caseSource).rajouterPiece(src);
-            laCase(caseDest).rajouterPiece(dst);
-            if (dst != null)
-                test.add(dst);
-            return true;
+         if (echec(courant,test)) {//TODO a revoir
+             System.out.println("le coup ne peut pas etre joue car le roi est toujours en echec");
+             laCase(caseSource).rajouterPiece(src);
+             laCase(caseDest).rajouterPiece(dst);
+             if (dst != null)
+                 test.add(dst);
+             return false;
+         }
+         laCase(caseSource).rajouterPiece(src);
+         laCase(caseDest).rajouterPiece(dst);
+         if (dst != null)
+             test.add(dst);
+         return true;
         }
 
     }
