@@ -1,41 +1,33 @@
 package échiquier;
 
-import java.util.ArrayList;
 
 public class Case {
-    private ArrayList<IPiece> pieceActuelle;/*grace a l'interface-> se renseigner*/
+    private IPiece pieceActuelle;/*grace a l'interface-> se renseigner*/
 
     public Case(){
-        this.pieceActuelle = new ArrayList<>();
+        this.pieceActuelle = null;
     }
 
     public String toString(){
-        if (pieceActuelle.size()==0 ||pieceActuelle.get(0) == null)
+        if (pieceActuelle == null)
             return " ";
         else
-            return Character.toString(pieceActuelle.get(0).toChar());
+            return Character.toString(pieceActuelle.toChar());
     }
 
     public boolean isEstOccupé(){
-        return (this.pieceActuelle.size() > 0);
+        return (this.pieceActuelle != null);
     }
 
-    public void rajouterPiece(IPiece p){
-        if (isEstOccupé()){
-            pieceActuelle.add(p);
-            pieceActuelle.remove(0);
-        }
-        else
-            pieceActuelle.add(p);
+    public void rajouterPiece(IPiece piece){
+        this.pieceActuelle = piece;
     }
     public void retirerPiece(){
-        pieceActuelle.remove(0);
+        pieceActuelle = null;
     }
 
     public IPiece getPieceActuelle() {
-        if (isEstOccupé())
-            return pieceActuelle.get(0);
-        return null;
+        return pieceActuelle;
     }
 
 }

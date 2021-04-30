@@ -1,7 +1,6 @@
 package échiquier;
 
 import appli.Joueur;
-import com.sun.jdi.ClassObjectReference;
 
 import java.util.ArrayList;
 
@@ -125,65 +124,16 @@ public class Plateau {
     }
 
     public boolean chessmat(Joueur joueur, Joueur autreJoueur) {
-        ArrayList<IPiece> piecesoupieceQuiMetEnEchec = new ArrayList<>();
+
         IPiece roiDuJou = joueur.leRoi();
-        Coord c = roiDuJou.getCoord();
 
-        // 1) Déplacement du Roi
-        System.out.println("-------------test chess mat deplacement roi-----------");
-        for (int cmp = -1; cmp < 2; cmp++) {
-            for (int cmp2 = -1; cmp2 < 2; cmp2++) {
-                if (cmp == 0 && cmp2 == 0) {
-                    continue;
-                } else if (estJouable(c, new Coord(c.getLigne() + cmp, c.getColonne() + cmp2), joueur)) {
-                    return false;
-                }
-            }
-        }
-        System.out.println("-------------fin test deplacement roi-----------");
-
-
-        // 2) Déplacement si on mange la piece qui met en echec
-
-        System.out.println("-------------test chess mat recherche pieces qui met en echec-----------");
-        // On cherche les pieces qui mettent en echec
-        for (IPiece pi : listePieces) {
-            if (!pi.compareCouleur(roiDuJou)) {
-                if (estJouable(pi.getCoord(), roiDuJou.getCoord(), autreJoueur)) {
-                    piecesoupieceQuiMetEnEchec.add(pi);
-                }
-            }
-        }
-        System.out.println("-------------fin test recherche pieces qui met en echec-----------");
-
-        // on essaye de les manger avec les pieces alliées
-        for (IPiece pipi : piecesoupieceQuiMetEnEchec) {
-            for (IPiece piAllie : listePieces) {
-                if (piAllie.compareCouleur(roiDuJou)) {
-                    if (estJouable(piAllie.getCoord(), pipi.getCoord(), joueur)) {
-                        laCase(piAllie.getCoord()).retirerPiece();
-                        laCase(pipi.getCoord()).rajouterPiece(piAllie);
-                        listePieces.remove(pipi);
-                        if (!echec(joueur,listePieces)) {
-                            laCase(piAllie.getCoord()).rajouterPiece(piAllie);
-                            laCase(pipi.getCoord()).rajouterPiece(pipi);
-                            listePieces.add(pipi);
-                            return false;
-                        } else {
-                            laCase(piAllie.getCoord()).rajouterPiece(piAllie);
-                            laCase(pipi.getCoord()).rajouterPiece(pipi);
-                            listePieces.add(pipi);
-                        }
-                    }
-                }
-            }
-        }
         //todo : big dinguerie
         /*une piece alliée peut couvrir le roi en allant sur le chemin ou la piece ennemie met en echec le roi qui met en echec*/
         for (IPiece piece : listePieces){
             if (piece.compareCouleur(roiDuJou)){
                 for(int cmp1 = 0; cmp1 < 8; cmp1++){
                     for(int cmp2 = 0; cmp2 < 8 ; cmp2++) {
+                        System.out.println("["+cmp1 + ";" + cmp2 + "]");
                         if (piece.getCoord().compare(new Coord(cmp1, cmp2))) {
                             continue;
                         }
