@@ -4,7 +4,7 @@ import piece.FabriquePiece;
 
 
 import java.util.Locale;
-import échiquier.Plateau;
+import echiquier.Plateau;
 
 import java.util.Scanner;
 
@@ -37,7 +37,6 @@ public class Main {
                 System.exit(0);
                 break;
             }
-
         }
         System.out.println("fin du test");
     }

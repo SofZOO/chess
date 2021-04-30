@@ -1,7 +1,7 @@
 package appli;
 
-import échiquier.IFabriquePiece;
-import échiquier.IPiece;
+import echiquier.IFabriquePiece;
+import echiquier.IPiece;
 
 import java.util.ArrayList;
 

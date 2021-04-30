@@ -1,4 +1,4 @@
-package échiquier;
+package echiquier;
 
 public class Coord {
     private int ligne;
