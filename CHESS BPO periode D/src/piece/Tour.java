@@ -1,7 +1,7 @@
 package piece;
 
-import échiquier.Case;
-import échiquier.Coord;
+import echiquier.Case;
+import echiquier.Coord;
 
 public class Tour extends Piece{
 

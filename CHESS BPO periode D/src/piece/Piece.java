@@ -1,8 +1,8 @@
 package piece;
 
-import échiquier.Case;
-import échiquier.Coord;
-import échiquier.IPiece;
+import echiquier.Case;
+import echiquier.Coord;
+import echiquier.IPiece;
 
 public class Piece implements IPiece {
     private final char signe;

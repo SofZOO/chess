@@ -1,76 +1,70 @@
 package appli;
 
-
-import com.sun.security.jgss.GSSUtil;
 import piece.FabriquePiece;
-import échiquier.Plateau;
 
-import java.util.Arrays;
+
 import java.util.Locale;
+import echiquier.Plateau;
+
 import java.util.Scanner;
 
 
 public class Main {
-    public static void jouer(){
-        Joueur jBlanc = new Joueur("BLANC",true,new FabriquePiece());
-        Joueur jNoir = new Joueur("NOIR",false,new FabriquePiece());
-
-        Plateau p = new Plateau(jBlanc,jNoir);
+    public static void jouer(Joueur jBlanc, Joueur jNoir, Plateau p){
         System.out.println(p);
         Scanner sc = new Scanner(System.in);
-        String coup = sc.nextLine().trim().toLowerCase(Locale.ROOT);
-        while (!coup.equals("fin")){
-            p.déplacer(coup,jBlanc,jNoir);
+        String coup;
+        while (!jBlanc.getEchecEtMat() || jNoir.getEchecEtMat()){
+            //TODO : l'autre joueur peut jouer les pieces de son adversaire, pas bon !!
+            //TODO : si le joeuur se trompe, on passe pas à l'autre joueur
+
+            while (true) { // todo : boucle de jeu du joueur BLANC
+                System.out.println("Tour des Blanc");
+                coup = sc.nextLine().trim().toLowerCase(Locale.ROOT);
+                if (p.doitRejouer(coup,jBlanc)) {
+                    System.out.println("coup de merde pour le joueur " + jBlanc.getNom());
+                    continue;
+                }
+                else {
+                    p.déplacer(coup, jBlanc, jNoir);
+                    break;
+                }
+            }
             System.out.println(p);
-            coup = sc.nextLine().trim().toLowerCase(Locale.ROOT);
-            if(coup.equals("fin")) {
-                System.out.println("fin du test ma gueule");
-                System.exit(0);
+            if (jNoir.getEchecEtMat()) {
+                System.out.println("Le joueur " + jBlanc.getNom() + " a gagné" );
                 break;
             }
-            System.out.println(coup);
-            p.déplacer(coup,jNoir,jBlanc);
+
+            while(true){// todo : boucle de jeu du joueur NOIR
+                System.out.println("Tour des Noirs");
+                coup = sc.nextLine().trim().toLowerCase(Locale.ROOT);
+                if(p.doitRejouer(coup,jNoir)){
+                    System.out.println("coup de merde pour le joueur " + jNoir.getNom());
+                    continue;
+                }
+                else{
+                    p.déplacer(coup,jNoir,jBlanc);
+                    break;// tu peux commit stp jpeux p att je test
+                }
+            }
             System.out.println(p);
+            if (jBlanc.getEchecEtMat()) {
+                System.out.println("Le joueur " + jNoir.getNom() + " a gagné" );
+                break;
+            }
 
         }
         System.out.println("fin du test");
     }
 //TODO : penser a faire l'affichage des pièces mangées par les joueurs
     public static void main(String[] args) {
+        Joueur joueurBlanc = new Joueur("BLANC",true,new FabriquePiece());
+        Joueur joueurNoir = new Joueur("NOIR",false,new FabriquePiece());
+        Plateau p = new Plateau(joueurBlanc,joueurNoir);
 
-        //jouer();
+        jouer(joueurBlanc,joueurNoir,p);
 
-         Joueur joueurBlanc = new Joueur("BLANC",true,new FabriquePiece());
-         Joueur joueurNoir = new Joueur("NOIR",false,new FabriquePiece());
-         Plateau p = new Plateau(joueurBlanc,joueurNoir);
-         System.out.println(p);
-
-        p.déplacer("e1f1",joueurBlanc,joueurNoir);
-        System.out.println(p);
-        p.déplacer("f1g1",joueurBlanc,joueurNoir);
-        System.out.println(p);
-        p.déplacer("g1h1",joueurBlanc,joueurNoir);
-        System.out.println(p);
-
-         p.déplacer("e8e7",joueurNoir,joueurBlanc);
-         System.out.println(p);
-         p.déplacer("e7e6",joueurNoir,joueurBlanc);
-         System.out.println(p);
-         p.déplacer("e6e5",joueurNoir,joueurBlanc);
-         System.out.println(p);
-        p.déplacer("e5e4",joueurNoir,joueurBlanc);
-        System.out.println(p);
-        p.déplacer("e4e3",joueurNoir,joueurBlanc);
-        System.out.println(p);
-        p.déplacer("e3f3",joueurNoir,joueurBlanc);
-        System.out.println(p);
-
-        p.déplacer("a8b8",joueurNoir,joueurBlanc);
-        System.out.println(p);
-        p.déplacer("a1a8",joueurBlanc,joueurNoir);
-        System.out.println(p);
-        p.déplacer("b8h8",joueurNoir,joueurBlanc);
-        System.out.println(p);
 
 
     }
