@@ -122,6 +122,7 @@ public class Plateau {
         if (estJouable(coordIni, coordFin, courant)) {
             System.out.println("METHODE VALIDE");
             placerNouvelleCoord(coordIni, coordFin);
+            if(chesspat(pasCourant))
             if (echec(pasCourant,listePieces)) {
                 System.out.println("le joueur " + pasCourant.getNom() + " est echec");
                 if (chessmat(pasCourant)){
@@ -154,6 +155,27 @@ public class Plateau {
         return true;
     }
 
+    public boolean chesspat(IJoueur joueur){
+        IPiece roiDuJou = joueur.leRoi();
+        //todo : big dinguerie
+        /*une piece alliée peut couvrir le roi en allant sur le chemin ou la piece ennemie met en echec le roi qui met en echec*/
+        for (IPiece piece : listePieces){
+            if (piece.compareCouleur(roiDuJou)){
+                for(int cmp1 = 0; cmp1 < 8; cmp1++){
+                    for(int cmp2 = 0; cmp2 < 8 ; cmp2++) {
+                        System.out.println("["+cmp1 + ";" + cmp2 + "]");
+                        if (piece.getCoord().compare(new Coord(cmp1, cmp2))) {
+                            continue;
+                        }
+                        else if (estJouable(piece.getCoord(), new Coord(cmp1, cmp2), joueur)) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
 
     public boolean echec(IJoueur bangbang, ArrayList<IPiece> list) {
         for (IPiece piece : list) {
