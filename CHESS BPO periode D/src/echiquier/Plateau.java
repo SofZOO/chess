@@ -38,7 +38,6 @@ public class Plateau {
     public boolean estJouable(Coord caseSource, Coord caseDest, Joueur courant) {
         IPiece src;
         IPiece dst;
-        ArrayList<IPiece> test;
         if ((caseDest.getLigne() > 7 || caseDest.getLigne() < 0 || caseDest.getColonne() > 7 || caseDest.getColonne() < 0)) {
             return false;
         }
@@ -82,7 +81,7 @@ public class Plateau {
 
          laCase(caseSource).retirerPiece();
          laCase(caseDest).rajouterPiece(src);
-          test = new ArrayList<>(listePieces);
+         ArrayList <IPiece> test = new ArrayList<>(listePieces);
          if (dst != null)
              test.remove(dst);
 
@@ -103,6 +102,10 @@ public class Plateau {
 
     }
 
+//    public boolean chesspat(Joueur joueur){
+//
+//    }
+
     public void déplacer(String coup, Joueur courant, Joueur pasCourant) {
         Coord coordIni, coordFin;
         if (!coupValableSurPlateau(coup)) {
@@ -118,8 +121,10 @@ public class Plateau {
             placerNouvelleCoord(coordIni, coordFin);
             if (echec(pasCourant,listePieces)) {
                 System.out.println("le joueur " + pasCourant.getNom() + " est echec");
-                if (chessmat(pasCourant))
-                    System.out.println("ECHEC ET MAT");
+                if (chessmat(pasCourant)){
+                    pasCourant.aPerdu();
+                }
+
             }
         } else System.out.println("METHODE PAS VALID22");
     }
@@ -183,44 +188,43 @@ public class Plateau {
     private Coord getCoord(char x2, int y2) {
         Coord coordIni;
         switch (x2) {
-            case 'a': {
-                coordIni = new Coord(8 - y2, 0);
-                break;
-            }
-            case 'b': {
-                coordIni = new Coord(8 - y2, 1);
-                break;
-            }
-            case 'c': {
-                coordIni = new Coord(8 - y2, 2);
-                break;
-            }
-            case 'd': {
-                coordIni = new Coord(8 - y2, 3);
-                break;
-            }
-            case 'e': {
-                coordIni = new Coord(8 - y2, 4);
-                break;
-            }
-            case 'f': {
-                coordIni = new Coord(8 - y2, 5);
-                break;
-            }
-            case 'g': {
-                coordIni = new Coord(8 - y2, 6);
-                break;
-            }
-            case 'h': {
-                coordIni = new Coord(8 - y2, 7);
-                break;
-            }
-            default:
-                coordIni = new Coord(0, 0);// TODO: DINGUERIE A CHANGER
+            case 'a': { coordIni = new Coord(8 - y2, 0); break; }
+            case 'b': { coordIni = new Coord(8 - y2, 1); break; }
+            case 'c': { coordIni = new Coord(8 - y2, 2); break; }
+            case 'd': { coordIni = new Coord(8 - y2, 3); break; }
+            case 'e': { coordIni = new Coord(8 - y2, 4); break; }
+            case 'f': { coordIni = new Coord(8 - y2, 5); break; }
+            case 'g': { coordIni = new Coord(8 - y2, 6); break; }
+            case 'h': { coordIni = new Coord(8 - y2, 7); break; }
+            default: coordIni = new Coord(0, 0);// TODO: DINGUERIE A CHANGER
         }
         return coordIni;
     }
 
+    public boolean doitRejouer(String coup, Joueur joueur){
+        Coord coordIni, coordFin;
+        char x = coup.charAt(0), x2 = coup.charAt(2);/*b7b8*/
+        int y = intoInt(coup, 1), y2 = intoInt(coup, 3);
+        coordIni = getCoord(x, y);
+        coordFin = getCoord(x2, y2);
+
+        if(!coupValableSurPlateau(coup)){
+            System.out.println("test : methode doitRejouer coup en dehors du plateau");
+            return true;
+        }
+
+        if(!estJouable(coordIni,coordFin,joueur)){
+            System.out.println("test : methode doitRejouer pas un bon coup (estJouable)");
+            return true;
+        }
+
+        if(!laCase(coordIni).getPieceActuelle().compareCouleur(joueur.leRoi())) {
+            System.out.println("test : methode doitRejouer pas la bonne couleur");
+            return true;
+        }
+
+        return false;
+    }
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
