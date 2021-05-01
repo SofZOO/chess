@@ -1,4 +1,4 @@
-package échiquier;
+package echiquier;
 
 import piece.CouleurPiece;
 

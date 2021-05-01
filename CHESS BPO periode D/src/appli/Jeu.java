@@ -1,6 +1,6 @@
 package appli;
 
-import échiquier.Plateau;
+import echiquier.Plateau;
 
 public class Jeu {
     private Plateau ech;
