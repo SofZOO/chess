@@ -8,6 +8,7 @@ public class Plateau {
     private final Case[][] echiquier;
     private final int HAUTEUR = 8, LONGUEUR = 8;
     private final ArrayList<IPiece> listePieces;
+    private boolean echecEtPat;
 
     public Plateau(Joueur j1, Joueur j2) {
         echiquier = new Case[LONGUEUR][HAUTEUR];
@@ -21,9 +22,10 @@ public class Plateau {
         listePieces.addAll(j2.getPieces());
         for (IPiece p : listePieces)
             echiquier[p.getLigne()][p.getColonne()].rajouterPiece(p);
+        this.echecEtPat = false;
     }
 
-    private int intoInt(String coup, int position) {
+    public int intoInt(String coup, int position) {
         return Integer.parseInt(String.valueOf(coup.charAt(position)));
     }
 
@@ -35,7 +37,7 @@ public class Plateau {
         laCase(coordIni).retirerPiece();
     }
 
-    public boolean estJouable(Coord caseSource, Coord caseDest, Joueur courant) {
+    public boolean estJouable(Coord caseSource, Coord caseDest, IJoueur courant) {
         IPiece src;
         IPiece dst;
         if ((caseDest.getLigne() > 7 || caseDest.getLigne() < 0 || caseDest.getColonne() > 7 || caseDest.getColonne() < 0)) {
@@ -106,7 +108,7 @@ public class Plateau {
 //
 //    }
 
-    public void déplacer(String coup, Joueur courant, Joueur pasCourant) {
+    public void déplacer(String coup, IJoueur courant, IJoueur pasCourant) {
         Coord coordIni, coordFin;
         if (!coupValableSurPlateau(coup)) {
             System.out.println("coup pas valable sur plateau");
@@ -130,7 +132,7 @@ public class Plateau {
         } else System.out.println("METHODE PAS VALID22");
     }
 
-    public boolean chessmat(Joueur joueur) {
+    public boolean chessmat(IJoueur joueur) {
         IPiece roiDuJou = joueur.leRoi();
         //todo : big dinguerie
         /*une piece alliée peut couvrir le roi en allant sur le chemin ou la piece ennemie met en echec le roi qui met en echec*/
@@ -153,7 +155,7 @@ public class Plateau {
     }
 
 
-    public boolean echec(Joueur bangbang, ArrayList<IPiece> list) {
+    public boolean echec(IJoueur bangbang, ArrayList<IPiece> list) {
         for (IPiece piece : list) {
             if (!(piece.getCouleur().equals(bangbang.leRoi().getCouleur()))) {
                 if (piece.peutJouer(bangbang.leRoi().getCoord(), echiquier))
@@ -192,7 +194,7 @@ public class Plateau {
         return echiquier[c.getLigne()][c.getColonne()];
     }
 
-    private Coord getCoord(char x2, int y2) {
+    public Coord getCoord(char x2, int y2) {
         Coord coordIni;
         switch (x2) {
             case 'a': { coordIni = new Coord(8 - y2, 0); break; }
@@ -208,7 +210,7 @@ public class Plateau {
         return coordIni;
     }
 
-    public boolean doitRejouer(String coup, Joueur joueur){
+    public boolean doitRejouer(String coup, IJoueur joueur){
         Coord coordIni, coordFin;
         if(!coupValableSurPlateau(coup)){
             System.out.println("test : methode doitRejouer coup en dehors du plateau");
@@ -250,4 +252,11 @@ public class Plateau {
         return sb.toString();
     }
 
+    public ArrayList<IPiece> getListePieces() {
+        return listePieces;
+    }
+
+    public void setEchecEtPat(boolean echecEtPat) {
+        this.echecEtPat = echecEtPat;
+    }
 }
