@@ -38,4 +38,6 @@ public class Joueur {
     public boolean getEchecEtMat(){
         return this.echecEtMat;
     }
+
+
 }

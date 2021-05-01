@@ -1,17 +1,13 @@
 package appli;
 
 import piece.FabriquePiece;
-
-
 import java.util.Locale;
 import echiquier.Plateau;
-
 import java.util.Scanner;
-
 
 public class Main {
     public static void jouer(Joueur jBlanc, Joueur jNoir, Plateau p){
-        System.out.println(p);
+        System.out.println(p.affichePlateau(jBlanc,jNoir));
         Scanner sc = new Scanner(System.in);
         String coup;
         while (!jBlanc.getEchecEtMat() || jNoir.getEchecEtMat()){
@@ -28,11 +24,7 @@ public class Main {
                     break;
                 }
             }
-            System.out.println(p);
-            if (jNoir.getEchecEtMat()) {
-                System.out.println("Le joueur " + jBlanc.getNom() + " a gagné" );
-                break;
-            }
+            if (finPartie(jBlanc, jNoir, p, jNoir.getEchecEtMat(), jNoir.getNom(), jBlanc.getNom())) break;
 
             while(true){// todo : boucle de jeu du joueur NOIR
                 System.out.println("Tour des Noirs");
@@ -43,19 +35,27 @@ public class Main {
                 }
                 else{
                     p.déplacer(coup,jNoir,jBlanc);
-                    break;// tu peux commit stp jpeux p att je test
+                    break;
                 }
             }
-            System.out.println(p);
-            if (jBlanc.getEchecEtMat()) {
-                System.out.println("Le joueur " + jNoir.getNom() + " a gagné" );
-                break;
-            }
-
+            if (finPartie(jBlanc, jNoir, p, jBlanc.getEchecEtMat(), jBlanc.getNom(), jNoir.getNom())) break;
         }
         System.out.println("fin du test");
     }
-//TODO : penser a faire l'affichage des pièces mangées par les joueurs
+
+    private static boolean finPartie(Joueur jBlanc, Joueur jNoir, Plateau p, boolean echecEtMat, String nom, String autreNom) {
+        System.out.println(p.affichePlateau(jBlanc,jNoir));
+        if (echecEtMat) {
+            System.out.println("Le joueur " + nom + " est vaincu par échecs et mat. Le joueur " + autreNom + " a gagné" );
+            return true;
+        }
+        if(p.getEchecEtPat()){
+            System.out.println("Situation d'échecs et pat : la partie est nulle");
+            return true;
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         Joueur joueurBlanc = new Joueur("BLANC",true,new FabriquePiece());
         Joueur joueurNoir = new Joueur("NOIR",false,new FabriquePiece());
