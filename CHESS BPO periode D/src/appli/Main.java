@@ -1,5 +1,6 @@
 package appli;
 
+import echiquier.Coord;
 import echiquier.IJoueur;
 import piece.FabriquePiece;
 import java.util.Locale;
@@ -74,6 +75,8 @@ public class Main {
         Plateau p = new Plateau(joueurBlanc,joueurNoir);
 
         jouer(joueurBlanc,joueurNoir,p);
+
+
 
 
 

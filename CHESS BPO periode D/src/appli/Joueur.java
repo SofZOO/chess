@@ -52,6 +52,10 @@ public class Joueur implements IJoueur {
                 autreJoueur.aPerdu();
             }
         }
+        if (p.chesspat(this)){
+            p.setEchecEtPat(true);
+            System.out.println("echec et pat");
+        }
         if (p.chesspat(autreJoueur)){
             p.setEchecEtPat(true);
             System.out.println("echec et pat");

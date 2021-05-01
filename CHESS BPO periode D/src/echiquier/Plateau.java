@@ -107,6 +107,7 @@ public class Plateau {
     }
 
     public boolean chessmat(IJoueur joueur) {
+        System.out.println("-----------------TEST MAT POUR LE JOUEUR " + joueur.getNom() + " --------------------------");
         IPiece roiDuJou = joueur.leRoi();
         for (IPiece piece : listePieces){
             if (piece.compareCouleur(roiDuJou)){
@@ -117,16 +118,19 @@ public class Plateau {
                             continue;
                         }
                         else if (estJouable(piece.getCoord(), new Coord(cmp1, cmp2), joueur)) {
+                            System.out.println("-----------------Fin TEST MAT--------------------------");
                             return false;
                         }
                     }
                 }
             }
         }
+        System.out.println("-----------------Fin TEST MAT--------------------------");
         return true;
     }
 
     public boolean chesspat(IJoueur joueur) {
+        System.out.println("-----------------TEST PAT POUR LE JOUEUR " + joueur.getNom() + " --------------------------");
         IPiece roi = joueur.leRoi();
         for(IPiece piece : listePieces){
             if(piece.compareCouleur(roi)){
@@ -136,12 +140,14 @@ public class Plateau {
                             continue;
                         }
                         if(estJouable(piece.getCoord(),new Coord(i,j),joueur)){
+                            System.out.println("-----------------Fin TEST  PAT --------------------------");
                             return false;
                         }
                     }
                 }
             }
         }
+        System.out.println("-----------------Fin TEST PAT --------------------------");
         return true;
     }
 
@@ -183,6 +189,22 @@ public class Plateau {
             default: coordIni = new Coord(0, 0);// TODO: DINGUERIE A CHANGER
         }
         return coordIni;
+    }
+
+    public String getCoord(Coord coord) {
+        String coo = "";
+        switch (coord.getColonne()) {
+            case (0): { coo = "a" + (8-coord.getLigne()); break; }
+            case (1): { coo = "b" + (8-coord.getLigne()); break; }
+            case (2): { coo = "c" + (8-coord.getLigne()); break; }
+            case (3): { coo = "d" + (8-coord.getLigne()); break; }
+            case (4): { coo = "e" + (8-coord.getLigne()); break; }
+            case (5): { coo = "f" + (8-coord.getLigne()); break; }
+            case (6): { coo = "g" + (8-coord.getLigne()); break; }
+            case (7): { coo = "h" + (8-coord.getLigne()); break; }
+            default: coo = "a1"; break;
+        }
+        return coo;
     }
 
     public boolean doitRejouer(String coup, IJoueur joueur){

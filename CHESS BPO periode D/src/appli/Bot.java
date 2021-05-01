@@ -1,9 +1,8 @@
 package appli;
-import echiquier.IFabriquePiece;
-import echiquier.IJoueur;
-import echiquier.Plateau;
+import echiquier.*;
 
-import java.util.Random;
+import java.awt.*;
+import java.util.*;
 
 public class Bot extends Joueur{
 
@@ -20,26 +19,34 @@ public class Bot extends Joueur{
 
     @Override
     public void joue(IJoueur autreJoueur, Plateau p){
-        Random r = new Random();
 
-        char char1, char2;
-        int num1,num2;
+        ArrayList<String> tabCoups = new ArrayList<>();
 
-        while(true){
-            StringBuilder coupBot = new StringBuilder();
-            char1 = (char)(r.nextInt(8)+97);
-            num1 = genererInt(1,8);
-            char2 = (char)(r.nextInt(8)+97);
-            num2 = genererInt(1,8);
-            coupBot.append(char1).append(num1).append(char2).append(num2);
-            System.out.println(coupBot);
-            if(p.estJouable(p.getCoord(char1,num1),p.getCoord(char2,num2),this)){
-                if(p.laCase(p.getCoord(char1,num1)).getPieceActuelle().compareCouleur(leRoi())){
-                    déplacer(coupBot.toString(), autreJoueur , p);
-                                    break;
+        for (IPiece piece :p.getListePieces()){
+            if (piece.compareCouleur(leRoi())){
+                for(int cmp1 = 0; cmp1 < 8; cmp1++){
+                    for(int cmp2 = 0; cmp2 < 8 ; cmp2++) {
+                        if (piece.getCoord().compare(new Coord(cmp1, cmp2))) {
+                            continue;
+                        }
+                        else if (p.estJouable(piece.getCoord(), new Coord(cmp1, cmp2), this)) {
+                           tabCoups.add(p.getCoord(piece.getCoord())+p.getCoord(new Coord(cmp1,cmp2)));
+                        }
+                    }
                 }
             }
         }
+        System.out.println("--------------------------------------");
+        for(String s : tabCoups)
+            System.out.println(s);
+        System.out.println("--------------------------------------");
+        Collections.shuffle(tabCoups);
+        System.out.println("le coup du bot est " + tabCoups.get(0));
+
+        déplacer(tabCoups.get(0),autreJoueur,p);
+
+
+        }
     }
 
-}
+
