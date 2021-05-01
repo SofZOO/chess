@@ -1,7 +1,5 @@
 package echiquier;
 
-import appli.Joueur;
-
 import java.util.ArrayList;
 
 public class Plateau {
@@ -11,7 +9,7 @@ public class Plateau {
     private ArrayList<IPiece> piecesMangées;
     private boolean echecEtPat;
 
-    public Plateau(Joueur j1, Joueur j2) {
+    public Plateau(IJoueur j1, IJoueur j2) {
         echiquier = new Case[LONGUEUR][HAUTEUR];
         for (int x = 0; x < this.LONGUEUR; x++) {
             for (int y = 0; y < this.HAUTEUR; y++) {
@@ -27,7 +25,7 @@ public class Plateau {
         this.echecEtPat = false;
     }
 
-    private int intoInt(String coup, int position) {
+    public int intoInt(String coup, int position) {
         return Integer.parseInt(String.valueOf(coup.charAt(position)));
     }
 
@@ -41,7 +39,7 @@ public class Plateau {
         laCase(coordIni).retirerPiece();
     }
 
-    public boolean estJouable(Coord caseSource, Coord caseDest, Joueur courant) {
+    public boolean estJouable(Coord caseSource, Coord caseDest, IJoueur courant) {
         IPiece src;
         IPiece dst;
         if ((caseDest.getLigne() > 7 || caseDest.getLigne() < 0 || caseDest.getColonne() > 7 || caseDest.getColonne() < 0)) {
@@ -108,29 +106,7 @@ public class Plateau {
 
     }
 
-    public void déplacer(String coup, Joueur courant, Joueur pasCourant) {
-        Coord coordIni, coordFin;
-        char x = coup.charAt(0), x2 = coup.charAt(2);/*b7b8*/
-        int y = intoInt(coup, 1), y2 = intoInt(coup, 3);
-        coordIni = getCoord(x, y);
-        coordFin = getCoord(x2, y2);
-
-        placerNouvelleCoord(coordIni, coordFin);
-
-        if (echec(pasCourant,listePieces)) {
-            System.out.println("le joueur " + pasCourant.getNom() + " est echec");
-            if (chessmat(pasCourant)){
-                pasCourant.aPerdu();
-            }
-        }
-        if (chesspat(pasCourant)){
-            echecEtPat=true;
-            System.out.println("echec et pat");
-        }
-
-    }
-
-    public boolean chessmat(Joueur joueur) {
+    public boolean chessmat(IJoueur joueur) {
         IPiece roiDuJou = joueur.leRoi();
         for (IPiece piece : listePieces){
             if (piece.compareCouleur(roiDuJou)){
@@ -150,7 +126,7 @@ public class Plateau {
         return true;
     }
 
-    public boolean chesspat(Joueur joueur) {
+    public boolean chesspat(IJoueur joueur) {
         IPiece roi = joueur.leRoi();
         for(IPiece piece : listePieces){
             if(piece.compareCouleur(roi)){
@@ -170,7 +146,7 @@ public class Plateau {
     }
 
 
-    public boolean echec(Joueur bangbang, ArrayList<IPiece> list) {
+    public boolean echec(IJoueur bangbang, ArrayList<IPiece> list) {
         for (IPiece piece : list) {
             if (!(piece.getCouleur().equals(bangbang.leRoi().getCouleur()))) {
                 if (piece.peutJouer(bangbang.leRoi().getCoord(), echiquier))
@@ -189,11 +165,11 @@ public class Plateau {
         return true;
     }
 
-    private Case laCase(Coord c) {
+    public Case laCase(Coord c) {
         return echiquier[c.getLigne()][c.getColonne()];
     }
 
-    private Coord getCoord(char x2, int y2) {
+    public Coord getCoord(char x2, int y2) {
         Coord coordIni;
         switch (x2) {
             case 'a': { coordIni = new Coord(8 - y2, 0); break; }
@@ -209,7 +185,7 @@ public class Plateau {
         return coordIni;
     }
 
-    public boolean doitRejouer(String coup, Joueur joueur){
+    public boolean doitRejouer(String coup, IJoueur joueur){
         if(coup.length() != 4){
             System.out.println("test : methode doitRejouer il n'y a pas les 4 caracteres attendues");
             return true;
@@ -259,7 +235,7 @@ public class Plateau {
     }
 
 
-    public String affichePlateau(Joueur joueurBlanc, Joueur joueurNoir) {
+    public String affichePlateau(IJoueur joueurBlanc, IJoueur joueurNoir) {
         StringBuilder sb = new StringBuilder();
         sb.append("     a     b     c     d     e     f     g     h         Pièces gray par le joueur Noir : ");
         for(IPiece pi : piecesMangées){
@@ -288,5 +264,13 @@ public class Plateau {
 
     public boolean getEchecEtPat() {
         return echecEtPat;
+    }
+
+    public ArrayList<IPiece> getListePieces() {
+        return listePieces;
+    }
+
+    public void setEchecEtPat(boolean echecEtPat) {
+        this.echecEtPat = echecEtPat;
     }
 }
