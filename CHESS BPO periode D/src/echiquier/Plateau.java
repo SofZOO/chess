@@ -112,7 +112,8 @@ public class Plateau {
             System.out.println("coup pas valable sur plateau");
         }
         char x = coup.charAt(0), x2 = coup.charAt(2);/*b7b8*/
-        int y = intoInt(coup, 1), y2 = intoInt(coup, 3);
+        int y = intoInt(coup, 1),y2 =intoInt(coup,3);
+
         coordIni = getCoord(x, y);
         coordFin = getCoord(x2, y2);
 
@@ -165,6 +166,12 @@ public class Plateau {
     private boolean coupValableSurPlateau(String coup) {
         if (coup.length() != 4)
             return false;
+        if(!Character.isDigit(coup.charAt(1))){
+            return false;
+        }
+        if(!Character.isDigit(coup.charAt(3))){
+            return false;
+        }
         if (coup.charAt(0) < 'a' || coup.charAt(2) < 'a' || coup.charAt(0) > 'h' || coup.charAt(2) > 'h')
             return false;
         if (intoInt(coup, 1) < 1 || intoInt(coup, 1) > 8 || intoInt(coup, 3) < 1 || intoInt(coup, 3) > 8)
@@ -203,15 +210,16 @@ public class Plateau {
 
     public boolean doitRejouer(String coup, Joueur joueur){
         Coord coordIni, coordFin;
-        char x = coup.charAt(0), x2 = coup.charAt(2);/*b7b8*/
-        int y = intoInt(coup, 1), y2 = intoInt(coup, 3);
-        coordIni = getCoord(x, y);
-        coordFin = getCoord(x2, y2);
-
         if(!coupValableSurPlateau(coup)){
             System.out.println("test : methode doitRejouer coup en dehors du plateau");
             return true;
         }
+        char x = coup.charAt(0), x2 = coup.charAt(2);/*b7b8*/
+        int y = intoInt(coup,1),y2 = intoInt(coup,3);
+        coordIni = getCoord(x, y);
+        coordFin = getCoord(x2, y2);
+
+
 
         if(!estJouable(coordIni,coordFin,joueur)){
             System.out.println("test : methode doitRejouer pas un bon coup (estJouable)");
