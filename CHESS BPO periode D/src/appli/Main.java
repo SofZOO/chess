@@ -20,13 +20,13 @@ public class Main {
         String choix;
         while (!coup.equals("fin")){
             System.out.println("Quel joueur souhaitez vous choisir : 1 = joueurBlanc, 2 = joueurNoir");
-             choix = sc.nextLine();
+             choix = sc.nextLine().trim();
             System.out.println("Faites votre coup svp");
              if (choix.equals("1")){
                  coup = sc.nextLine().trim().toLowerCase(Locale.ROOT);
                  p.déplacer(coup,jBlanc,jNoir);
              }
-             else {
+             else if (choix.equals("2")) {
                  coup = sc.nextLine().trim().toLowerCase(Locale.ROOT);
                  p.déplacer(coup,jNoir,jBlanc);
              }

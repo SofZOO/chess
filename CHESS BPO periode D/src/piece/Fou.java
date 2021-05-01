@@ -11,10 +11,12 @@ public class Fou extends Piece{
 
     @Override
     public boolean peutJouer(Coord c, Case[][] echiquier) {
+        int dx;
+        int dy;
         if (Math.abs(this.getColonne() - c.getColonne()) != Math.abs(this.getLigne() - c.getLigne()))
             return false;
-        int dx = this.getColonne() - c.getColonne() > 0 ? -1 : 1;
-        int dy = this.getLigne() - c.getLigne() > 0 ?  -1 : 1;
+         dx = this.getColonne() - c.getColonne() > 0 ? -1 : 1;
+         dy = this.getLigne() - c.getLigne() > 0 ?  -1 : 1;
         for(int i = 1 ; i< Math.abs(this.getColonne()-c.getColonne()); i++)
             if (!echiquier[this.getLigne() + i * dy][this.getColonne() + i * dx].isEstOccupé())
                 return false;

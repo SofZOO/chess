@@ -38,6 +38,7 @@ public class Plateau {
     public boolean estJouable(Coord caseSource, Coord caseDest, Joueur courant) {
         IPiece src;
         IPiece dst;
+        ArrayList<IPiece> test;
         if ((caseDest.getLigne() > 7 || caseDest.getLigne() < 0 || caseDest.getColonne() > 7 || caseDest.getColonne() < 0)) {
             return false;
         }
@@ -81,7 +82,7 @@ public class Plateau {
 
          laCase(caseSource).retirerPiece();
          laCase(caseDest).rajouterPiece(src);
-         ArrayList<IPiece> test = new ArrayList<>(listePieces);
+          test = new ArrayList<>(listePieces);
          if (dst != null)
              test.remove(dst);
 
@@ -117,16 +118,14 @@ public class Plateau {
             placerNouvelleCoord(coordIni, coordFin);
             if (echec(pasCourant,listePieces)) {
                 System.out.println("le joueur " + pasCourant.getNom() + " est echec");
-                if (chessmat(pasCourant, courant))
+                if (chessmat(pasCourant))
                     System.out.println("ECHEC ET MAT");
             }
         } else System.out.println("METHODE PAS VALID22");
     }
 
-    public boolean chessmat(Joueur joueur, Joueur autreJoueur) {
-
+    public boolean chessmat(Joueur joueur) {
         IPiece roiDuJou = joueur.leRoi();
-
         //todo : big dinguerie
         /*une piece alliée peut couvrir le roi en allant sur le chemin ou la piece ennemie met en echec le roi qui met en echec*/
         for (IPiece piece : listePieces){
