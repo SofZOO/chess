@@ -15,8 +15,6 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         String coup;
         while (!jBlanc.getEchecEtMat() || jNoir.getEchecEtMat()){
-            //TODO : l'autre joueur peut jouer les pieces de son adversaire, pas bon !!
-            //TODO : si le joeuur se trompe, on passe pas à l'autre joueur
 
             while (true) { // todo : boucle de jeu du joueur BLANC
                 System.out.println("Tour des Blanc");

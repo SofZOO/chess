@@ -108,25 +108,21 @@ public class Plateau {
 
     public void déplacer(String coup, Joueur courant, Joueur pasCourant) {
         Coord coordIni, coordFin;
-        if (!coupValableSurPlateau(coup)) {
-            System.out.println("coup pas valable sur plateau");
-        }
         char x = coup.charAt(0), x2 = coup.charAt(2);/*b7b8*/
         int y = intoInt(coup, 1), y2 = intoInt(coup, 3);
         coordIni = getCoord(x, y);
         coordFin = getCoord(x2, y2);
 
-        if (estJouable(coordIni, coordFin, courant)) {
-            System.out.println("METHODE VALIDE");
-            placerNouvelleCoord(coordIni, coordFin);
-            if (echec(pasCourant,listePieces)) {
-                System.out.println("le joueur " + pasCourant.getNom() + " est echec");
-                if (chessmat(pasCourant)){
-                    pasCourant.aPerdu();
-                }
+        placerNouvelleCoord(coordIni, coordFin);
 
+        if (echec(pasCourant,listePieces)) {
+            System.out.println("le joueur " + pasCourant.getNom() + " est echec");
+            if (chessmat(pasCourant)){
+                pasCourant.aPerdu();
             }
-        } else System.out.println("METHODE PAS VALID22");
+
+        }
+
     }
 
     public boolean chessmat(Joueur joueur) {
@@ -162,16 +158,6 @@ public class Plateau {
         return false;
     }
 
-    private boolean coupValableSurPlateau(String coup) {
-        if (coup.length() != 4)
-            return false;
-        if (coup.charAt(0) < 'a' || coup.charAt(2) < 'a' || coup.charAt(0) > 'h' || coup.charAt(2) > 'h')
-            return false;
-        if (intoInt(coup, 1) < 1 || intoInt(coup, 1) > 8 || intoInt(coup, 3) < 1 || intoInt(coup, 3) > 8)
-            return false;
-        return true;
-    }
-
     private boolean coupValableSurPiece(Coord coordIni, Coord coordFin) {
         if (laCase(coordFin).isEstOccupé())
             return !(laCase(coordIni).getPieceActuelle().getCouleur().
@@ -202,14 +188,44 @@ public class Plateau {
     }
 
     public boolean doitRejouer(String coup, Joueur joueur){
-        Coord coordIni, coordFin;
+        if(coup.length() != 4){
+            System.out.println("test : methode doitRejouer il n'y a pas les 4 caracteres attendues");
+            return true;
+        }
+
+        boolean formePasRequise = false;
+
+        if( !((coup.charAt(0) >= 'A' && coup.charAt(0) <= 'H') || (coup.charAt(0) >= 'a' && coup.charAt(0) <= 'h'))){
+            System.out.println("test : methode doitRejouer la colonne de la case initial n'a pas la forme requise");
+            System.out.println("erreur = '" + coup.charAt(0) + "'");
+            formePasRequise =true;
+        }
+        if( !((coup.charAt(2) >= 'A' && coup.charAt(2) <= 'H') || (coup.charAt(2) >= 'a' && coup.charAt(2) <= 'h'))){
+            System.out.println("test : methode doitRejouer la colonne de la case destination n'a pas la forme requise");
+            System.out.println("erreur = '" + coup.charAt(2) + "'");
+            formePasRequise =true;
+        }
+        if( !((coup.charAt(1) >= '1' && coup.charAt(1) <= '8') )){
+            System.out.println("test : methode doitRejouer la ligne de la case initial n'a pas la forme requise");
+            System.out.println("erreur = '" + coup.charAt(1) + "'");
+            formePasRequise =true;
+        }
+        if( !((coup.charAt(3) >= '1' && coup.charAt(3) <= '8') )){
+            System.out.println("test : methode doitRejouer la ligne de la case destination n'a pas la forme requise");
+            System.out.println("erreur = '" + coup.charAt(3) + "'");
+            formePasRequise =true;
+        }
+        if (formePasRequise)
+            return true;
+
+
         char x = coup.charAt(0), x2 = coup.charAt(2);/*b7b8*/
         int y = intoInt(coup, 1), y2 = intoInt(coup, 3);
-        coordIni = getCoord(x, y);
-        coordFin = getCoord(x2, y2);
+        Coord coordIni = getCoord(x, y);
+        Coord coordFin = getCoord(x2, y2);
 
-        if(!coupValableSurPlateau(coup)){
-            System.out.println("test : methode doitRejouer coup en dehors du plateau");
+        if(coup.length() != 4){
+            System.out.println("test : methode doitRejouer il n'y a pas les 4 caracteres attendues");
             return true;
         }
 
