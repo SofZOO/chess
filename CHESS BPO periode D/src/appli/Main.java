@@ -5,6 +5,8 @@ import echiquier.IJoueur;
 import piece.FabriquePiece;
 import java.util.Locale;
 import echiquier.Plateau;
+
+import javax.print.event.PrintJobEvent;
 import java.util.Scanner;
 
 public class Main {
@@ -39,38 +41,16 @@ public class Main {
 
 
     public static void main(String[] args) {
-        IJoueur joueurBlanc;
-        IJoueur joueurNoir;
+        FabriquePiece fab = new FabriquePiece();
+        IJoueur joueurBlanc = new Joueur("BLANC",true,fab);
+        IJoueur joueurNoir = new Joueur("NOIR",false,fab);
 
         System.out.println("taper : 1 pour joueur VS joueur\n        2 pour joueur VS bot\n        3 pour bot VS bot ");
         Scanner sc = new Scanner(System.in);
         int choix = 0;
         choix = sc.nextInt();
 
-        switch (choix){
-            case(1):{
-                joueurBlanc = new Joueur("BLANC",true,new FabriquePiece());
-                joueurNoir = new Joueur("NOIR",false,new FabriquePiece());
-                break;
 
-            }
-            case(2):{
-                joueurBlanc = new Joueur("BLANC",true,new FabriquePiece());
-                joueurNoir = new Bot("NOIR",false,new FabriquePiece());
-                break;
-
-            }
-            case(3):{
-                joueurBlanc = new Bot("BLANC",true,new FabriquePiece());
-                joueurNoir = new Bot("NOIR",false,new FabriquePiece());
-                break;
-
-            }
-            default:{
-                joueurBlanc = new Joueur("BLANC",true,new FabriquePiece());
-                joueurNoir = new Joueur("NOIR",false,new FabriquePiece());
-            }
-        }
 
         Plateau p = new Plateau(joueurBlanc,joueurNoir);
 

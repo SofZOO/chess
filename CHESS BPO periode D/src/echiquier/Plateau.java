@@ -11,7 +11,7 @@ public class Plateau {
     private boolean echecEtPat;
     private ArrayList<IPiece> piecesMangées;
 
-    public Plateau(Joueur j1, Joueur j2) {
+    public Plateau(IJoueur j1, IJoueur j2) {
         echiquier = new Case[LONGUEUR][HAUTEUR];
         for (int x = 0; x < this.LONGUEUR; x++) {
             for (int y = 0; y < this.HAUTEUR; y++) {
@@ -32,8 +32,10 @@ public class Plateau {
     }
 
     public void placerNouvelleCoord(Coord coordIni, Coord coordFin) {
-        if (laCase(coordFin).isEstOccupé())
+        if (laCase(coordFin).isEstOccupé()) {
             listePieces.remove(laCase(coordFin).getPieceActuelle());
+            piecesMangées.add(laCase(coordFin).getPieceActuelle());
+        }
         laCase(coordIni).getPieceActuelle().changeCoord(coordFin);
         laCase(coordFin).rajouterPiece(laCase(coordIni).getPieceActuelle());
         laCase(coordIni).retirerPiece();
@@ -262,9 +264,15 @@ public class Plateau {
         return false;
     }
 
-    public String toString() {
+    public String affichePlateau(IJoueur jBlanc, IJoueur jNoir) {
         StringBuilder sb = new StringBuilder();
-        sb.append("     a     b     c     d     e     f     g     h \n");
+        sb.append("     a     b     c     d     e     f     g     h                   Pièces mangées par le joueur : ");
+        for (IPiece pi : piecesMangées) {
+            if (pi.compareCouleur(jBlanc.leRoi())) {
+                sb.append(pi.toChar()).append(" ");
+            }
+        }
+        sb.append("\n");
         for (int cmpHauteur = 0, cmp = 8; cmpHauteur < HAUTEUR; cmpHauteur++, cmp--) {
             sb.append("    ---   ---   ---   ---   ---   ---   ---   ---\n");
             sb.append(cmp).append(" | ");
@@ -274,7 +282,13 @@ public class Plateau {
             sb.append(cmp).append("\n");
         }
         sb.append("    ---   ---   ---   ---   ---   ---   ---   ---\n");
-        sb.append("     a     b     c     d     e     f     g     h \n");
+        sb.append("     a     b     c     d     e     f     g     h     Pièces mangées par le joueur : ");
+        for (IPiece pi : piecesMangées) {
+            if (pi.compareCouleur(jNoir.leRoi())) {
+                sb.append(pi.toChar()).append(" ");
+            }
+
+        }
         return sb.toString();
     }
 
