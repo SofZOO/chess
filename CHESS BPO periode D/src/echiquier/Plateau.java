@@ -248,9 +248,6 @@ public class Plateau {
         int y = intoInt(coup,1),y2 = intoInt(coup,3);
         coordIni = getCoord(x, y);
         coordFin = getCoord(x2, y2);
-
-
-
         if(!estJouable(coordIni,coordFin,joueur)){
             System.out.println("test : methode doitRejouer pas un bon coup (estJouable)");
             return true;
@@ -266,7 +263,7 @@ public class Plateau {
 
     public String affichePlateau(IJoueur jBlanc, IJoueur jNoir) {
         StringBuilder sb = new StringBuilder();
-        sb.append("     a     b     c     d     e     f     g     h                   Pièces mangées par le joueur : ");
+        sb.append("     a     b     c     d     e     f     g     h            Pièces mangées par le joueur : ");
         for (IPiece pi : piecesMangées) {
             if (pi.compareCouleur(jBlanc.leRoi())) {
                 sb.append(pi.toChar()).append(" ");
@@ -282,7 +279,7 @@ public class Plateau {
             sb.append(cmp).append("\n");
         }
         sb.append("    ---   ---   ---   ---   ---   ---   ---   ---\n");
-        sb.append("     a     b     c     d     e     f     g     h     Pièces mangées par le joueur : ");
+        sb.append("     a     b     c     d     e     f     g     h            Pièces mangées par le joueur : ");
         for (IPiece pi : piecesMangées) {
             if (pi.compareCouleur(jNoir.leRoi())) {
                 sb.append(pi.toChar()).append(" ");
