@@ -9,6 +9,7 @@ public class Plateau {
     private final int HAUTEUR = 8, LONGUEUR = 8;
     private final ArrayList<IPiece> listePieces;
     private boolean echecEtPat;
+    private ArrayList<IPiece> piecesMangées;
 
     public Plateau(Joueur j1, Joueur j2) {
         echiquier = new Case[LONGUEUR][HAUTEUR];
@@ -22,6 +23,7 @@ public class Plateau {
         listePieces.addAll(j2.getPieces());
         for (IPiece p : listePieces)
             echiquier[p.getLigne()][p.getColonne()].rajouterPiece(p);
+        this.piecesMangées = new ArrayList<>();
         this.echecEtPat = false;
     }
 
@@ -122,7 +124,9 @@ public class Plateau {
         if (estJouable(coordIni, coordFin, courant)) {
             System.out.println("METHODE VALIDE");
             placerNouvelleCoord(coordIni, coordFin);
-            if(chesspat(pasCourant))
+            if(chesspat(pasCourant)){
+                this.echecEtPat = true;
+            }
             if (echec(pasCourant,listePieces)) {
                 System.out.println("le joueur " + pasCourant.getNom() + " est echec");
                 if (chessmat(pasCourant)){
@@ -276,6 +280,10 @@ public class Plateau {
 
     public ArrayList<IPiece> getListePieces() {
         return listePieces;
+    }
+
+    public boolean getEchecEtPat(){
+        return this.echecEtPat;
     }
 
     public void setEchecEtPat(boolean echecEtPat) {
