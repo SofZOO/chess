@@ -9,9 +9,9 @@ import java.util.Scanner;
 
 public class Main {
 
-
     private static boolean finPartie(IJoueur jBlanc, IJoueur jNoir, Plateau p, boolean echecEtMat, String nom, String autreNom) {
       System.out.println(p.affichePlateau(jBlanc,jNoir));
+
       if (echecEtMat) {
           System.out.println("Le joueur " + nom + " est vaincu par échecs et mat. Le joueur " + autreNom + " a gagné" );
           return true;

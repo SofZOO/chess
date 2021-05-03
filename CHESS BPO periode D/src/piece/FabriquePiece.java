@@ -24,6 +24,7 @@ public class FabriquePiece implements IFabriquePiece {
             piecesDepart.add(new Roi (couleur,0, 4));
             piecesDepart.add(new Tour(couleur,0,0));
             piecesDepart.add(new Fou(couleur,0,2));
+            piecesDepart.add(new Dame(couleur,0,3));
         }
 
         return piecesDepart;
