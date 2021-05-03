@@ -1,7 +1,5 @@
 package echiquier;
 
-import appli.Joueur;
-
 import java.util.ArrayList;
 
 public class Plateau {
@@ -11,7 +9,7 @@ public class Plateau {
     private ArrayList<IPiece> piecesMangées;
     private boolean echecEtPat;
 
-    public Plateau(Joueur j1, Joueur j2) {
+    public Plateau(IJoueur j1, IJoueur j2) {
         echiquier = new Case[LONGUEUR][HAUTEUR];
         for (int x = 0; x < this.LONGUEUR; x++) {
             for (int y = 0; y < this.HAUTEUR; y++) {
@@ -27,7 +25,7 @@ public class Plateau {
         this.echecEtPat = false;
     }
 
-    private int intoInt(String coup, int position) {
+    public int intoInt(String coup, int position) {
         return Integer.parseInt(String.valueOf(coup.charAt(position)));
     }
 
@@ -41,7 +39,7 @@ public class Plateau {
         laCase(coordIni).retirerPiece();
     }
 
-    public boolean estJouable(Coord caseSource, Coord caseDest, Joueur courant) {
+    public boolean estJouable(Coord caseSource, Coord caseDest, IJoueur courant) {
         IPiece src;
         IPiece dst;
         if ((caseDest.getLigne() > 7 || caseDest.getLigne() < 0 || caseDest.getColonne() > 7 || caseDest.getColonne() < 0)) {
@@ -49,18 +47,18 @@ public class Plateau {
         }
         IPiece p = echiquier[caseSource.getLigne()][caseSource.getColonne()].getPieceActuelle();
         if (p == null) {
-            System.out.println("LA CASE SOURCE EST VIDE");
+            /*System.out.println("LA CASE SOURCE EST VIDE");*/
             return false;
         }
 //		2- La destination est libre ou est occupée par une pièce adverse
         if (!(coupValableSurPiece(caseSource, caseDest))) {
-            System.out.println("coup PAS ValableSurPiece");
+            /*System.out.println("coup PAS ValableSurPiece");*/
             return false;
         }
 
 //		3- la pièce autorise ce déplacement
         if (!(p.peutJouer(caseDest, this.echiquier))) {
-            System.out.println("coup pas valable pour la piece");
+            /*System.out.println("coup pas valable pour la piece");*/
             return false;
         }
 
@@ -71,7 +69,7 @@ public class Plateau {
                 if (!(piece.getCouleur().equals(p.getCouleur()))) {
                     if (piece.peutJouer(caseDest, echiquier)) {
                         laCase(p.getCoord()).rajouterPiece(p);
-                        System.out.println("Le roi sera mis en echec");
+                        /*System.out.println("Le roi sera mis en echec");*/
                         return false;
                     }
                 }
@@ -92,7 +90,7 @@ public class Plateau {
              test.remove(dst);
 
          if (echec(courant,test)) {//TODO a revoir
-             System.out.println("le coup ne peut pas etre joue car le roi est toujours en echec");
+             /*System.out.println("le coup ne peut pas etre joue car le roi est toujours en echec");*/
              laCase(caseSource).rajouterPiece(src);
              laCase(caseDest).rajouterPiece(dst);
              if (dst != null)
@@ -108,49 +106,31 @@ public class Plateau {
 
     }
 
-    public void déplacer(String coup, Joueur courant, Joueur pasCourant) {
-        Coord coordIni, coordFin;
-        char x = coup.charAt(0), x2 = coup.charAt(2);/*b7b8*/
-        int y = intoInt(coup, 1), y2 = intoInt(coup, 3);
-        coordIni = getCoord(x, y);
-        coordFin = getCoord(x2, y2);
-
-        placerNouvelleCoord(coordIni, coordFin);
-
-        if (echec(pasCourant,listePieces)) {
-            System.out.println("le joueur " + pasCourant.getNom() + " est echec");
-            if (chessmat(pasCourant)){
-                pasCourant.aPerdu();
-            }
-        }
-        if (chesspat(pasCourant)){
-            echecEtPat=true;
-            System.out.println("echec et pat");
-        }
-
-    }
-
-    public boolean chessmat(Joueur joueur) {
+    public boolean chessmat(IJoueur joueur) {
+        System.out.println("-----------------TEST MAT POUR LE JOUEUR " + joueur.getNom() + " --------------------------");
         IPiece roiDuJou = joueur.leRoi();
         for (IPiece piece : listePieces){
             if (piece.compareCouleur(roiDuJou)){
                 for(int cmp1 = 0; cmp1 < 8; cmp1++){
                     for(int cmp2 = 0; cmp2 < 8 ; cmp2++) {
-                        System.out.println("["+cmp1 + ";" + cmp2 + "]");
+                        /*System.out.println("["+cmp1 + ";" + cmp2 + "]");*/
                         if (piece.getCoord().compare(new Coord(cmp1, cmp2))) {
                             continue;
                         }
                         else if (estJouable(piece.getCoord(), new Coord(cmp1, cmp2), joueur)) {
+                            System.out.println("-----------------Fin TEST MAT--------------------------");
                             return false;
                         }
                     }
                 }
             }
         }
+        System.out.println("-----------------Fin TEST MAT--------------------------");
         return true;
     }
 
-    public boolean chesspat(Joueur joueur) {
+    public boolean chesspat(IJoueur joueur) {
+        System.out.println("-----------------TEST PAT POUR LE JOUEUR " + joueur.getNom() + " --------------------------");
         IPiece roi = joueur.leRoi();
         for(IPiece piece : listePieces){
             if(piece.compareCouleur(roi)){
@@ -160,17 +140,19 @@ public class Plateau {
                             continue;
                         }
                         if(estJouable(piece.getCoord(),new Coord(i,j),joueur)){
+                            System.out.println("-----------------Fin TEST  PAT --------------------------");
                             return false;
                         }
                     }
                 }
             }
         }
+        System.out.println("-----------------Fin TEST PAT --------------------------");
         return true;
     }
 
 
-    public boolean echec(Joueur bangbang, ArrayList<IPiece> list) {
+    public boolean echec(IJoueur bangbang, ArrayList<IPiece> list) {
         for (IPiece piece : list) {
             if (!(piece.getCouleur().equals(bangbang.leRoi().getCouleur()))) {
                 if (piece.peutJouer(bangbang.leRoi().getCoord(), echiquier))
@@ -189,11 +171,11 @@ public class Plateau {
         return true;
     }
 
-    private Case laCase(Coord c) {
+    public Case laCase(Coord c) {
         return echiquier[c.getLigne()][c.getColonne()];
     }
 
-    private Coord getCoord(char x2, int y2) {
+    public Coord getCoord(char x2, int y2) {
         Coord coordIni;
         switch (x2) {
             case 'a': { coordIni = new Coord(8 - y2, 0); break; }
@@ -209,49 +191,55 @@ public class Plateau {
         return coordIni;
     }
 
-    public boolean doitRejouer(String coup, Joueur joueur){
-        if(coup.length() != 4){
-            System.out.println("test : methode doitRejouer il n'y a pas les 4 caracteres attendues");
+    public String getCoord(Coord coord) {
+        String coo = "";
+        switch (coord.getColonne()) {
+            case (0): { coo = "a" + (8-coord.getLigne()); break; }
+            case (1): { coo = "b" + (8-coord.getLigne()); break; }
+            case (2): { coo = "c" + (8-coord.getLigne()); break; }
+            case (3): { coo = "d" + (8-coord.getLigne()); break; }
+            case (4): { coo = "e" + (8-coord.getLigne()); break; }
+            case (5): { coo = "f" + (8-coord.getLigne()); break; }
+            case (6): { coo = "g" + (8-coord.getLigne()); break; }
+            case (7): { coo = "h" + (8-coord.getLigne()); break; }
+            default: coo = "a1"; break;
+        }
+        return coo;
+    }
+
+    private boolean coupValableSurPlateau(String coup) {
+        if (coup.length() != 4)
+            return false;
+        if(!Character.isDigit(coup.charAt(1))){
+            return false;
+        }
+        if(!Character.isDigit(coup.charAt(3))){
+            return false;
+        }
+        if (coup.charAt(0) < 'a' || coup.charAt(2) < 'a' || coup.charAt(0) > 'h' || coup.charAt(2) > 'h')
+            return false;
+        if (intoInt(coup, 1) < 1 || intoInt(coup, 1) > 8 || intoInt(coup, 3) < 1 || intoInt(coup, 3) > 8)
+            return false;
+        return true;
+    }
+
+    public boolean doitRejouer(String coup, IJoueur joueur){
+        Coord coordIni, coordFin;
+        if(!coupValableSurPlateau(coup)){
+            /*System.out.println("test : methode doitRejouer coup en dehors du plateau");*/
             return true;
         }
-
-        boolean formePasRequise = false;
-
-        if( !((coup.charAt(0) >= 'A' && coup.charAt(0) <= 'H') || (coup.charAt(0) >= 'a' && coup.charAt(0) <= 'h'))){
-            System.out.println("test : methode doitRejouer la colonne de la case initial n'a pas la forme requise");
-            System.out.println("erreur = '" + coup.charAt(0) + "'");
-            formePasRequise =true;
-        }
-        if( !((coup.charAt(2) >= 'A' && coup.charAt(2) <= 'H') || (coup.charAt(2) >= 'a' && coup.charAt(2) <= 'h'))){
-            System.out.println("test : methode doitRejouer la colonne de la case destination n'a pas la forme requise");
-            System.out.println("erreur = '" + coup.charAt(2) + "'");
-            formePasRequise =true;
-        }
-        if( !((coup.charAt(1) >= '1' && coup.charAt(1) <= '8') )){
-            System.out.println("test : methode doitRejouer la ligne de la case initial n'a pas la forme requise");
-            System.out.println("erreur = '" + coup.charAt(1) + "'");
-            formePasRequise =true;
-        }
-        if( !((coup.charAt(3) >= '1' && coup.charAt(3) <= '8') )){
-            System.out.println("test : methode doitRejouer la ligne de la case destination n'a pas la forme requise");
-            System.out.println("erreur = '" + coup.charAt(3) + "'");
-            formePasRequise =true;
-        }
-        if (formePasRequise)
-            return true;
-
-
         char x = coup.charAt(0), x2 = coup.charAt(2);/*b7b8*/
-        int y = intoInt(coup, 1), y2 = intoInt(coup, 3);
-        Coord coordIni = getCoord(x, y);
-        Coord coordFin = getCoord(x2, y2);
-
+        int y = intoInt(coup,1),y2 = intoInt(coup,3);
+        coordIni = getCoord(x, y);
+        coordFin = getCoord(x2, y2);
         if(!estJouable(coordIni,coordFin,joueur)){
-            System.out.println("test : methode doitRejouer pas un bon coup (estJouable)");
+            /*System.out.println("test : methode doitRejouer pas un bon coup (estJouable)");*/
             return true;
         }
+
         if(!laCase(coordIni).getPieceActuelle().compareCouleur(joueur.leRoi())) {
-            System.out.println("test : methode doitRejouer pas la bonne couleur");
+            /*System.out.println("test : methode doitRejouer pas la bonne couleur");*/
             return true;
         }
 
@@ -259,7 +247,7 @@ public class Plateau {
     }
 
 
-    public String affichePlateau(Joueur joueurBlanc, Joueur joueurNoir) {
+    public String affichePlateau(IJoueur joueurBlanc, IJoueur joueurNoir) {
         StringBuilder sb = new StringBuilder();
         sb.append("     a     b     c     d     e     f     g     h         Pièces gray par le joueur Noir : ");
         for(IPiece pi : piecesMangées){
@@ -288,5 +276,13 @@ public class Plateau {
 
     public boolean getEchecEtPat() {
         return echecEtPat;
+    }
+
+    public ArrayList<IPiece> getListePieces() {
+        return listePieces;
+    }
+
+    public void setEchecEtPat(boolean echecEtPat) {
+        this.echecEtPat = echecEtPat;
     }
 }
