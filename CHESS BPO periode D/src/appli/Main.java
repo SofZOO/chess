@@ -10,17 +10,17 @@ import java.util.Scanner;
 public class Main {
 
     private static boolean finPartie(IJoueur jBlanc, IJoueur jNoir, Plateau p, boolean echecEtMat, String nom, String autreNom) {
-      System.out.println(p.affichePlateau(jBlanc,jNoir));
+        System.out.println(p.affichePlateau(jBlanc,jNoir));
 
-      if (echecEtMat) {
-          System.out.println("Le joueur " + nom + " est vaincu par échecs et mat. Le joueur " + autreNom + " a gagné" );
-          return true;
-      }
-      if(p.getEchecEtPat()){
-          System.out.println("Situation d'échecs et pat : la partie est nulle");
-          return true;
-      }
-      return false;
+        if (echecEtMat) {
+            System.out.println("Le joueur " + nom + " est vaincu par échecs et mat. Le joueur " + autreNom + " a gagné" );
+            return true;
+        }
+        if(p.getEchecEtPat()){
+            System.out.println("Situation d'échecs et pat : la partie est nulle");
+            return true;
+        }
+        return false;
     }
 
     public static void jouer(IJoueur jBlanc, IJoueur jNoir, Plateau p){
@@ -77,11 +77,41 @@ public class Main {
 
         Plateau p = new Plateau(joueurBlanc,joueurNoir);
 
-        jouer(joueurBlanc,joueurNoir,p);
+        //jouer(joueurBlanc,joueurNoir,p);
 
-
-
-
+        System.out.println(p.affichePlateau(joueurBlanc,joueurNoir));
+        joueurBlanc.déplacer("d4b3",joueurNoir,p);
+        System.out.println(p.affichePlateau(joueurBlanc,joueurNoir));
+        joueurBlanc.déplacer("b3d4",joueurNoir,p);
+        System.out.println(p.affichePlateau(joueurBlanc,joueurNoir));
+        joueurBlanc.déplacer("d4b5",joueurNoir,p);
+        System.out.println(p.affichePlateau(joueurBlanc,joueurNoir));
+        joueurBlanc.déplacer("b5d4",joueurNoir,p);
+        System.out.println(p.affichePlateau(joueurBlanc,joueurNoir));
+        joueurBlanc.déplacer("d4c6",joueurNoir,p);
+        System.out.println(p.affichePlateau(joueurBlanc,joueurNoir));
+        joueurBlanc.déplacer("c6d4",joueurNoir,p);
+        System.out.println(p.affichePlateau(joueurBlanc,joueurNoir));
+        joueurBlanc.déplacer("d4e6",joueurNoir,p);
+        System.out.println(p.affichePlateau(joueurBlanc,joueurNoir));
+        joueurBlanc.déplacer("e6d4",joueurNoir,p);
+        System.out.println(p.affichePlateau(joueurBlanc,joueurNoir));
+        joueurBlanc.déplacer("d4f5",joueurNoir,p);
+        System.out.println(p.affichePlateau(joueurBlanc,joueurNoir));
+        joueurBlanc.déplacer("f5d4",joueurNoir,p);
+        System.out.println(p.affichePlateau(joueurBlanc,joueurNoir));
+        joueurBlanc.déplacer("d4f3",joueurNoir,p);
+        System.out.println(p.affichePlateau(joueurBlanc,joueurNoir));
+        joueurBlanc.déplacer("f3d4",joueurNoir,p);
+        System.out.println(p.affichePlateau(joueurBlanc,joueurNoir));
+        joueurBlanc.déplacer("d4e2",joueurNoir,p);
+        System.out.println(p.affichePlateau(joueurBlanc,joueurNoir));
+        joueurBlanc.déplacer("e2d4",joueurNoir,p);
+        System.out.println(p.affichePlateau(joueurBlanc,joueurNoir));
+        joueurBlanc.déplacer("d4c2",joueurNoir,p);
+        System.out.println(p.affichePlateau(joueurBlanc,joueurNoir));
+        joueurBlanc.déplacer("c2d4",joueurNoir,p);
+        System.out.println(p.affichePlateau(joueurBlanc,joueurNoir));
 
     }
 }

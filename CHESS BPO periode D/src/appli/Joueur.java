@@ -7,30 +7,29 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class Joueur implements IJoueur {
+    private final ArrayList<IPiece> pieces;
     private String nom;
     private boolean echecEtMat;
     private boolean estBlanc;
-    private final ArrayList<IPiece> pieces;
 
-    public Joueur (String nom, boolean blanc, IFabriquePiece fab){
-        this.nom= nom;
-        this.estBlanc=blanc;
+    public Joueur(String nom, boolean blanc, IFabriquePiece fab) {
+        this.nom = nom;
+        this.estBlanc = blanc;
         this.pieces = fab.fabrique(estBlanc);
         this.echecEtMat = false;
     }
 
     @Override
-    public void joue(IJoueur autreJoueur, Plateau p){
+    public void joue(IJoueur autreJoueur, Plateau p) {
         Scanner sc = new Scanner(System.in);
         while (true) {
             System.out.println("Tour du joueur " + this.nom);
             String coup = sc.nextLine().trim().toLowerCase(Locale.ROOT);
-            if (p.doitRejouer(coup,this)) {
+            if (p.doitRejouer(coup, this)) {
                 System.out.println("coup de merde pour le joueur " + this.nom);
                 continue;
-            }
-            else {
-                déplacer(coup, autreJoueur , p);
+            } else {
+                déplacer(coup, autreJoueur, p);
                 break;
             }
         }
@@ -46,17 +45,17 @@ public class Joueur implements IJoueur {
 
         p.placerNouvelleCoord(coordIni, coordFin);
 
-        if (p.echec(autreJoueur,p.getListePieces())) {
+        if (p.echec(autreJoueur, p.getListePieces())) {
             System.out.println("le joueur " + autreJoueur.getNom() + " est echec");
-            if (p.chessmat(autreJoueur)){
+            if (p.chessmat(autreJoueur)) {
                 autreJoueur.aPerdu();
             }
         }
-        if (p.chesspat(this)){
+        if (p.chesspat(this)) {
             p.setEchecEtPat(true);
             System.out.println("echec et pat");
         }
-        if (p.chesspat(autreJoueur)){
+        if (p.chesspat(autreJoueur)) {
             p.setEchecEtPat(true);
             System.out.println("echec et pat");
         }
@@ -68,12 +67,12 @@ public class Joueur implements IJoueur {
     }
 
     @Override
-    public IPiece leRoi(){
+    public IPiece leRoi() {
         return pieces.get(0);
     }/*reste bizarre car n'est pas logique, on return l'indice 0 puisqu'on insère le roi en premier*/
 
     @Override
-    public void aPerdu(){
+    public void aPerdu() {
         System.out.println("ECHEC ET MAT");
         this.echecEtMat = true;
     }
@@ -84,7 +83,7 @@ public class Joueur implements IJoueur {
     }
 
     @Override
-    public boolean getEchecEtMat(){
+    public boolean getEchecEtMat() {
         return this.echecEtMat;
     }
 
