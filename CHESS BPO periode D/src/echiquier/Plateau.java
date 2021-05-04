@@ -110,7 +110,6 @@ public class Plateau {
     }
 
     public boolean chessmat(IJoueur joueur) {
-        System.out.println("-----------------TEST MAT POUR LE JOUEUR " + joueur.getNom() + " --------------------------");
         IPiece roiDuJou = joueur.leRoi();
         for (IPiece piece : listePieces){
             if (piece.compareCouleur(roiDuJou)){
@@ -121,19 +120,18 @@ public class Plateau {
                             continue;
                         }
                         else if (estJouable(piece.getCoord(), new Coord(cmp1, cmp2), joueur)) {
-                            System.out.println("-----------------Fin TEST MAT--------------------------");
                             return false;
                         }
                     }
                 }
             }
         }
-        System.out.println("-----------------Fin TEST MAT--------------------------");
+
         return true;
     }
 
     public boolean chesspat(IJoueur joueur) {
-        System.out.println("-----------------TEST PAT POUR LE JOUEUR " + joueur.getNom() + " --------------------------");
+
         IPiece roi = joueur.leRoi();
         for(IPiece piece : listePieces){
             if(piece.compareCouleur(roi)){
@@ -143,14 +141,12 @@ public class Plateau {
                             continue;
                         }
                         if(estJouable(piece.getCoord(),new Coord(i,j),joueur)){
-                            System.out.println("-----------------Fin TEST  PAT --------------------------");
                             return false;
                         }
                     }
                 }
             }
         }
-        System.out.println("-----------------Fin TEST PAT --------------------------");
         return true;
     }
 
@@ -229,7 +225,6 @@ public class Plateau {
     public boolean doitRejouer(String coup, IJoueur joueur){
         Coord coordIni, coordFin;
         if(!coupValableSurPlateau(coup)){
-            /*System.out.println("test : methode doitRejouer coup en dehors du plateau");*/
             return true;
         }
         char x = coup.charAt(0), x2 = coup.charAt(2);/*b7b8*/
@@ -237,12 +232,11 @@ public class Plateau {
         coordIni = getCoord(x, y);
         coordFin = getCoord(x2, y2);
         if(!estJouable(coordIni,coordFin,joueur)){
-            /*System.out.println("test : methode doitRejouer pas un bon coup (estJouable)");*/
             return true;
         }
 
         if(!laCase(coordIni).getPieceActuelle().compareCouleur(joueur.leRoi())) {
-            /*System.out.println("test : methode doitRejouer pas la bonne couleur");*/
+            
             return true;
         }
 
