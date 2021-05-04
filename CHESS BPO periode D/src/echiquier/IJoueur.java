@@ -1,5 +1,4 @@
 package echiquier;
-import appli.Joueur;
 
 import java.util.ArrayList;
 

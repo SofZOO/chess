@@ -1,28 +1,28 @@
 package echiquier;
 
-
 public class Case {
     private IPiece pieceActuelle;/*grace a l'interface-> se renseigner*/
 
-    public Case(){
+    public Case() {
         this.pieceActuelle = null;
     }
 
-    public String toString(){
+    public String toString() {
         if (pieceActuelle == null)
             return " ";
         else
             return Character.toString(pieceActuelle.toChar());
     }
 
-    public boolean isEstOccupé(){
+    public boolean isEstOccupé() {
         return (this.pieceActuelle != null);
     }
 
-    public void rajouterPiece(IPiece piece){
+    public void rajouterPiece(IPiece piece) {
         this.pieceActuelle = piece;
     }
-    public void retirerPiece(){
+
+    public void retirerPiece() {
         pieceActuelle = null;
     }
 

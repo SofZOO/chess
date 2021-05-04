@@ -7,15 +7,14 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class Joueur implements IJoueur {
-    private String nom;
+    private final String nom;
     private boolean echecEtMat;
-    private boolean estBlanc;
+
     private final ArrayList<IPiece> pieces;
 
     public Joueur (String nom, boolean blanc, IFabriquePiece fab){
         this.nom= nom;
-        this.estBlanc=blanc;
-        this.pieces = fab.fabrique(estBlanc);
+        this.pieces = fab.fabrique(blanc);
         this.echecEtMat = false;
     }
 
@@ -26,7 +25,7 @@ public class Joueur implements IJoueur {
             System.out.println("Tour du joueur " + this.nom);
             String coup = sc.nextLine().trim().toLowerCase(Locale.ROOT);
             if (p.doitRejouer(coup,this)) {
-                System.out.println("coup de merde pour le joueur " + this.nom);
+                System.out.println("Mauvais coup pour le joueur " + this.nom);
                 continue;
             }
             else {
@@ -47,18 +46,16 @@ public class Joueur implements IJoueur {
         p.placerNouvelleCoord(coordIni, coordFin);
 
         if (p.echec(autreJoueur,p.getListePieces())) {
-            System.out.println("le joueur " + autreJoueur.getNom() + " est echec");
+            System.out.println("le joueur " + autreJoueur.getNom() + " est en position d'échec");
             if (p.chessmat(autreJoueur)){
                 autreJoueur.aPerdu();
             }
         }
         if (p.chesspat(this)){
             p.setEchecEtPat(true);
-            System.out.println("echec et pat");
         }
         if (p.chesspat(autreJoueur)){
             p.setEchecEtPat(true);
-            System.out.println("echec et pat");
         }
     }
 
@@ -74,7 +71,6 @@ public class Joueur implements IJoueur {
 
     @Override
     public void aPerdu(){
-        System.out.println("ECHEC ET MAT");
         this.echecEtMat = true;
     }
 

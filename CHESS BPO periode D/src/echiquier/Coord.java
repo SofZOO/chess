@@ -4,16 +4,16 @@ public class Coord {
     private int ligne;
     private int colonne;
 
-    public Coord(int ligne, int colonne){
-        placer(ligne,colonne);
+    public Coord(int ligne, int colonne) {
+        placer(ligne, colonne);
     }
 
-    public void placer(int li , int co){
+    public void placer(int li, int co) {
         this.ligne = li;
         this.colonne = co;
     }
 
-    public boolean compare(Coord coord){
+    public boolean compare(Coord coord) {
         return ligne == coord.ligne && colonne == coord.colonne;
     }
 
@@ -21,12 +21,12 @@ public class Coord {
         return ligne;
     }
 
-    public int getColonne() {
-        return colonne;
-    }
-
     public void setLigne(int ligne) {
         this.ligne = ligne;
+    }
+
+    public int getColonne() {
+        return colonne;
     }
 
     public void setColonne(int colonne) {

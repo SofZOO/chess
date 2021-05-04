@@ -1,7 +1,6 @@
 package appli;
-import echiquier.*;
 
-import java.awt.*;
+import echiquier.*;
 import java.util.*;
 
 public class Bot extends Joueur{
