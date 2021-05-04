@@ -66,13 +66,16 @@ public class Plateau {
         if (p.craintEchec()) {
             laCase(p.getCoord()).retirerPiece();
             for (IPiece piece : listePieces) {
-                if (!(piece.getCouleur().equals(p.getCouleur()))) {
-                    if (piece.peutJouer(caseDest, echiquier)) {
-                        laCase(p.getCoord()).rajouterPiece(p);
-                        /*System.out.println("Le roi sera mis en echec");*/
-                        return false;
+                if(!piece.getCoord().compare(caseDest)){
+                    if (!(piece.getCouleur().equals(p.getCouleur()))) {
+                        if (piece.peutJouer(caseDest, echiquier)) {
+                            laCase(p.getCoord()).rajouterPiece(p);
+                            /*System.out.println("Le roi sera mis en echec");*/
+                            return false;
+                        }
                     }
                 }
+
             }
             laCase(p.getCoord()).rajouterPiece(p);
             return true;
@@ -85,22 +88,22 @@ public class Plateau {
 
          laCase(caseSource).retirerPiece();
          laCase(caseDest).rajouterPiece(src);
-         ArrayList <IPiece> test = new ArrayList<>(listePieces);
+         ArrayList <IPiece> test2 = new ArrayList<>(listePieces);
          if (dst != null)
-             test.remove(dst);
+             test2.remove(dst);
 
-         if (echec(courant,test)) {//TODO a revoir
+         if (echec(courant,test2)) {//TODO a revoir
              /*System.out.println("le coup ne peut pas etre joue car le roi est toujours en echec");*/
              laCase(caseSource).rajouterPiece(src);
              laCase(caseDest).rajouterPiece(dst);
              if (dst != null)
-                 test.add(dst);
+                 test2.add(dst);
              return false;
          }
          laCase(caseSource).rajouterPiece(src);
          laCase(caseDest).rajouterPiece(dst);
          if (dst != null)
-             test.add(dst);
+             test2.add(dst);
          return true;
         }
 
