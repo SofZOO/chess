@@ -9,10 +9,8 @@ import java.util.Scanner;
 
 public class Main {
 
-    private static boolean finPartie(IJoueur jBlanc, IJoueur jNoir, Plateau p, boolean echecEtMat, String nom, String autreNom, int compt) {
+    private static boolean finPartie(IJoueur jBlanc, IJoueur jNoir, Plateau p, boolean echecEtMat, String nom, String autreNom) {
       System.out.println(p.affichePlateau(jBlanc,jNoir));
-      if(compt>20)
-          return true;
 
       if (echecEtMat) {
           System.out.println("Le joueur " + nom + " est vaincu par échecs et mat. Le joueur " + autreNom + " a gagné" );
@@ -26,17 +24,17 @@ public class Main {
     }
 
     public static void jouer(IJoueur jBlanc, IJoueur jNoir, Plateau p){
-        int compteurMAX = 0;
+
         System.out.println(p.affichePlateau(jBlanc,jNoir));
 
         while (!jBlanc.getEchecEtMat() || jNoir.getEchecEtMat()){
             jBlanc.joue(jNoir,p);
-            compteurMAX++;
-            if (finPartie(jBlanc, jNoir, p, jNoir.getEchecEtMat(), jNoir.getNom(), jBlanc.getNom(), compteurMAX)) break;
+
+            if (finPartie(jBlanc, jNoir, p, jNoir.getEchecEtMat(), jNoir.getNom(), jBlanc.getNom())) break;
 
             jNoir.joue(jBlanc,p);
-            compteurMAX++;
-            if (finPartie(jBlanc, jNoir, p, jBlanc.getEchecEtMat(), jBlanc.getNom(), jNoir.getNom(), compteurMAX)) break;
+
+            if (finPartie(jBlanc, jNoir, p, jBlanc.getEchecEtMat(), jBlanc.getNom(), jNoir.getNom())) break;
         }
         System.out.println("fin du test");
     }
