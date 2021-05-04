@@ -10,12 +10,6 @@ public class Bot extends Joueur{
         super(nom, blanc, fab);
     }
 
-    public int genererInt(int borneInf, int borneSup){
-        Random random = new Random();
-        int nb;
-        nb = borneInf+random.nextInt(borneSup-borneInf);
-        return nb;
-    }
 
     @Override
     public void joue(IJoueur autreJoueur, Plateau p){
