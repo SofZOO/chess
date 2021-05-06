@@ -1,12 +1,11 @@
 package echiquier;
 
-import piece.Piece;
-
 import java.util.ArrayList;
+import java.util.concurrent.atomic.LongAccumulator;
 
 public class Plateau {
-    private final IPiece[][] echiquier;
     private static final int HAUTEUR = 8, LONGUEUR = 8;
+    private final IPiece[][] echiquier;
     private final ArrayList<IPiece> listePieces;
     private final ArrayList<IPiece> piecesMangées;
     private boolean echecEtPat;
@@ -44,7 +43,7 @@ public class Plateau {
     public boolean estJouable(Coord caseSource, Coord caseDest, IJoueur courant) {
         IPiece pieceSrc;
         IPiece pieceDst;
-        if ((caseDest.getLigne() > 7 || caseDest.getLigne() < 0 || caseDest.getColonne() > 7 || caseDest.getColonne() < 0)) {
+        if ((caseDest.getLigne() > (LONGUEUR - 1) || caseDest.getLigne() < 0 || caseDest.getColonne() > (HAUTEUR - 1) || caseDest.getColonne() < 0)) {
             return false;
         }
         IPiece p = echiquier[caseSource.getLigne()][caseSource.getColonne()];
@@ -63,9 +62,7 @@ public class Plateau {
 
 //      4- si c'est un roi alors la destination n'est pas attaquable par une pièce adverse
         if (p.craintEchec()) {
-
             /*laPiece(p.getCoord()).retirerPiece();*/
-
             echiquier[p.getCoord().getLigne()][p.getCoord().getColonne()] = null;
 
             for (IPiece piece : listePieces) {
@@ -78,7 +75,6 @@ public class Plateau {
                         }
                     }
                 }
-
             }
             echiquier[p.getCoord().getLigne()][p.getCoord().getColonne()] = p;
             /*laPiece(p.getCoord()).rajouterPiece(p);*/
@@ -122,8 +118,8 @@ public class Plateau {
         IPiece roiDuJou = joueur.leRoi();
         for (IPiece piece : listePieces) {
             if (piece.getCouleur().equals(roiDuJou.getCouleur())) {
-                for (int cmp1 = 0; cmp1 < 8; cmp1++) {
-                    for (int cmp2 = 0; cmp2 < 8; cmp2++) {
+                for (int cmp1 = 0; cmp1 < LONGUEUR; cmp1++) {
+                    for (int cmp2 = 0; cmp2 < HAUTEUR; cmp2++) {
                         if (piece.getCoord().compare(new Coord(cmp1, cmp2))) {
                             continue;
                         } else if (estJouable(piece.getCoord(), new Coord(cmp1, cmp2), joueur)) {
@@ -140,8 +136,8 @@ public class Plateau {
         IPiece roi = joueur.leRoi();
         for (IPiece piece : listePieces) {
             if (piece.getCouleur().equals(roi.getCouleur())) {
-                for (int i = 0; i < 8; i++) {
-                    for (int j = 0; j < 8; j++) {
+                for (int i = 0; i < LONGUEUR; i++) {
+                    for (int j = 0; j < HAUTEUR; j++) {
                         if (piece.getCoord().compare(new Coord(i, j))) {
                             continue;
                         }
@@ -178,7 +174,7 @@ public class Plateau {
     }
 
     public Coord getCoord(char x2, int y2) {
-        return new Coord(8-y2,x2-'a');
+        return new Coord(8 - y2, x2 - 'a');
     }
 
 
@@ -219,9 +215,20 @@ public class Plateau {
     }
 
 
+    private static String chaine(){
+        StringBuilder sb = new StringBuilder();
+        char u ='a';
+        for (int i =0; i < LONGUEUR ; i++) {
+            sb.append("     ").append(u);
+            u++;
+        }
+        return sb.toString();
+    }
+
     public String affichePlateau(IJoueur joueurBlanc, IJoueur joueurNoir) {
         StringBuilder sb = new StringBuilder();
-        sb.append("     a     b     c     d     e     f     g     h         Pièces gray par le joueur Noir : ");
+        sb.append(chaine());
+        sb.append("         Pièces gray par le joueur Noir : ");
         for (IPiece pi : piecesMangées) {
             if (pi.getCouleur().equals(joueurBlanc.leRoi().getCouleur()))
                 sb.append(pi.toChar()).append(" ");
@@ -232,18 +239,18 @@ public class Plateau {
             sb.append(cmp).append(" | ");
             for (int cmpLongueur = 0; cmpLongueur < LONGUEUR; cmpLongueur++) {
                 sb.append(" ");
-
-                if (laPiece(new Coord(cmpHauteur,cmpLongueur)) == null)
+                if (laPiece(new Coord(cmpHauteur, cmpLongueur)) == null)
                     sb.append(" ");
                 else {
                     sb.append(echiquier[cmpHauteur][cmpLongueur].toChar());
                 }
-                    sb.append("  | ");
+                sb.append("  | ");
             }
             sb.append(cmp).append("\n");
         }
         sb.append("    ---   ---   ---   ---   ---   ---   ---   ---\n");
-        sb.append("     a     b     c     d     e     f     g     h         Pièces gray par le joueur Blanc : ");
+        sb.append(chaine());
+        sb.append("        Pièces gray par le joueur Blanc : ");
         for (IPiece pi : piecesMangées) {
             if (pi.getCouleur().equals(joueurNoir.leRoi().getCouleur()))
                 sb.append(pi.toChar()).append(" ");
@@ -256,11 +263,11 @@ public class Plateau {
         return echecEtPat;
     }
 
-    public ArrayList<IPiece> getListePieces() {
-        return listePieces;
-    }
-
     public void setEchecEtPat(boolean echecEtPat) {
         this.echecEtPat = echecEtPat;
+    }
+
+    public ArrayList<IPiece> getListePieces() {
+        return listePieces;
     }
 }
