@@ -17,5 +17,5 @@ public interface IJoueur {
     String getNom();
 
     boolean getEchecEtMat();
-    
+
 }

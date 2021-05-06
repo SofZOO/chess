@@ -79,7 +79,6 @@ public class Joueur implements IJoueur {
         return nom;
     }
 
-    @Override
     public boolean getEchecEtMat(){
         return this.echecEtMat;
     }

@@ -1,10 +1,11 @@
 package piece;
 
-import echiquier.Case;
 import echiquier.Coord;
 import echiquier.IPiece;
+import echiquier.Plateau;
 
-public class Piece implements IPiece {
+
+public abstract class Piece implements IPiece {
     private final char signe;
     private final CouleurPiece couleur;
     private final Coord coord;
@@ -17,15 +18,12 @@ public class Piece implements IPiece {
         else this.signe = Character.toLowerCase(sig);
     }
 
+    public abstract boolean peutJouer(Coord c, Plateau p);
+
     @Override
     public void changeCoord(Coord c) {
         this.coord.setLigne(c.getLigne());
         this.coord.setColonne(c.getColonne());
-    }
-
-    @Override
-    public boolean peutJouer(Coord c, Case[][] echiquier) {
-        return true;
     }
 
     @Override
@@ -34,20 +32,9 @@ public class Piece implements IPiece {
     }
 
     @Override
-    public int getLigne() {
-        return coord.getLigne();
-    }
-
-    @Override
-    public int getColonne() {
-        return coord.getColonne();
-    }
-
-    @Override
     public Coord getCoord() {
-        return new Coord(getLigne(), getColonne());
+        return this.coord;
     }
-
     @Override
     public CouleurPiece getCouleur() {
         return couleur;
@@ -58,8 +45,4 @@ public class Piece implements IPiece {
         return false;
     }
 
-    @Override
-    public boolean compareCouleur(IPiece p) {
-        return this.couleur.equals(p.getCouleur());
-    }
 }

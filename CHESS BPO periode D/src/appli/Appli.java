@@ -2,13 +2,11 @@ package appli;
 
 import echiquier.IJoueur;
 import piece.FabriquePiece;
-
-
 import echiquier.Plateau;
 
 import java.util.Scanner;
 
-public class Main {
+public class Appli {
 
     private static boolean finPartie(IJoueur jBlanc, IJoueur jNoir, Plateau p, boolean echecEtMat, String nom, String autreNom) {
         System.out.println(p.affichePlateau(jBlanc, jNoir));

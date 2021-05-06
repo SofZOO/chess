@@ -16,7 +16,7 @@ public class Bot extends Joueur{
         ArrayList<String> tabCoups = new ArrayList<>();
 
         for (IPiece piece :p.getListePieces()){
-            if (piece.compareCouleur(leRoi())){
+            if (piece.getCouleur().equals(leRoi().getCouleur())){
                 for(int cmp1 = 0; cmp1 < 8; cmp1++){
                     for(int cmp2 = 0; cmp2 < 8 ; cmp2++) {
                         if (piece.getCoord().compare(new Coord(cmp1, cmp2))) {
