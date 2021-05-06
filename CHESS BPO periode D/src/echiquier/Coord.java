@@ -32,4 +32,9 @@ public class Coord {
     public void setColonne(int colonne) {
         this.colonne = colonne;
     }
+
+    public String toString() {
+        return (char)('a' + this.colonne) + Integer.toString(8 -
+                this.ligne);
+    }
 }

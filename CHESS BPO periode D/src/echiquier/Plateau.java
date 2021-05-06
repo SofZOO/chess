@@ -4,15 +4,15 @@ import java.util.ArrayList;
 
 public class Plateau {
     private final Case[][] echiquier;
-    private final int HAUTEUR = 8, LONGUEUR = 8;
+    private static final int HAUTEUR = 8, LONGUEUR = 8;
     private final ArrayList<IPiece> listePieces;
     private final ArrayList<IPiece> piecesMangées;
     private boolean echecEtPat;
 
     public Plateau(IJoueur j1, IJoueur j2) {
         echiquier = new Case[LONGUEUR][HAUTEUR];
-        for (int x = 0; x < this.LONGUEUR; x++) {
-            for (int y = 0; y < this.HAUTEUR; y++) {
+        for (int x = 0; x < LONGUEUR; x++) {
+            for (int y = 0; y < HAUTEUR; y++) {
                 echiquier[x][y] = new Case();
             }
         }
@@ -25,7 +25,7 @@ public class Plateau {
         this.echecEtPat = false;
     }
 
-    public int intoInt(String coup, int position) {
+    public static int intoInt(String coup, int position) {
         return Integer.parseInt(String.valueOf(coup.charAt(position)));
     }
 
@@ -160,92 +160,14 @@ public class Plateau {
         return true;
     }
 
-    public Case laCase(Coord c) {
+    private Case laCase(Coord c) {
         return echiquier[c.getLigne()][c.getColonne()];
     }
 
     public Coord getCoord(char x2, int y2) {
-        Coord coordIni;
-        switch (x2) {
-            case 'a': {
-                coordIni = new Coord(8 - y2, 0);
-                break;
-            }
-            case 'b': {
-                coordIni = new Coord(8 - y2, 1);
-                break;
-            }
-            case 'c': {
-                coordIni = new Coord(8 - y2, 2);
-                break;
-            }
-            case 'd': {
-                coordIni = new Coord(8 - y2, 3);
-                break;
-            }
-            case 'e': {
-                coordIni = new Coord(8 - y2, 4);
-                break;
-            }
-            case 'f': {
-                coordIni = new Coord(8 - y2, 5);
-                break;
-            }
-            case 'g': {
-                coordIni = new Coord(8 - y2, 6);
-                break;
-            }
-            case 'h': {
-                coordIni = new Coord(8 - y2, 7);
-                break;
-            }
-            default:
-                coordIni = new Coord(0, 0);// TODO: DINGUERIE A CHANGER
-        }
-        return coordIni;
+        return new Coord(8-y2,x2-'a');
     }
 
-    public String getCoord(Coord coord) {
-        String coo = "";
-        switch (coord.getColonne()) {
-            case (0): {
-                coo = "a" + (8 - coord.getLigne());
-                break;
-            }
-            case (1): {
-                coo = "b" + (8 - coord.getLigne());
-                break;
-            }
-            case (2): {
-                coo = "c" + (8 - coord.getLigne());
-                break;
-            }
-            case (3): {
-                coo = "d" + (8 - coord.getLigne());
-                break;
-            }
-            case (4): {
-                coo = "e" + (8 - coord.getLigne());
-                break;
-            }
-            case (5): {
-                coo = "f" + (8 - coord.getLigne());
-                break;
-            }
-            case (6): {
-                coo = "g" + (8 - coord.getLigne());
-                break;
-            }
-            case (7): {
-                coo = "h" + (8 - coord.getLigne());
-                break;
-            }
-            default:
-                coo = "a1";
-                break;
-        }
-        return coo;
-    }
 
     private boolean coupValableSurPlateau(String coup) {
         if (coup.length() != 4)

@@ -39,7 +39,7 @@ public class Joueur implements IJoueur {
     public void déplacer(String coup, IJoueur autreJoueur, Plateau p) {
         Coord coordIni, coordFin;
         char x = coup.charAt(0), x2 = coup.charAt(2);/*b7b8*/
-        int y = p.intoInt(coup, 1), y2 = p.intoInt(coup, 3);
+        int y = Plateau.intoInt(coup, 1), y2 = Plateau.intoInt(coup, 3);
         coordIni = p.getCoord(x, y);
         coordFin = p.getCoord(x2, y2);
 

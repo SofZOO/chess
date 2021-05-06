@@ -23,7 +23,7 @@ public class Bot extends Joueur{
                             continue;
                         }
                         else if (p.estJouable(piece.getCoord(), new Coord(cmp1, cmp2), this)) {
-                           tabCoups.add(p.getCoord(piece.getCoord())+p.getCoord(new Coord(cmp1,cmp2)));
+                           tabCoups.add(piece.getCoord()+ (new Coord(cmp1,cmp2).toString()));
                         }
                     }
                 }
