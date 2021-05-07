@@ -18,9 +18,11 @@ public class FabriquePiece implements IFabriquePiece {
         if (estBlanc) {
             piecesDepart.add(new Roi(couleur, 7, 4));
             piecesDepart.add(new Tour(couleur, 7, 0));
+
         } else {
             piecesDepart.add(new Roi(couleur, 0, 4));
             piecesDepart.add(new Tour(couleur, 0, 0));
+
         }
 
         return piecesDepart;

@@ -35,12 +35,6 @@ public abstract class Joueur implements IJoueur {
                 autreJoueur.aPerdu();
             }
         }
-        if (p.chesspat(this)) {
-            p.setEchecEtPat(true);
-        }
-        if (p.chesspat(autreJoueur)) {
-            p.setEchecEtPat(true);
-        }
     }
 
     @Override

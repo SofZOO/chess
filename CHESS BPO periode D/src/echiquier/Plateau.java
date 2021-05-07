@@ -6,7 +6,6 @@ public class Plateau {
     private static final int HAUTEUR = 8, LONGUEUR = 8;
     private final IPiece[][] echiquier;
     private final ArrayList<IPiece> listePieces;
-    private boolean echecEtPat;
 
     public Plateau(IJoueur j1, IJoueur j2) {
         echiquier = new IPiece[LONGUEUR][HAUTEUR];
@@ -19,7 +18,6 @@ public class Plateau {
         listePieces.addAll(j2.getPieces());
         for (IPiece p : listePieces)
             echiquier[p.getCoord().getLigne()][p.getCoord().getColonne()] = p;
-        this.echecEtPat = false;
     }
 
     public static int intoInt(String coup, int position) {
@@ -156,6 +154,36 @@ public class Plateau {
         return true;
     }
 
+    public String partieFinie(int index, String nom, String autreNom){
+        String s;
+      switch (index){
+          case (1) : {
+              return "La partie est nulle : situation d'échecs et pat pour le joueur " + nom+".";
+          }
+          case (2) : {
+              return "Le joueur " + nom + " est vaincu par échecs et mat. Le joueur " + autreNom + " a gagné.";
+          }
+          case(3):{
+              return  "La partie est nulle : il ne reste que 2 rois sur le plateau.";
+          }
+          default:{
+              return "arvindo";
+          }
+
+      }
+    }
+
+
+    public boolean partieNulle(IJoueur blanc,IJoueur noir){
+        if (chesspat(blanc) || chesspat(noir))
+            return true;
+        if (listePieces.size() == 2)
+            return true;
+
+        return false;
+
+    }
+
     public boolean echec(IJoueur bangbang, ArrayList<IPiece> list) {
         for (IPiece piece : list) {
             if (!(piece.getCouleur().equals(bangbang.leRoi().getCouleur()))) {
@@ -245,14 +273,6 @@ public class Plateau {
         sb.append(affichagePiecesMangees(joueurNoir));
         sb.append("\n");
         return sb.toString();
-    }
-
-    public boolean getEchecEtPat() {
-        return echecEtPat;
-    }
-
-    public void setEchecEtPat(boolean echecEtPat) {
-        this.echecEtPat = echecEtPat;
     }
 
     public ArrayList<IPiece> getListePieces() {
