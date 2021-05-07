@@ -1,8 +1,10 @@
 package appli;
 
 import echiquier.IJoueur;
-import piece.FabriquePiece;
 import echiquier.Plateau;
+import joueurs.Bot;
+import joueurs.Humain;
+import piece.FabriquePiece;
 
 import java.util.Scanner;
 
@@ -50,13 +52,13 @@ public class Appli {
 
         switch (choix) {
             case (1): {
-                joueurBlanc = new Joueur("BLANC", true, new FabriquePiece());
-                joueurNoir = new Joueur("NOIR", false, new FabriquePiece());
+                joueurBlanc = new Humain("BLANC", true, new FabriquePiece());
+                joueurNoir = new Humain("NOIR", false, new FabriquePiece());
                 break;
 
             }
             case (2): {
-                joueurBlanc = new Joueur("BLANC", true, new FabriquePiece());
+                joueurBlanc = new Humain("BLANC", true, new FabriquePiece());
                 joueurNoir = new Bot("NOIR", false, new FabriquePiece());
                 break;
 
@@ -68,8 +70,8 @@ public class Appli {
 
             }
             default: {
-                joueurBlanc = new Joueur("BLANC", true, new FabriquePiece());
-                joueurNoir = new Joueur("NOIR", false, new FabriquePiece());
+                joueurBlanc = new Humain("BLANC", true, new FabriquePiece());
+                joueurNoir = new Humain("NOIR", false, new FabriquePiece());
             }
         }
 

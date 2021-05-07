@@ -34,7 +34,7 @@ public class Coord {
     }
 
     public String toString() {
-        return (char)('a' + this.colonne) + Integer.toString(8 -
+        return (char) ('a' + this.colonne) + Integer.toString(8 -
                 this.ligne);
     }
 }

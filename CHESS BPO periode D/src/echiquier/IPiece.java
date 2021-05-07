@@ -16,5 +16,9 @@ public interface IPiece {
 
     boolean craintEchec();
 
+    void estMangé();
+
+    boolean getEstMangé();
+
 
 }

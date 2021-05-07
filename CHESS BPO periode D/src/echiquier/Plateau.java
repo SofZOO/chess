@@ -1,13 +1,11 @@
 package echiquier;
 
 import java.util.ArrayList;
-import java.util.concurrent.atomic.LongAccumulator;
 
 public class Plateau {
     private static final int HAUTEUR = 8, LONGUEUR = 8;
     private final IPiece[][] echiquier;
     private final ArrayList<IPiece> listePieces;
-    private final ArrayList<IPiece> piecesMangées;
     private boolean echecEtPat;
 
     public Plateau(IJoueur j1, IJoueur j2) {
@@ -17,12 +15,10 @@ public class Plateau {
                 echiquier[x][y] = null;
             }
         }
-        listePieces = new ArrayList<>();
-        listePieces.addAll(j1.getPieces());
+        listePieces = new ArrayList<>(j1.getPieces());
         listePieces.addAll(j2.getPieces());
         for (IPiece p : listePieces)
             echiquier[p.getCoord().getLigne()][p.getCoord().getColonne()] = p;
-        piecesMangées = new ArrayList<>();
         this.echecEtPat = false;
     }
 
@@ -30,10 +26,21 @@ public class Plateau {
         return Integer.parseInt(String.valueOf(coup.charAt(position)));
     }
 
+    private static String chaine() {
+        StringBuilder sb = new StringBuilder();
+        char u = 'a';
+        for (int i = 0; i < LONGUEUR; i++) {
+            sb.append("     ").append(u);
+            u++;
+        }
+        return sb.toString();
+    }
+
     public void placerNouvelleCoord(Coord coordIni, Coord coordFin) {
         if (laPiece(coordFin) != null) {
             listePieces.remove(laPiece(coordFin));
-            piecesMangées.add(laPiece(coordFin));
+
+            laPiece(coordFin).estMangé();
         }
         laPiece(coordIni).changeCoord(coordFin);
         echiquier[coordFin.getLigne()][coordFin.getColonne()] = laPiece(coordIni);
@@ -120,9 +127,7 @@ public class Plateau {
             if (piece.getCouleur().equals(roiDuJou.getCouleur())) {
                 for (int cmp1 = 0; cmp1 < LONGUEUR; cmp1++) {
                     for (int cmp2 = 0; cmp2 < HAUTEUR; cmp2++) {
-                        if (piece.getCoord().compare(new Coord(cmp1, cmp2))) {
-                            continue;
-                        } else if (estJouable(piece.getCoord(), new Coord(cmp1, cmp2), joueur)) {
+                        if (estJouable(piece.getCoord(), new Coord(cmp1, cmp2), joueur)) {
                             return false;
                         }
                     }
@@ -151,7 +156,6 @@ public class Plateau {
         return true;
     }
 
-
     public boolean echec(IJoueur bangbang, ArrayList<IPiece> list) {
         for (IPiece piece : list) {
             if (!(piece.getCouleur().equals(bangbang.leRoi().getCouleur()))) {
@@ -177,7 +181,6 @@ public class Plateau {
         return new Coord(8 - y2, x2 - 'a');
     }
 
-
     private boolean coupValableSurPlateau(String coup) {
         if (coup.length() != 4)
             return false;
@@ -189,9 +192,7 @@ public class Plateau {
         }
         if (coup.charAt(0) < 'a' || coup.charAt(2) < 'a' || coup.charAt(0) > 'h' || coup.charAt(2) > 'h')
             return false;
-        if (intoInt(coup, 1) < 1 || intoInt(coup, 1) > 8 || intoInt(coup, 3) < 1 || intoInt(coup, 3) > 8)
-            return false;
-        return true;
+        return intoInt(coup, 1) >= 1 && intoInt(coup, 1) <= 8 && intoInt(coup, 3) >= 1 && intoInt(coup, 3) <= 8;
     }
 
     public boolean doitRejouer(String coup, IJoueur joueur) {
@@ -207,32 +208,23 @@ public class Plateau {
             return true;
         }
 
-        if (!laPiece(coordIni).getCouleur().equals(joueur.leRoi().getCouleur())) {
-            return true;
-        }
-
-        return false;
+        return !laPiece(coordIni).getCouleur().equals(joueur.leRoi().getCouleur());
     }
 
-
-    private static String chaine(){
+    private String affichagePiecesMangees(IJoueur j) {
         StringBuilder sb = new StringBuilder();
-        char u ='a';
-        for (int i =0; i < LONGUEUR ; i++) {
-            sb.append("     ").append(u);
-            u++;
+        for (IPiece p : j.getPieces()) {
+            if (p.getEstMangé()) {
+                sb.append(p.toChar()).append(" ");
+            }
         }
         return sb.toString();
     }
 
     public String affichePlateau(IJoueur joueurBlanc, IJoueur joueurNoir) {
         StringBuilder sb = new StringBuilder();
-        sb.append(chaine());
-        sb.append("         Pièces gray par le joueur Noir : ");
-        for (IPiece pi : piecesMangées) {
-            if (pi.getCouleur().equals(joueurBlanc.leRoi().getCouleur()))
-                sb.append(pi.toChar()).append(" ");
-        }
+        sb.append(chaine()).append("         Pièces mangées par le joueur ").append(joueurNoir.getNom()).append(" : ");
+        sb.append(affichagePiecesMangees(joueurBlanc));
         sb.append("\n");
         for (int cmpHauteur = 0, cmp = 8; cmpHauteur < HAUTEUR; cmpHauteur++, cmp--) {
             sb.append("    ---   ---   ---   ---   ---   ---   ---   ---\n");
@@ -249,12 +241,8 @@ public class Plateau {
             sb.append(cmp).append("\n");
         }
         sb.append("    ---   ---   ---   ---   ---   ---   ---   ---\n");
-        sb.append(chaine());
-        sb.append("        Pièces gray par le joueur Blanc : ");
-        for (IPiece pi : piecesMangées) {
-            if (pi.getCouleur().equals(joueurNoir.leRoi().getCouleur()))
-                sb.append(pi.toChar()).append(" ");
-        }
+        sb.append(chaine()).append("         Pièces mangées par le joueur ").append(joueurBlanc.getNom()).append(" : ");
+        sb.append(affichagePiecesMangees(joueurNoir));
         sb.append("\n");
         return sb.toString();
     }

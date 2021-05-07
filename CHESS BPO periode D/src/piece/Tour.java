@@ -21,13 +21,13 @@ public class Tour extends Piece {
         if (lignePiece != c.getLigne() && colonnePiece == c.getColonne()) {
             if (lignePiece < c.getLigne()) {
                 for (int cmp = c.getLigne() - 1; cmp > lignePiece; cmp--) {
-                    if(p.laPiece(new Coord(cmp,colonnePiece)) != null){
+                    if (p.laPiece(new Coord(cmp, colonnePiece)) != null) {
                         return false;
                     }
                 }
             } else if (lignePiece > c.getLigne()) {
                 for (int cmp = c.getLigne() + 1; cmp < lignePiece; cmp++) {
-                    if (p.laPiece(new Coord(cmp,colonnePiece)) != null) {
+                    if (p.laPiece(new Coord(cmp, colonnePiece)) != null) {
                         return false;
                     }
                 }
@@ -37,7 +37,7 @@ public class Tour extends Piece {
         if (lignePiece == c.getLigne() && colonnePiece != c.getColonne()) {
             if (colonnePiece < c.getColonne()) {
                 for (int cmp = c.getColonne() - 1; cmp > colonnePiece; cmp--) {
-                    if (p.laPiece(new Coord(lignePiece,cmp)) != null) {
+                    if (p.laPiece(new Coord(lignePiece, cmp)) != null) {
                         return false;
                     }
                 }
@@ -45,7 +45,7 @@ public class Tour extends Piece {
 
             if (colonnePiece > c.getColonne()) {
                 for (int cmp = c.getColonne() + 1; cmp < colonnePiece; cmp++) {
-                    if (p.laPiece(new Coord(lignePiece,cmp)) != null) {
+                    if (p.laPiece(new Coord(lignePiece, cmp)) != null) {
                         return false;
                     }
                 }

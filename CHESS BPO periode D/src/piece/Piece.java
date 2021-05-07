@@ -9,6 +9,7 @@ public abstract class Piece implements IPiece {
     private final char signe;
     private final CouleurPiece couleur;
     private final Coord coord;
+    private boolean estMangé;
 
     public Piece(char sig, CouleurPiece coul, int colonne, int ligne) {
         this.couleur = coul;
@@ -16,6 +17,7 @@ public abstract class Piece implements IPiece {
         if (coul.equals(CouleurPiece.BLANC))
             this.signe = Character.toUpperCase(sig);
         else this.signe = Character.toLowerCase(sig);
+        this.estMangé = false;
     }
 
     public abstract boolean peutJouer(Coord c, Plateau p);
@@ -35,6 +37,7 @@ public abstract class Piece implements IPiece {
     public Coord getCoord() {
         return this.coord;
     }
+
     @Override
     public CouleurPiece getCouleur() {
         return couleur;
@@ -43,6 +46,14 @@ public abstract class Piece implements IPiece {
     @Override
     public boolean craintEchec() {
         return false;
+    }
+
+    public void estMangé() {
+        this.estMangé = true;
+    }
+
+    public boolean getEstMangé() {
+        return this.estMangé;
     }
 
 }

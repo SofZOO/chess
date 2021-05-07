@@ -11,10 +11,7 @@ public class Roi extends Piece {
 
     @Override
     public boolean peutJouer(Coord c, Plateau plateau) {
-        if (Math.abs(getCoord().getColonne() - c.getColonne()) > 1 || Math.abs(getCoord().getLigne() - c.getLigne()) > 1) {
-            return false;
-        }
-        return true;
+        return Math.abs(getCoord().getColonne() - c.getColonne()) <= 1 && Math.abs(getCoord().getLigne() - c.getLigne()) <= 1;
     }
 
     @Override
