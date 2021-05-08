@@ -5,12 +5,24 @@ import echiquier.Plateau;
 import joueurs.Bot;
 import joueurs.Humain;
 import piece.FabriquePiece;
-
 import java.util.Scanner;
 
 public class Appli {
 
+    private static boolean erreurChoix(String choix){
+        if (choix.length() !=1){
+            return true;
+        }
+        if(!Character.isDigit(choix.charAt(0))){
+         return true;
+        }
+        if((Integer.parseInt(choix) > 3 || Integer.parseInt(choix)<1))
+            return true;
+        return false;
+    }
+
     private static boolean finPartie(IJoueur jBlanc, IJoueur jNoir, Plateau p, boolean echecEtMat, String nom, String autreNom) {
+
         System.out.println(p.affichePlateau(jBlanc, jNoir));
         if (echecEtMat) {
             p.partieFinie(2,nom,autreNom);
@@ -45,25 +57,34 @@ public class Appli {
         IJoueur joueurBlanc;
         IJoueur joueurNoir;
 
-        System.out.println("taper : 1 pour joueur VS joueur\n        2 pour joueur VS bot\n        3 pour bot VS bot ");
+        System.out.println("********************************************************************************************************\n" +
+                "Bienvenue sur le menu de sélection d'adversaire, il suffit de taper : 1 pour le mode joueur VS joueur  *\n" +
+                "                                                                      2 pour le mode joueur VS bot     *\n " +
+                "                                                                     3 pour le mode bot VS bot        *\n" +
+                "********************************************************************************************************");
+
         Scanner sc = new Scanner(System.in);
-        int choix;
-        choix = sc.nextInt();
+        String choix;
+        choix = sc.nextLine().trim();
+        while(erreurChoix(choix)){
+            System.out.println("Vous venez de faire une erreur sur la saisie de votre choix, il faut entrer une des 3 options et vous avez marqué : " + choix);
+            choix=sc.nextLine().trim();
+        }
 
         switch (choix) {
-            case (1): {
+            case ("1"): {
                 joueurBlanc = new Humain("BLANC", true, new FabriquePiece());
                 joueurNoir = new Humain("NOIR", false, new FabriquePiece());
                 break;
 
             }
-            case (2): {
+            case ("2"): {
                 joueurBlanc = new Humain("BLANC", true, new FabriquePiece());
                 joueurNoir = new Bot("NOIR", false, new FabriquePiece());
                 break;
 
             }
-            case (3): {
+            case ("3"): {
                 joueurBlanc = new Bot("BLANC", true, new FabriquePiece());
                 joueurNoir = new Bot("NOIR", false, new FabriquePiece());
                 break;
@@ -74,11 +95,8 @@ public class Appli {
                 joueurNoir = new Humain("NOIR", false, new FabriquePiece());
             }
         }
-
         Plateau p = new Plateau(joueurBlanc, joueurNoir);
-
         jouer(joueurBlanc, joueurNoir, p);
-
 
     }
 }

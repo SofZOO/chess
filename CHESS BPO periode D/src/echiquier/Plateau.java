@@ -46,8 +46,6 @@ public class Plateau {
     }
 
     public boolean estJouable(Coord caseSource, Coord caseDest, IJoueur courant) {
-        IPiece pieceSrc;
-        IPiece pieceDst;
         if ((caseDest.getLigne() > (LONGUEUR - 1) || caseDest.getLigne() < 0 || caseDest.getColonne() > (HAUTEUR - 1) || caseDest.getColonne() < 0)) {
             return false;
         }
@@ -67,14 +65,12 @@ public class Plateau {
 
 //      4- si c'est un roi alors la destination n'est pas attaquable par une pièce adverse
         if (p.craintEchec()) {
-            /*laPiece(p.getCoord()).retirerPiece();*/
             echiquier[p.getCoord().getLigne()][p.getCoord().getColonne()] = null;
 
             for (IPiece piece : listePieces) {
                 if (!piece.getCoord().compare(caseDest)) {
                     if (!(piece.getCouleur().equals(p.getCouleur()))) {
                         if (piece.peutJouer(caseDest, this)) {
-                            /*laPiece(p.getCoord()).rajouterPiece(p);*/
                             echiquier[p.getCoord().getLigne()][p.getCoord().getColonne()] = p;
                             return false;
                         }
@@ -82,13 +78,12 @@ public class Plateau {
                 }
             }
             echiquier[p.getCoord().getLigne()][p.getCoord().getColonne()] = p;
-            /*laPiece(p.getCoord()).rajouterPiece(p);*/
             return true;
         } else {
 //      5- si le joueur courant est echec
 
-            pieceSrc = laPiece(caseSource);
-            pieceDst = laPiece(caseDest);
+            IPiece pieceSrc = laPiece(caseSource);
+            IPiece pieceDst = laPiece(caseDest);
 
             /*laPiece(caseSource).retirerPiece();*/
             echiquier[caseSource.getLigne()][caseSource.getColonne()] = null;
@@ -158,7 +153,7 @@ public class Plateau {
         String s;
       switch (index){
           case (1) : {
-              return "La partie est nulle : situation d'échecs et pat pour le joueur " + nom+".";
+              return "La partie est nulle : situation d'échecs et pat pour le joueur " + nom +".";
           }
           case (2) : {
               return "Le joueur " + nom + " est vaincu par échecs et mat. Le joueur " + autreNom + " a gagné.";
@@ -249,6 +244,10 @@ public class Plateau {
         return sb.toString();
     }
 
+//    public String abandon(String coup){
+//
+//    }
+
     public String affichePlateau(IJoueur joueurBlanc, IJoueur joueurNoir) {
         StringBuilder sb = new StringBuilder();
         sb.append(chaine()).append("         Pièces mangées par le joueur ").append(joueurNoir.getNom()).append(" : ");
@@ -266,7 +265,15 @@ public class Plateau {
                 }
                 sb.append("  | ");
             }
-            sb.append(cmp).append("\n");
+            if(cmp == 5 ){
+                sb.append(cmp).append("    Si vous souhaitez abandonner veuillez écrire \"abandon\" à la place d'un coup\n");
+            }
+            else if(cmp == 4){
+                sb.append(cmp).append("    Pour la propostion de la nulle veuillez écrire \"nulle\" à la place d'un coup que vous souhaitez entrer\n");
+            }
+            else{
+                sb.append(cmp).append("\n");
+            }
         }
         sb.append("    ---   ---   ---   ---   ---   ---   ---   ---\n");
         sb.append(chaine()).append("         Pièces mangées par le joueur ").append(joueurBlanc.getNom()).append(" : ");
