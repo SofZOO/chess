@@ -11,7 +11,6 @@ public class Bot extends Joueur {
         super(nom, blanc, fab);
     }
 
-
     @Override
     public void joue(IJoueur autreJoueur, Plateau p) {
 
@@ -42,6 +41,11 @@ public class Bot extends Joueur {
 
     @Override
     public boolean estHumain() {
+        return false;
+    }
+
+    @Override
+    public boolean abandonne() {
         return false;
     }
 }

@@ -20,4 +20,6 @@ public interface IJoueur {
 
     boolean estHumain();
 
+    boolean abandonne();
+
 }

@@ -8,9 +8,11 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class Humain extends Joueur {
+    private boolean abandonne;
 
     public Humain(String nom, boolean blanc, IFabriquePiece fab) {
         super(nom, blanc, fab);
+        this.abandonne = false;
     }
 
 
@@ -21,6 +23,9 @@ public class Humain extends Joueur {
         while (true) {
             System.out.println("Tour du joueur " + this.getNom());
 
+
+
+
             if (p.getPropositionNulle()){
                 System.out.println("le joueur adverse vous propose la nulle, oui ou non?");
                 coup = sc.nextLine().trim().toLowerCase(Locale.ROOT);
@@ -29,8 +34,6 @@ public class Humain extends Joueur {
                         System.out.println("vous avez accepte la proposition de la nulle, la partie se termine par un match nul");
                         p.setMAtchNul(true);
                         return;
-
-
                     }
                     else if (coup.equals("non")){
                         System.out.println("vous avez refuse la proposition de la nulle");
@@ -43,9 +46,11 @@ public class Humain extends Joueur {
                     }
                 }
             }
-
-
              coup = sc.nextLine().trim().toLowerCase(Locale.ROOT);
+            if(coup.equals("abandon")){
+                this.abandonne = true;
+                return;
+            }
              if (coup.equals("nulle")) {
                  if (!autreJoueur.estHumain()){
                      System.out.println("vous ne pouvez pas proposer la nulle a un bot, veuillez réécrire votre coup");
@@ -57,9 +62,6 @@ public class Humain extends Joueur {
                      return;
                  }
              }
-
-
-
 
             if (p.doitRejouer(coup, this)) {
                 System.out.println("Mauvais coup pour le joueur " + this.getNom());
@@ -73,6 +75,11 @@ public class Humain extends Joueur {
     @Override
     public boolean estHumain() {
         return true;
+    }
+
+    @Override
+    public boolean abandonne() {
+        return this.abandonne;
     }
 
 }

@@ -33,6 +33,18 @@ public class Appli {
             System.out.println("la partie est nulle");
             return true;
         }
+
+        if(jBlanc.abandonne()){
+            System.out.println("abandon du joeur");
+            return true;
+        }
+
+        if(jNoir.abandonne()){
+            System.out.println("abadon");
+            return true;
+        }
+
+
         return false;
     }
 
@@ -42,6 +54,7 @@ public class Appli {
 
         while (!jBlanc.getEchecEtMat() || jNoir.getEchecEtMat()) {
             jBlanc.joue(jNoir, p);
+
 
             if (finPartie(jBlanc, jNoir, p, jNoir.getEchecEtMat(), jNoir.getNom(), jBlanc.getNom())) break;
 
