@@ -6,13 +6,9 @@ public interface IPiece {
 
     void changeCoord(Coord c);
 
-    boolean peutJouer(Coord c, Case[][] echiquier);
+    boolean peutJouer(Coord c, Plateau p);
 
     char toChar();
-
-    int getLigne();
-
-    int getColonne();
 
     Coord getCoord();
 
@@ -20,5 +16,9 @@ public interface IPiece {
 
     boolean craintEchec();
 
-    boolean compareCouleur(IPiece p);
+    void estMangé();
+
+    boolean getEstMangé();
+
+
 }

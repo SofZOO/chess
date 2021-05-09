@@ -1,4 +1,4 @@
-package appli;
+package joueurs;
 
 import echiquier.*;
 
@@ -17,13 +17,11 @@ public class Bot extends Joueur {
         ArrayList<String> tabCoups = new ArrayList<>();
 
         for (IPiece piece : p.getListePieces()) {
-            if (piece.compareCouleur(leRoi())) {
+            if (piece.getCouleur().equals(leRoi().getCouleur())) {
                 for (int cmp1 = 0; cmp1 < 8; cmp1++) {
                     for (int cmp2 = 0; cmp2 < 8; cmp2++) {
-                        if (piece.getCoord().compare(new Coord(cmp1, cmp2))) {
-                            continue;
-                        } else if (p.estJouable(piece.getCoord(), new Coord(cmp1, cmp2), this)) {
-                            tabCoups.add(p.getCoord(piece.getCoord()) + p.getCoord(new Coord(cmp1, cmp2)));
+                        if (p.estJouable(piece.getCoord(), new Coord(cmp1, cmp2), this)) {
+                            tabCoups.add(piece.getCoord() + (new Coord(cmp1, cmp2).toString()));
                         }
                     }
                 }
@@ -37,6 +35,18 @@ public class Bot extends Joueur {
         System.out.println("le coup du bot est " + tabCoups.get(0));
 
         déplacer(tabCoups.get(0), autreJoueur, p);
+
+
+    }
+
+    @Override
+    public boolean estHumain() {
+        return false;
+    }
+
+    @Override
+    public boolean abandonne() {
+        return false;
     }
 }
 
