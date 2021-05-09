@@ -35,12 +35,12 @@ public class Appli {
         }
 
         if(jBlanc.abandonne()){
-            System.out.println("abandon du joeur");
+            System.out.println("Le joueur " +jBlanc.getNom() +"a décidé d'abandonner la partie.  Le joueur " + jNoir.getNom()+ " a gagné par \\\"forfait\\\"!");
             return true;
         }
 
         if(jNoir.abandonne()){
-            System.out.println("abadon");
+            System.out.println("Le joueur " +jNoir.getNom() +"a décidé d'abandonner la partie. Le joueur " + jBlanc.getNom()+ " a gagné par \"forfait\"!");
             return true;
         }
 
@@ -70,11 +70,12 @@ public class Appli {
         IJoueur joueurBlanc;
         IJoueur joueurNoir;
 
-        System.out.println("********************************************************************************************************\n" +
-                "Bienvenue sur le menu de sélection d'adversaire, il suffit de taper : 1 pour le mode joueur VS joueur  *\n" +
-                "                                                                      2 pour le mode joueur VS bot     *\n " +
-                "                                                                     3 pour le mode bot VS bot        *\n" +
-                "********************************************************************************************************");
+        System.out.println("""
+                ********************************************************************************************************
+                Bienvenue sur le menu de sélection d'adversaire, il suffit de taper : 1 pour le mode joueur VS joueur  *
+                                                                                      2 pour le mode joueur VS bot     *
+                                                                                      3 pour le mode bot VS bot        *
+                ********************************************************************************************************""");
 
         Scanner sc = new Scanner(System.in);
         String choix;

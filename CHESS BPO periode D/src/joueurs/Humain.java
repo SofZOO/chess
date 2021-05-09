@@ -22,26 +22,22 @@ public class Humain extends Joueur {
         String coup;
         while (true) {
             System.out.println("Tour du joueur " + this.getNom());
-
-
-
-
             if (p.getPropositionNulle()){
-                System.out.println("le joueur adverse vous propose la nulle, oui ou non?");
+                System.out.println("le joueur "+autreJoueur.getNom()+" vous propose la nulle, voulez-vous accepter ? Veuillez répondre par Oui ou par Non.");
                 coup = sc.nextLine().trim().toLowerCase(Locale.ROOT);
                 while (true){
                     if (coup.equals("oui")){
-                        System.out.println("vous avez accepte la proposition de la nulle, la partie se termine par un match nul");
+                        System.out.println("Le joueur "+ this.getNom() +"  a accepte la proposition de la nulle, la partie se termine par un match nul.");
                         p.setMAtchNul(true);
                         return;
                     }
                     else if (coup.equals("non")){
-                        System.out.println("vous avez refuse la proposition de la nulle");
+                        System.out.println("Le joueur " + this.getNom() +" a refusé la nulle.");
                         p.setPropositionNulle(false);
                         return;
                     }
                     else{
-                        System.out.println("veuillez répondre par oui ou par non");
+                        System.out.println("Veuillez répondre par oui ou par non");
                         coup = sc.nextLine().trim().toLowerCase(Locale.ROOT);
                     }
                 }
@@ -53,7 +49,7 @@ public class Humain extends Joueur {
             }
              if (coup.equals("nulle")) {
                  if (!autreJoueur.estHumain()){
-                     System.out.println("vous ne pouvez pas proposer la nulle a un bot, veuillez réécrire votre coup");
+                     System.out.println("Vous ne pouvez pas proposer la nulle a un bot, bien tenté. Veuillez réécrire votre coup.");
                      coup = sc.nextLine().trim().toLowerCase(Locale.ROOT);
                  }
                  else {
