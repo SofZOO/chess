@@ -6,6 +6,8 @@ public class Plateau {
     private static final int HAUTEUR = 8, LONGUEUR = 8;
     private final IPiece[][] echiquier;
     private final ArrayList<IPiece> listePieces;
+    private boolean propositionNulle;
+    private boolean matchNul;
 
     public Plateau(IJoueur j1, IJoueur j2) {
         echiquier = new IPiece[LONGUEUR][HAUTEUR];
@@ -18,6 +20,8 @@ public class Plateau {
         listePieces.addAll(j2.getPieces());
         for (IPiece p : listePieces)
             echiquier[p.getCoord().getLigne()][p.getCoord().getColonne()] = p;
+        propositionNulle = false;
+        matchNul = false;
     }
 
     public static int intoInt(String coup, int position) {
@@ -170,6 +174,8 @@ public class Plateau {
 
 
     public boolean partieNulle(IJoueur blanc,IJoueur noir){
+        if (matchNul)
+            return true;
         if (chesspat(blanc) || chesspat(noir))
             return true;
         if (listePieces.size() == 2)
@@ -285,4 +291,8 @@ public class Plateau {
     public ArrayList<IPiece> getListePieces() {
         return listePieces;
     }
+
+    public boolean getPropositionNulle(){return this.propositionNulle;}
+    public void setPropositionNulle(boolean change){this.propositionNulle = change;}
+    public void setMAtchNul(boolean change){this.matchNul=change;}
 }

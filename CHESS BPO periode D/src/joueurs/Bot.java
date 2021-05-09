@@ -39,6 +39,11 @@ public class Bot extends Joueur {
 
 
     }
+
+    @Override
+    public boolean estHumain() {
+        return false;
+    }
 }
 
 

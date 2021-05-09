@@ -18,4 +18,6 @@ public interface IJoueur {
 
     boolean getEchecEtMat();
 
+    boolean estHumain();
+
 }
