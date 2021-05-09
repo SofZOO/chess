@@ -25,7 +25,7 @@ public class Appli {
 
         System.out.println(p.affichePlateau(jBlanc, jNoir));
         if (echecEtMat) {
-            p.partieFinie(2,nom,autreNom);
+            System.out.println(p.partieFinie(2,nom,autreNom));
             return true;
         }
         if (p.partieNulle(jBlanc,jNoir)) {
