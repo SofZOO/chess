@@ -178,11 +178,7 @@ public class Plateau {
             return true;
         if (chesspat(blanc) || chesspat(noir))
             return true;
-        if (listePieces.size() == 2)
-            return true;
-
-        return false;
-
+        return listePieces.size() == 2;
     }
 
     public boolean echec(IJoueur bangbang, ArrayList<IPiece> list) {
@@ -236,7 +232,6 @@ public class Plateau {
         if (!estJouable(coordIni, coordFin, joueur)) {
             return true;
         }
-
         return !laPiece(coordIni).getCouleur().equals(joueur.leRoi().getCouleur());
     }
 
@@ -250,18 +245,13 @@ public class Plateau {
         return sb.toString();
     }
 
-//    public String abandon(String coup){
-//
-//    }
 
     public String affichePlateau(IJoueur joueurBlanc, IJoueur joueurNoir) {
         StringBuilder sb = new StringBuilder();
         sb.append(chaine()).append("         Pièces mangées par le joueur ").append(joueurNoir.getNom()).append(" : ");
-        sb.append(affichagePiecesMangees(joueurBlanc));
-        sb.append("\n");
+        sb.append(affichagePiecesMangees(joueurBlanc)).append(System.lineSeparator());
         for (int cmpHauteur = 0, cmp = 8; cmpHauteur < HAUTEUR; cmpHauteur++, cmp--) {
-            sb.append("    ---   ---   ---   ---   ---   ---   ---   ---\n");
-            sb.append(cmp).append(" | ");
+            sb.append("    ---   ---   ---   ---   ---   ---   ---   ---\n").append(cmp).append(" | ");
             for (int cmpLongueur = 0; cmpLongueur < LONGUEUR; cmpLongueur++) {
                 sb.append(" ");
                 if (laPiece(new Coord(cmpHauteur, cmpLongueur)) == null)
@@ -271,20 +261,20 @@ public class Plateau {
                 }
                 sb.append("  | ");
             }
-            if(cmp == 5 ){
-                sb.append(cmp).append("    Si vous souhaitez abandonner veuillez écrire \"abandon\" à la place d'un coup\n");
+            switch(cmp){
+                case(5):
+                    sb.append(cmp).append("    Si vous souhaitez abandonner veuillez écrire \"abandon\" à la place d'un coup\n");
+                    break;
+                case(4):
+                    sb.append(cmp).append("    Pour la propostion de la nulle veuillez écrire \"nulle\" à la place d'un coup que vous souhaitez entrer\n");
+                    break;
+                default:sb.append(cmp).append("\n");
             }
-            else if(cmp == 4){
-                sb.append(cmp).append("    Pour la propostion de la nulle veuillez écrire \"nulle\" à la place d'un coup que vous souhaitez entrer\n");
-            }
-            else{
-                sb.append(cmp).append("\n");
-            }
+
         }
         sb.append("    ---   ---   ---   ---   ---   ---   ---   ---\n");
         sb.append(chaine()).append("         Pièces mangées par le joueur ").append(joueurBlanc.getNom()).append(" : ");
-        sb.append(affichagePiecesMangees(joueurNoir));
-        sb.append("\n");
+        sb.append(affichagePiecesMangees(joueurNoir)).append(System.lineSeparator());
         return sb.toString();
     }
 

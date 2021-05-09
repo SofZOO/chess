@@ -11,9 +11,8 @@ public class FabriquePiece implements IFabriquePiece {
         ArrayList<IPiece> piecesDepart = new ArrayList<>();
 
         CouleurPiece couleur;
-        if (estBlanc)
-            couleur = CouleurPiece.BLANC;
-        else couleur = CouleurPiece.NOIR;
+        couleur = estBlanc ? CouleurPiece.BLANC : CouleurPiece.NOIR;
+
 
         if (estBlanc) {
             piecesDepart.add(new Roi (couleur,7, 4));
