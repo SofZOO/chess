@@ -9,19 +9,14 @@ public class FabriquePiece implements IFabriquePiece {
 
     public ArrayList<IPiece> fabrique(boolean estBlanc) {
         ArrayList<IPiece> piecesDepart = new ArrayList<>();
-
         CouleurPiece couleur;
-        if (estBlanc)
-            couleur = CouleurPiece.BLANC;
-        else couleur = CouleurPiece.NOIR;
-
+        couleur = estBlanc ? CouleurPiece.BLANC : CouleurPiece.NOIR;
         if (estBlanc) {
-            piecesDepart.add(new Roi(couleur, 7, 4));
-            piecesDepart.add(new Tour(couleur, 7, 0));
+            piecesDepart.add(new Roi(couleur, 2, 4));
+            piecesDepart.add(new Tour(couleur, 1, 1));
 
         } else {
             piecesDepart.add(new Roi(couleur, 0, 4));
-            piecesDepart.add(new Tour(couleur, 0, 0));
 
         }
 
