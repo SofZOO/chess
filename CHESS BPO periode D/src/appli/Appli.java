@@ -16,9 +16,7 @@ public class Appli {
         if(!Character.isDigit(choix.charAt(0))){
          return true;
         }
-        if((Integer.parseInt(choix) > 3 || Integer.parseInt(choix)<1))
-            return true;
-        return false;
+        return Integer.parseInt(choix) > 3 || Integer.parseInt(choix) < 1;
     }
 
     private static boolean finPartie(IJoueur jBlanc, IJoueur jNoir, Plateau p, boolean echecEtMat, String nom, String autreNom) {
@@ -52,15 +50,14 @@ public class Appli {
 
         System.out.println(p.affichePlateau(jBlanc, jNoir));
 
-        while (!jBlanc.getEchecEtMat() || jNoir.getEchecEtMat()) {
-            jBlanc.joue(jNoir, p);
+        while (!(jBlanc.isChessMat() || jNoir.isChessMat())) {
+            jBlanc.joueUnTour(jNoir, p);
 
+            if (finPartie(jBlanc, jNoir, p, jNoir.isChessMat(), jNoir.getNom(), jBlanc.getNom())) break;
 
-            if (finPartie(jBlanc, jNoir, p, jNoir.getEchecEtMat(), jNoir.getNom(), jBlanc.getNom())) break;
+            jNoir.joueUnTour(jBlanc, p);
 
-            jNoir.joue(jBlanc, p);
-
-            if (finPartie(jBlanc, jNoir, p, jBlanc.getEchecEtMat(), jBlanc.getNom(), jNoir.getNom())) break;
+            if (finPartie(jBlanc, jNoir, p, jBlanc.isChessMat(), jBlanc.getNom(), jNoir.getNom())) break;
         }
         System.out.println("fin du test");
     }
@@ -87,26 +84,26 @@ public class Appli {
 
         switch (choix) {
             case ("1"): {
-                joueurBlanc = new Humain("BLANC", true, new FabriquePiece());
-                joueurNoir = new Humain("NOIR", false, new FabriquePiece());
+                joueurBlanc = new Humain(true, new FabriquePiece());
+                joueurNoir = new Humain(false, new FabriquePiece());
                 break;
 
             }
             case ("2"): {
-                joueurBlanc = new Humain("BLANC", true, new FabriquePiece());
-                joueurNoir = new Bot("NOIR", false, new FabriquePiece());
+                joueurBlanc = new Humain(true, new FabriquePiece());
+                joueurNoir = new Bot(false, new FabriquePiece());
                 break;
 
             }
             case ("3"): {
-                joueurBlanc = new Bot("BLANC", true, new FabriquePiece());
-                joueurNoir = new Bot("NOIR", false, new FabriquePiece());
+                joueurBlanc = new Bot(true, new FabriquePiece());
+                joueurNoir = new Bot(false, new FabriquePiece());
                 break;
 
             }
             default: {
-                joueurBlanc = new Humain("BLANC", true, new FabriquePiece());
-                joueurNoir = new Humain("NOIR", false, new FabriquePiece());
+                joueurBlanc = new Humain(true, new FabriquePiece());
+                joueurNoir = new Humain(false, new FabriquePiece());
             }
         }
         Plateau p = new Plateau(joueurBlanc, joueurNoir);

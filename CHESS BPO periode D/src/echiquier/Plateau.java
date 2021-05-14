@@ -28,7 +28,7 @@ public class Plateau {
         return Integer.parseInt(String.valueOf(coup.charAt(position)));
     }
 
-    private static String chaine() {
+    private static String chaineCaracteres() {
         StringBuilder sb = new StringBuilder();
         char u = 'a';
         for (int i = 0; i < LONGUEUR; i++) {
@@ -41,7 +41,6 @@ public class Plateau {
     public void placerNouvelleCoord(Coord coordIni, Coord coordFin) {
         if (laPiece(coordFin) != null) {
             listePieces.remove(laPiece(coordFin));
-
             laPiece(coordFin).estMangé();
         }
         laPiece(coordIni).changeCoord(coordFin);
@@ -70,7 +69,6 @@ public class Plateau {
 //      4- si c'est un roi alors la destination n'est pas attaquable par une pièce adverse
         if (p.craintEchec()) {
             echiquier[p.getCoord().getLigne()][p.getCoord().getColonne()] = null;
-
             for (IPiece piece : listePieces) {
                 if (!piece.getCoord().compare(caseDest)) {
                     if (!(piece.getCouleur().equals(p.getCouleur()))) {
@@ -154,7 +152,6 @@ public class Plateau {
     }
 
     public String partieFinie(int index, String nom, String autreNom){
-        String s;
       switch (index){
           case (1) : {
               return "La partie est nulle : situation d'échecs et pat pour le joueur " + nom +".";
@@ -168,7 +165,6 @@ public class Plateau {
           default:{
               return "arvindo";
           }
-
       }
     }
 
@@ -178,11 +174,7 @@ public class Plateau {
             return true;
         if (chesspat(blanc) || chesspat(noir))
             return true;
-        if (listePieces.size() == 2)
-            return true;
-
-        return false;
-
+        return listePieces.size() == 2;
     }
 
     public boolean echec(IJoueur bangbang, ArrayList<IPiece> list) {
@@ -240,23 +232,20 @@ public class Plateau {
         return !laPiece(coordIni).getCouleur().equals(joueur.leRoi().getCouleur());
     }
 
-    private String affichagePiecesMangees(IJoueur j) {
+    private static String affichagePiecesMangees(IJoueur j) {
         StringBuilder sb = new StringBuilder();
         for (IPiece p : j.getPieces()) {
-            if (p.getEstMangé()) {
+            if (p.isMangé()) {
                 sb.append(p.toChar()).append(" ");
             }
         }
         return sb.toString();
     }
 
-//    public String abandon(String coup){
-//
-//    }
 
     public String affichePlateau(IJoueur joueurBlanc, IJoueur joueurNoir) {
         StringBuilder sb = new StringBuilder();
-        sb.append(chaine()).append("         Pièces mangées par le joueur ").append(joueurNoir.getNom()).append(" : ");
+        sb.append(chaineCaracteres()).append("         Pièces mangées par le joueur ").append(joueurNoir.getNom()).append(" : ");
         sb.append(affichagePiecesMangees(joueurBlanc));
         sb.append("\n");
         for (int cmpHauteur = 0, cmp = 8; cmpHauteur < HAUTEUR; cmpHauteur++, cmp--) {
@@ -282,7 +271,7 @@ public class Plateau {
             }
         }
         sb.append("    ---   ---   ---   ---   ---   ---   ---   ---\n");
-        sb.append(chaine()).append("         Pièces mangées par le joueur ").append(joueurBlanc.getNom()).append(" : ");
+        sb.append(chaineCaracteres()).append("         Pièces mangées par le joueur ").append(joueurBlanc.getNom()).append(" : ");
         sb.append(affichagePiecesMangees(joueurNoir));
         sb.append("\n");
         return sb.toString();

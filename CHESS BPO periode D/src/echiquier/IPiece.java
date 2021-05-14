@@ -18,7 +18,7 @@ public interface IPiece {
 
     void estMangé();
 
-    boolean getEstMangé();
+    boolean isMangé();
 
 
 }

@@ -8,7 +8,7 @@ public interface IJoueur {
 
     void déplacer(String coup, IJoueur autreJoueur, Plateau p);
 
-    void joue(IJoueur autreJoueur, Plateau p);
+    void joueUnTour(IJoueur autreJoueur, Plateau p);
 
     IPiece leRoi();
 
@@ -16,7 +16,7 @@ public interface IJoueur {
 
     String getNom();
 
-    boolean getEchecEtMat();
+    boolean isChessMat();
 
     boolean estHumain();
 
