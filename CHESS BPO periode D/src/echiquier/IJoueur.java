@@ -12,7 +12,7 @@ public interface IJoueur {
 
     IPiece leRoi();
 
-    void aPerdu();
+    void aPerdu  ();
 
     String getNom();
 
