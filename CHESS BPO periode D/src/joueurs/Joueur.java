@@ -17,20 +17,11 @@ public abstract class Joueur implements IJoueur {
      * @param blanc Boolean True si le joueur est le joueur blanc
      * @param fab   la fabrique de pieces du joueur
      */
-    public Joueur(boolean blanc, IFabriquePiece fab) {
+    protected Joueur(boolean blanc, IFabriquePiece fab) {
         this.nom = blanc ? "BLANC" : "NOIR";
         this.pieces = fab.fabrique(blanc);
         this.echecEtMat = false;
     }
-
-    /**
-     * Permet au joueur de jouer son tour
-     *
-     * @param autreJoueur le joueur adverse
-     * @param p           le plateau de jeu
-     */
-    @Override
-    public abstract void joueUnTour(IJoueur autreJoueur, Plateau p);
 
     /**
      * Est appelée dans la méthode joueUnTour afin d'éxécuter un coup
@@ -41,9 +32,12 @@ public abstract class Joueur implements IJoueur {
      */
     @Override
     public void déplacer(String coup, IJoueur autreJoueur, Plateau p) {
-        Coord coordIni, coordFin;
-        char x = coup.charAt(0), x2 = coup.charAt(2);/*b7b8*/
-        int y = Plateau.intoInt(coup, 1), y2 = Plateau.intoInt(coup, 3);
+        Coord coordIni;
+        Coord coordFin;
+        char x = coup.charAt(0);
+        char x2 = coup.charAt(2);
+        int y = Plateau.intoInt(coup, 1);
+        int y2 = Plateau.intoInt(coup, 3);
         coordIni = p.getCoord(x, y);
         coordFin = p.getCoord(x2, y2);
 
@@ -75,7 +69,7 @@ public abstract class Joueur implements IJoueur {
     @Override
     public IPiece leRoi() {
         return pieces.get(0);
-    }/*reste bizarre car n'est pas logique, on return l'indice 0 puisqu'on insère le roi en premier*/
+    }
 
     /**
      * Permet de changer l'état du boolean "echecEtMat" en vrai, ainsi le joueur a perdu

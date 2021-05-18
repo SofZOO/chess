@@ -19,7 +19,7 @@ public abstract class Piece implements IPiece {
      * @param colonne colonne ou la pièce est placée
      * @param ligne   la ligne ou la pièce est placée
      */
-    public Piece(char sig, CouleurPiece coul, int colonne, int ligne) {
+    protected Piece(char sig, CouleurPiece coul, int colonne, int ligne) {
         this.couleur = coul;
         coord = new Coord(colonne, ligne);
         // permet de mettre en majuscule si la couleur de la pièce est BLANC, sinon en minuscule
@@ -27,15 +27,6 @@ public abstract class Piece implements IPiece {
         this.estMangé = false;
     }
 
-    /**
-     * Permet de savoir si la pièce peut jouer a des coordonées définies sur un plateau défini
-     *
-     * @param c la coordonnée de destination de la pièce
-     * @param p le plateau de jeu ou les pièces se déplacent
-     * @return Vrai si le coup est bon pour la pièce
-     */
-    @Override
-    public abstract boolean peutJouer(Coord c, Plateau p);
 
     /**
      * Permet de modifier les coordonnées de la pièce

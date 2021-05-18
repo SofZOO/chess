@@ -1,9 +1,11 @@
 package echiquier;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Plateau {
-    private static final int HAUTEUR = 8, LONGUEUR = 8;
+    private static final int HAUTEUR = 8;
+    private static final int LONGUEUR = 8;
     private final IPiece[][] echiquier;
     private final ArrayList<IPiece> listePieces;
     private boolean propositionNulle;
@@ -86,28 +88,21 @@ public class Plateau {
 
             IPiece pieceSrc = laPiece(caseSource);
             IPiece pieceDst = laPiece(caseDest);
-
-            /*laPiece(caseSource).retirerPiece();*/
             echiquier[caseSource.getLigne()][caseSource.getColonne()] = null;
-            /*laPiece(caseDest).rajouterPiece(pieceSrc);*/
             echiquier[caseDest.getLigne()][caseDest.getColonne()] = pieceSrc;
             ArrayList<IPiece> test2 = new ArrayList<>(listePieces);
             if (pieceDst != null)
                 test2.remove(pieceDst);
 
-            if (echec(courant, test2)) {//TODO a revoir
-                /*laPiece(caseSource).rajouterPiece(pieceSrc);*/
+            if (echec(courant, test2)) {
                 echiquier[caseSource.getLigne()][caseSource.getColonne()] = pieceSrc;
-                /*laPiece(caseDest).rajouterPiece(pieceDst);*/
                 echiquier[caseDest.getLigne()][caseDest.getColonne()] = pieceDst;
 
                 if (pieceDst != null)
                     test2.add(pieceDst);
                 return false;
             }
-            /*laPiece(caseSource).rajouterPiece(pieceSrc);*/
             echiquier[caseSource.getLigne()][caseSource.getColonne()] = pieceSrc;
-            /*laPiece(caseDest).rajouterPiece(pieceSr);*/
             echiquier[caseDest.getLigne()][caseDest.getColonne()] = pieceDst;
             if (pieceDst != null)
                 test2.add(pieceDst);
@@ -177,7 +172,7 @@ public class Plateau {
         return listePieces.size() == 2;
     }
 
-    public boolean echec(IJoueur bangbang, ArrayList<IPiece> list) {
+    public boolean echec(IJoueur bangbang, List<IPiece> list) {
         for (IPiece piece : list) {
             if (!(piece.getCouleur().equals(bangbang.leRoi().getCouleur()))) {
                 if (piece.peutJouer(bangbang.leRoi().getCoord(), this))

@@ -31,18 +31,14 @@ public class Appli {
             System.out.println("la partie est nulle");
             return true;
         }
-
         if(jBlanc.abandonne()){
             System.out.println("Le joueur " +jBlanc.getNom() +" a décidé d'abandonner la partie.  Le joueur " + jNoir.getNom()+ " a gagné par \"forfait\"!");
             return true;
         }
-
         if(jNoir.abandonne()){
             System.out.println("Le joueur " +jNoir.getNom() +" a décidé d'abandonner la partie. Le joueur " + jBlanc.getNom()+ " a gagné par \"forfait\"!");
             return true;
         }
-
-
         return false;
     }
 

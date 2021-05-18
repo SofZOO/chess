@@ -22,6 +22,10 @@ public class Roi extends Piece {
         return Math.abs(getCoord().getColonne() - c.getColonne()) <= 1 && Math.abs(getCoord().getLigne() - c.getLigne()) <= 1;
     }
 
+    /**
+     * Permet de spécifier la pièce qui représente le Roi
+     * @return True car il craint l'échec
+     */
     @Override
     public boolean craintEchec() {
         // le roi est la seule pièce qui craint l'échec parmi toutes les pièces

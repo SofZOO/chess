@@ -35,10 +35,6 @@ public class Bot extends Joueur {
                 }
             }
         }
-        System.out.println("--------------------------------------");
-        for (String s : tabCoups)
-            System.out.println(s);
-        System.out.println("--------------------------------------");
         // on mélange la liste de coups pour avoir un coup au hasard
         Collections.shuffle(tabCoups);
         System.out.println("le coup du bot est " + tabCoups.get(0));
