@@ -24,6 +24,7 @@ public class Roi extends Piece {
 
     /**
      * Permet de spécifier la pièce qui représente le Roi
+     *
      * @return True car il craint l'échec
      */
     @Override

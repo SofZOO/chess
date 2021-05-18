@@ -16,7 +16,6 @@ public class Humain extends Joueur {
     }
 
     /**
-     *
      * @param autreJoueur le joueur adverse
      * @param p           le plateau de jeu
      */

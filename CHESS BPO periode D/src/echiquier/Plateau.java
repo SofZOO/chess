@@ -40,6 +40,16 @@ public class Plateau {
         return sb.toString();
     }
 
+    private static String affichagePiecesMangees(IJoueur j) {
+        StringBuilder sb = new StringBuilder();
+        for (IPiece p : j.getPieces()) {
+            if (p.isMangé()) {
+                sb.append(p.toChar()).append(" ");
+            }
+        }
+        return sb.toString();
+    }
+
     public void placerNouvelleCoord(Coord coordIni, Coord coordFin) {
         if (laPiece(coordFin) != null) {
             listePieces.remove(laPiece(coordFin));
@@ -146,25 +156,24 @@ public class Plateau {
         return true;
     }
 
-    public String partieFinie(int index, String nom, String autreNom){
-      switch (index){
-          case (1) : {
-              return "La partie est nulle : situation d'échecs et pat pour le joueur " + nom +".";
-          }
-          case (2) : {
-              return "Le joueur " + nom + " est vaincu par échecs et mat. Le joueur " + autreNom + " a gagné.";
-          }
-          case(3):{
-              return  "La partie est nulle : il ne reste que 2 rois sur le plateau.";
-          }
-          default:{
-              return "arvindo";
-          }
-      }
+    public String partieFinie(int index, String nom, String autreNom) {
+        switch (index) {
+            case (1): {
+                return "La partie est nulle : situation d'échecs et pat pour le joueur " + nom + ".";
+            }
+            case (2): {
+                return "Le joueur " + nom + " est vaincu par échecs et mat. Le joueur " + autreNom + " a gagné.";
+            }
+            case (3): {
+                return "La partie est nulle : il ne reste que 2 rois sur le plateau.";
+            }
+            default: {
+                return "arvindo";
+            }
+        }
     }
 
-
-    public boolean partieNulle(IJoueur blanc,IJoueur noir){
+    public boolean partieNulle(IJoueur blanc, IJoueur noir) {
         if (matchNul)
             return true;
         if (chesspat(blanc) || chesspat(noir))
@@ -227,17 +236,6 @@ public class Plateau {
         return !laPiece(coordIni).getCouleur().equals(joueur.leRoi().getCouleur());
     }
 
-    private static String affichagePiecesMangees(IJoueur j) {
-        StringBuilder sb = new StringBuilder();
-        for (IPiece p : j.getPieces()) {
-            if (p.isMangé()) {
-                sb.append(p.toChar()).append(" ");
-            }
-        }
-        return sb.toString();
-    }
-
-
     public String affichePlateau(IJoueur joueurBlanc, IJoueur joueurNoir) {
         StringBuilder sb = new StringBuilder();
         sb.append(chaineCaracteres()).append("         Pièces mangées par le joueur ").append(joueurNoir.getNom()).append(" : ");
@@ -255,13 +253,11 @@ public class Plateau {
                 }
                 sb.append("  | ");
             }
-            if(cmp == 5 ){
+            if (cmp == 5) {
                 sb.append(cmp).append("    Si vous souhaitez abandonner veuillez écrire \"abandon\" à la place d'un coup\n");
-            }
-            else if(cmp == 4){
+            } else if (cmp == 4) {
                 sb.append(cmp).append("    Pour la propostion de la nulle veuillez écrire \"nulle\" à la place d'un coup que vous souhaitez entrer\n");
-            }
-            else{
+            } else {
                 sb.append(cmp).append("\n");
             }
         }
@@ -276,7 +272,15 @@ public class Plateau {
         return listePieces;
     }
 
-    public boolean getPropositionNulle(){return this.propositionNulle;}
-    public void setPropositionNulle(boolean change){this.propositionNulle = change;}
-    public void setMAtchNul(boolean change){this.matchNul=change;}
+    public boolean getPropositionNulle() {
+        return this.propositionNulle;
+    }
+
+    public void setPropositionNulle(boolean change) {
+        this.propositionNulle = change;
+    }
+
+    public void setMAtchNul(boolean change) {
+        this.matchNul = change;
+    }
 }

@@ -2,7 +2,6 @@ package piece;
 
 import echiquier.Coord;
 import echiquier.IPiece;
-import echiquier.Plateau;
 
 
 public abstract class Piece implements IPiece {

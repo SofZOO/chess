@@ -48,11 +48,8 @@ public class Appli {
 
         while (!(jBlanc.isChessMat() || jNoir.isChessMat())) {
             jBlanc.joueUnTour(jNoir, p);
-
             if (finPartie(jBlanc, jNoir, p, jNoir.isChessMat(), jNoir.getNom(), jBlanc.getNom())) break;
-
             jNoir.joueUnTour(jBlanc, p);
-
             if (finPartie(jBlanc, jNoir, p, jBlanc.isChessMat(), jBlanc.getNom(), jNoir.getNom())) break;
         }
         System.out.println("fin du test");

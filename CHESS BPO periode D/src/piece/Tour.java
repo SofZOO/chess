@@ -7,16 +7,16 @@ public class Tour extends Piece {
 
     /**
      * Le constructeur d'une Tour
+     *
      * @param couleur la couleur de la Tour
-     * @param x la coordonnée en x
-     * @param y la coordonnée en y
+     * @param x       la coordonnée en x
+     * @param y       la coordonnée en y
      */
     public Tour(CouleurPiece couleur, int x, int y) {
         super('t', couleur, x, y);
     }
 
     /**
-     *
      * @param c la coordonnée de destination de la pièce
      * @param p le plateau de jeu ou les pièces se déplacent
      * @return True si on peut jouer le coup qui se fait sur la Tour
@@ -40,9 +40,10 @@ public class Tour extends Piece {
 
     /**
      * Permet de vérifier si la tour peut jouer à l'horizontale
-     * @param c les coordonnées
-     * @param p le plateau
-     * @param lignePiece la coordonnée de la ligne
+     *
+     * @param c            les coordonnées
+     * @param p            le plateau
+     * @param lignePiece   la coordonnée de la ligne
      * @param colonnePiece la coordonnée de la colonne
      * @return True si elle peut jouer le coup à l'horizontal
      */
@@ -71,11 +72,11 @@ public class Tour extends Piece {
     }
 
     /**
-     *
      * Permet de vérifier si la tour peut jouer à l'horizontale
-     * @param c les coordonnées
-     * @param p le plateau
-     * @param lignePiece la coordonnée de la ligne
+     *
+     * @param c            les coordonnées
+     * @param p            le plateau
+     * @param lignePiece   la coordonnée de la ligne
      * @param colonnePiece la coordonnée de la colonne
      * @return True si elle peut jouer le coup à la verticale
      */
