@@ -39,7 +39,7 @@ public interface IJoueur {
      * Permet de changer l'état du boolean "echecEtMat" en vrai, ainsi le joueur a perdu
      */
     void aPerdu();
-
+    
     /**
      * Permet de retourner le nom du joueur
      *
