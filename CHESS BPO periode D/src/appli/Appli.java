@@ -60,12 +60,12 @@ public class Appli {
         IJoueur joueurBlanc;
         IJoueur joueurNoir;
 
-        System.out.println("""
-                ********************************************************************************************************
-                Bienvenue sur le menu de sélection d'adversaire, il suffit de taper : 1 pour le mode joueur VS joueur  *
-                                                                                      2 pour le mode joueur VS bot     *
-                                                                                      3 pour le mode bot VS bot        *
-                ********************************************************************************************************""");
+        System.out.println(""+
+                "********************************************************************************************************\n"+
+                "Bienvenue sur le menu de sélection d'adversaire, il suffit de taper : 1 pour le mode joueur VS joueur  *\n"+
+                "                                                                      2 pour le mode joueur VS bot     *\n"+
+                "                                                                      3 pour le mode bot VS bot        *\n"+
+                "********************************************************************************************************");
 
         Scanner sc = new Scanner(System.in);
         String choix;
