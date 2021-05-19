@@ -1,9 +1,11 @@
 package echiquier;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Plateau {
-    private static final int HAUTEUR = 8, LONGUEUR = 8;
+    private static final int HAUTEUR = 8;
+    private static final int LONGUEUR = 8;
     private final IPiece[][] echiquier;
     private final ArrayList<IPiece> listePieces;
     private boolean propositionNulle;
@@ -28,7 +30,7 @@ public class Plateau {
         return Integer.parseInt(String.valueOf(coup.charAt(position)));
     }
 
-    private static String chaine() {
+    private static String chaineCaracteres() {
         StringBuilder sb = new StringBuilder();
         char u = 'a';
         for (int i = 0; i < LONGUEUR; i++) {
@@ -38,10 +40,19 @@ public class Plateau {
         return sb.toString();
     }
 
+    private static String affichagePiecesMangees(IJoueur j) {
+        StringBuilder sb = new StringBuilder();
+        for (IPiece p : j.getPieces()) {
+            if (p.isMangé()) {
+                sb.append(p.toChar()).append(" ");
+            }
+        }
+        return sb.toString();
+    }
+
     public void placerNouvelleCoord(Coord coordIni, Coord coordFin) {
         if (laPiece(coordFin) != null) {
             listePieces.remove(laPiece(coordFin));
-
             laPiece(coordFin).estMangé();
         }
         laPiece(coordIni).changeCoord(coordFin);
@@ -70,7 +81,6 @@ public class Plateau {
 //      4- si c'est un roi alors la destination n'est pas attaquable par une pièce adverse
         if (p.craintEchec()) {
             echiquier[p.getCoord().getLigne()][p.getCoord().getColonne()] = null;
-
             for (IPiece piece : listePieces) {
                 if (!piece.getCoord().compare(caseDest)) {
                     if (!(piece.getCouleur().equals(p.getCouleur()))) {
@@ -88,28 +98,21 @@ public class Plateau {
 
             IPiece pieceSrc = laPiece(caseSource);
             IPiece pieceDst = laPiece(caseDest);
-
-            /*laPiece(caseSource).retirerPiece();*/
             echiquier[caseSource.getLigne()][caseSource.getColonne()] = null;
-            /*laPiece(caseDest).rajouterPiece(pieceSrc);*/
             echiquier[caseDest.getLigne()][caseDest.getColonne()] = pieceSrc;
             ArrayList<IPiece> test2 = new ArrayList<>(listePieces);
             if (pieceDst != null)
                 test2.remove(pieceDst);
 
-            if (echec(courant, test2)) {//TODO a revoir
-                /*laPiece(caseSource).rajouterPiece(pieceSrc);*/
+            if (echec(courant, test2)) {
                 echiquier[caseSource.getLigne()][caseSource.getColonne()] = pieceSrc;
-                /*laPiece(caseDest).rajouterPiece(pieceDst);*/
                 echiquier[caseDest.getLigne()][caseDest.getColonne()] = pieceDst;
 
                 if (pieceDst != null)
                     test2.add(pieceDst);
                 return false;
             }
-            /*laPiece(caseSource).rajouterPiece(pieceSrc);*/
             echiquier[caseSource.getLigne()][caseSource.getColonne()] = pieceSrc;
-            /*laPiece(caseDest).rajouterPiece(pieceSr);*/
             echiquier[caseDest.getLigne()][caseDest.getColonne()] = pieceDst;
             if (pieceDst != null)
                 test2.add(pieceDst);
@@ -153,27 +156,24 @@ public class Plateau {
         return true;
     }
 
-    public String partieFinie(int index, String nom, String autreNom){
-        String s;
-      switch (index){
-          case (1) : {
-              return "La partie est nulle : situation d'échecs et pat pour le joueur " + nom +".";
-          }
-          case (2) : {
-              return "Le joueur " + nom + " est vaincu par échecs et mat. Le joueur " + autreNom + " a gagné.";
-          }
-          case(3):{
-              return  "La partie est nulle : il ne reste que 2 rois sur le plateau.";
-          }
-          default:{
-              return "arvindo";
-          }
-
-      }
+    public String partieFinie(int index, String nom, String autreNom) {
+        switch (index) {
+            case (1): {
+                return "La partie est nulle : situation d'échecs et pat pour le joueur " + nom + ".";
+            }
+            case (2): {
+                return "Le joueur " + nom + " est vaincu par échecs et mat. Le joueur " + autreNom + " a gagné.";
+            }
+            case (3): {
+                return "La partie est nulle : il ne reste que 2 rois sur le plateau.";
+            }
+            default: {
+                return "arvindo";
+            }
+        }
     }
 
-
-    public boolean partieNulle(IJoueur blanc,IJoueur noir){
+    public boolean partieNulle(IJoueur blanc, IJoueur noir) {
         if (matchNul)
             return true;
         if (chesspat(blanc) || chesspat(noir))
@@ -181,7 +181,7 @@ public class Plateau {
         return listePieces.size() == 2;
     }
 
-    public boolean echec(IJoueur bangbang, ArrayList<IPiece> list) {
+    public boolean echec(IJoueur bangbang, List<IPiece> list) {
         for (IPiece piece : list) {
             if (!(piece.getCouleur().equals(bangbang.leRoi().getCouleur()))) {
                 if (piece.peutJouer(bangbang.leRoi().getCoord(), this))
@@ -232,26 +232,18 @@ public class Plateau {
         if (!estJouable(coordIni, coordFin, joueur)) {
             return true;
         }
+
         return !laPiece(coordIni).getCouleur().equals(joueur.leRoi().getCouleur());
     }
 
-    private String affichagePiecesMangees(IJoueur j) {
-        StringBuilder sb = new StringBuilder();
-        for (IPiece p : j.getPieces()) {
-            if (p.getEstMangé()) {
-                sb.append(p.toChar()).append(" ");
-            }
-        }
-        return sb.toString();
-    }
-
-
     public String affichePlateau(IJoueur joueurBlanc, IJoueur joueurNoir) {
         StringBuilder sb = new StringBuilder();
-        sb.append(chaine()).append("         Pièces mangées par le joueur ").append(joueurNoir.getNom()).append(" : ");
-        sb.append(affichagePiecesMangees(joueurBlanc)).append(System.lineSeparator());
+        sb.append(chaineCaracteres()).append("         Pièces mangées par le joueur ").append(joueurNoir.getNom()).append(" : ");
+        sb.append(affichagePiecesMangees(joueurBlanc));
+        sb.append("\n");
         for (int cmpHauteur = 0, cmp = 8; cmpHauteur < HAUTEUR; cmpHauteur++, cmp--) {
-            sb.append("    ---   ---   ---   ---   ---   ---   ---   ---\n").append(cmp).append(" | ");
+            sb.append("    ---   ---   ---   ---   ---   ---   ---   ---\n");
+            sb.append(cmp).append(" | ");
             for (int cmpLongueur = 0; cmpLongueur < LONGUEUR; cmpLongueur++) {
                 sb.append(" ");
                 if (laPiece(new Coord(cmpHauteur, cmpLongueur)) == null)
@@ -261,20 +253,18 @@ public class Plateau {
                 }
                 sb.append("  | ");
             }
-            switch(cmp){
-                case(5):
-                    sb.append(cmp).append("    Si vous souhaitez abandonner veuillez écrire \"abandon\" à la place d'un coup\n");
-                    break;
-                case(4):
-                    sb.append(cmp).append("    Pour la propostion de la nulle veuillez écrire \"nulle\" à la place d'un coup que vous souhaitez entrer\n");
-                    break;
-                default:sb.append(cmp).append("\n");
+            if (cmp == 5) {
+                sb.append(cmp).append("    Si vous souhaitez abandonner veuillez écrire \"abandon\" à la place d'un coup\n");
+            } else if (cmp == 4) {
+                sb.append(cmp).append("    Pour la propostion de la nulle veuillez écrire \"nulle\" à la place d'un coup que vous souhaitez entrer\n");
+            } else {
+                sb.append(cmp).append("\n");
             }
-
         }
         sb.append("    ---   ---   ---   ---   ---   ---   ---   ---\n");
-        sb.append(chaine()).append("         Pièces mangées par le joueur ").append(joueurBlanc.getNom()).append(" : ");
-        sb.append(affichagePiecesMangees(joueurNoir)).append(System.lineSeparator());
+        sb.append(chaineCaracteres()).append("         Pièces mangées par le joueur ").append(joueurBlanc.getNom()).append(" : ");
+        sb.append(affichagePiecesMangees(joueurNoir));
+        sb.append("\n");
         return sb.toString();
     }
 
@@ -282,7 +272,15 @@ public class Plateau {
         return listePieces;
     }
 
-    public boolean getPropositionNulle(){return this.propositionNulle;}
-    public void setPropositionNulle(boolean change){this.propositionNulle = change;}
-    public void setMAtchNul(boolean change){this.matchNul=change;}
+    public boolean getPropositionNulle() {
+        return this.propositionNulle;
+    }
+
+    public void setPropositionNulle(boolean change) {
+        this.propositionNulle = change;
+    }
+
+    public void setMAtchNul(boolean change) {
+        this.matchNul = change;
+    }
 }
