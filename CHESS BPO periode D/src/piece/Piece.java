@@ -81,7 +81,7 @@ public abstract class Piece implements IPiece {
     /**
      * Permet de changer l'état de vie de la pièce, si cette méthode est appelée alors la pièce s'est fait manger
      */
-    public void estMangé() {
+    public void seFaitManger() {
         this.estMangé = true;
     }
 

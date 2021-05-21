@@ -8,14 +8,22 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class Humain extends Joueur {
-    private boolean abandonne;
+    private boolean abandonne; // on sait si le joueur veut abandonner ou non
 
+    /**
+     * Constructeur d'un Humain
+     *
+     * @param blanc le boolean qui détermine la couleur du joueur
+     * @param fab   la fabrique de pièces
+     */
     public Humain(boolean blanc, IFabriquePiece fab) {
         super(blanc, fab);
         this.abandonne = false;
     }
 
     /**
+     * Permet de jouer un tour pour le joueur courant
+     *
      * @param autreJoueur le joueur adverse
      * @param p           le plateau de jeu
      */
@@ -31,17 +39,15 @@ public class Humain extends Joueur {
             coup = sc.nextLine().trim().toLowerCase(Locale.ROOT);
             // Si le joueur abandonne
             if (abandon(coup)) return;
-
             // Si le joueur propose la nulle
             if (coup.equals("nulle")) {
-                // Si le joueur propose la nulle a un bot
                 if (!autreJoueur.estHumain()) {
                     System.out.println("Vous ne pouvez pas proposer la nulle a un bot, bien tenté. Veuillez réécrire votre coup.");
                     coup = sc.nextLine().trim().toLowerCase(Locale.ROOT);
                     if (abandon(coup))
                         return;
                 } else {
-                    System.out.println("tentative de nulle pour le joueur " + getNom());
+                    System.out.println("Tentative de nulle pour le joueur " + getNom());
                     p.setPropositionNulle(true);
                     return;
                 }
@@ -56,6 +62,12 @@ public class Humain extends Joueur {
         }
     }
 
+    /**
+     * Permet d'imaginer la situation d'abandon du joueur
+     *
+     * @param coup le coup du joueur
+     * @return true s'il abandonne
+     */
     private boolean abandon(String coup) {
         if (coup.equals("abandon")) {
             this.abandonne = true;
@@ -64,6 +76,14 @@ public class Humain extends Joueur {
         return false;
     }
 
+    /**
+     * Permet d'illustrer la proposition de nulle pour le joueur courant
+     *
+     * @param autreJoueur l'autre joueur qui joue
+     * @param p           le plateau
+     * @param sc          le scanner
+     * @return true si le l'autre accepte ou refuse
+     */
     private boolean propositionNulle(IJoueur autreJoueur, Plateau p, Scanner sc) {
         String coup;
         // Si le joueur adverse a proposé la nulle lors du coup précédent

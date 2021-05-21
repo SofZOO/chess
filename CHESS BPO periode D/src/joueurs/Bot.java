@@ -7,6 +7,12 @@ import java.util.Collections;
 
 public class Bot extends Joueur {
 
+    /**
+     * Constructeur d'un bot
+     *
+     * @param blanc le boolean qui détermine la couleur du Bot
+     * @param fab   la fabrique de pièces
+     */
     public Bot(boolean blanc, IFabriquePiece fab) {
         super(blanc, fab);
     }

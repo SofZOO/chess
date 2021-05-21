@@ -1,9 +1,9 @@
 package tests;
-//import static org.junit.Assert.*;
+import static org.junit.Assert.*;
 
 public class Test {
 
-    //@Test
+   // @Test
     public void methodePeutJouerCondition1() {
         //
     }

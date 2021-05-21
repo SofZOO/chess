@@ -11,6 +11,13 @@ public interface IPiece {
      */
     void changeCoord(Coord c);
 
+    /**
+     * Permet de savoir si le déplacement de la pièce peut être joué ou non
+     *
+     * @param c les coordonnées de la pièces
+     * @param p le plateau
+     * @return False si la pièce ne peut pas jouer
+     */
     boolean peutJouer(Coord c, Plateau p);
 
     /**
@@ -44,7 +51,7 @@ public interface IPiece {
     /**
      * Permet de changer l'état de vie de la pièce, si cette méthode est appelée alors la pièce s'est fait manger
      */
-    void estMangé();
+    void seFaitManger();
 
     /**
      * Renvoie la valeur du boolean permettant de savoir si une pièce s'est faite mangée ou non

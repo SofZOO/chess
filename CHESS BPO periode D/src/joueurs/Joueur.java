@@ -24,7 +24,7 @@ public abstract class Joueur implements IJoueur {
     }
 
     /**
-     * Est appelée dans la méthode joueUnTour afin d'éxécuter un coup
+     * Permet au joueur de déaplcer ses pièces, est appelée dans la méthode joueUnTour afin d'éxécuter un coup
      *
      * @param coup        le coup du joueur
      * @param autreJoueur le joueur adverse
@@ -62,7 +62,7 @@ public abstract class Joueur implements IJoueur {
     }
 
     /**
-     * cherche la pièce à l'indice 0 de la liste "pieces" " le roi a été initialisé dans la liste en premier pour le retrouver rapidement
+     * Permet de récupérer la pièce à l'indice 0 de la liste "pieces" " le roi a été initialisé dans la liste en premier pour le retrouver rapidement
      *
      * @return le Roi du joueur
      */

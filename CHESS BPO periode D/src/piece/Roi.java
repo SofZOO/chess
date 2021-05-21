@@ -16,6 +16,12 @@ public class Roi extends Piece {
         super('r', coul, x, y);
     }
 
+    /**
+     * Permet d'imaginer les déplacements du roi
+     * @param c les coordonnées de la pièce
+     * @param plateau le plateau
+     * @return false si elle ne peut pas jouer
+     */
     @Override
     public boolean peutJouer(Coord c, Plateau plateau) {
         // on limite sa destination à une case autour de lui en diagnonale, verticale ou horizontale
