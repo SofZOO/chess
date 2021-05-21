@@ -266,14 +266,13 @@ public class Plateau {
     /**
      * permet de savoir si une piece mange une pièce alliée
      *
-     * @param coordIni la coordonnées de départ de la pièce
-     * @param coordFin la coordonnées de destination de la pièce
+     * @param coordIni la coordonnée de départ de la pièce
+     * @param coordFin la coordonnée de destination de la pièce
      * @return faux si une pièce mange son allié
      */
     private boolean coupValableSurPiece(Coord coordIni, Coord coordFin) {
         if (laPiece(coordFin) != null)
             return !(laPiece(coordIni).getCouleur().equals(laPiece(coordFin).getCouleur()));
-        /*si le roi est en echec, il est obligé de déplacer son roi*/
         return true;
     }
 
@@ -395,5 +394,9 @@ public class Plateau {
 
     public void setMAtchNul(boolean change) {
         this.matchNul = change;
+    }
+
+    public IPiece[][] getEchiquier() {
+        return echiquier;
     }
 }

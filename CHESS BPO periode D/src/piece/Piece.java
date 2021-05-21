@@ -18,9 +18,9 @@ public abstract class Piece implements IPiece {
      * @param colonne colonne ou la pièce est placée
      * @param ligne   la ligne ou la pièce est placée
      */
-    protected Piece(char sig, CouleurPiece coul, int colonne, int ligne) {
+    protected Piece(char sig, CouleurPiece coul, int ligne, int colonne) {
         this.couleur = coul;
-        coord = new Coord(colonne, ligne);
+        coord = new Coord(ligne, colonne);
         // permet de mettre en majuscule si la couleur de la pièce est BLANC, sinon en minuscule
         this.signe = coul.equals(CouleurPiece.BLANC) ? Character.toUpperCase(sig) : Character.toLowerCase(sig);
         this.estMangé = false;
