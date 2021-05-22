@@ -5,9 +5,16 @@ import echiquier.Plateau;
 import joueurs.Bot;
 import joueurs.Humain;
 import piece.FabriquePiece;
+
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Appli {
+    private static boolean choixPartie = false;
+
+
+    public static boolean getChoixPartie(){ return choixPartie;}
+    public static void setChoixPartieFinale(boolean choix){ choixPartie = choix;}
 
     private static boolean erreurChoix(String choix){
         if (choix.length() !=1){
@@ -18,6 +25,7 @@ public class Appli {
         }
         return Integer.parseInt(choix) > 3 || Integer.parseInt(choix) < 1;
     }
+
 
     private static boolean finPartie(IJoueur jBlanc, IJoueur jNoir, Plateau p, boolean echecEtMat, String nom, String autreNom) {
 
@@ -52,13 +60,29 @@ public class Appli {
             jNoir.joueUnTour(jBlanc, p);
             if (finPartie(jBlanc, jNoir, p, jBlanc.isChessMat(), jBlanc.getNom(), jNoir.getNom())) break;
         }
-        System.out.println("fin du test");
+        System.out.println("Fin de la partie");
     }
 
 
     public static void main(String[] args) {
         IJoueur joueurBlanc;
         IJoueur joueurNoir;
+        Scanner sc = new Scanner(System.in);
+        String choix;
+        System.out.println("Quelle disposition souhaitez avoir pour cette partie ? Taper 1 pour une finale avec seulement Roi et Tour"
+                + System.lineSeparator() + "Taper 2 pour une partie avec Cavalier, Fou, Tour, Roi");
+        choix = sc.nextLine().trim();
+        while(erreurChoix(choix)){
+            System.out.println("Vous venez de faire une erreur sur la saisie de votre choix, il faut entrer une des 2 options et vous avez marqué : " + choix);
+            choix=sc.nextLine().trim();
+        }
+        switch (choix) {
+            case ("1"):
+                choixPartie = true;
+                break;
+            case("2"):
+                break;
+        }
 
         System.out.println(""+
                 "********************************************************************************************************\n"+
@@ -67,8 +91,6 @@ public class Appli {
                 "                                                                      3 pour le mode bot VS bot        *\n"+
                 "********************************************************************************************************");
 
-        Scanner sc = new Scanner(System.in);
-        String choix;
         choix = sc.nextLine().trim();
         while(erreurChoix(choix)){
             System.out.println("Vous venez de faire une erreur sur la saisie de votre choix, il faut entrer une des 3 options et vous avez marqué : " + choix);

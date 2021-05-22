@@ -10,4 +10,6 @@ public interface IFabriquePiece {
      * @return la liste de pièces créées
      */
     ArrayList<IPiece> fabrique(boolean estBlanc);
+
+
 }

@@ -1,5 +1,6 @@
 package piece;
 
+import appli.Appli;
 import echiquier.IFabriquePiece;
 import echiquier.IPiece;
 
@@ -14,9 +15,16 @@ public class FabriquePiece implements IFabriquePiece {
      * @return la liste de pièces du joueur
      */
     public ArrayList<IPiece> fabrique(boolean estBlanc) {
+
+        if (Appli.getChoixPartie()) {
+            return fabriqueFinale(estBlanc);
+        }
+
+
         ArrayList<IPiece> piecesDepart = new ArrayList<>();
         CouleurPiece couleur;
         couleur = estBlanc ? CouleurPiece.BLANC : CouleurPiece.NOIR;
+
         if (estBlanc) {
             piecesDepart.add(new Roi(couleur, 7, 4));
             piecesDepart.add(new Tour(couleur, 7, 0));
@@ -38,4 +46,17 @@ public class FabriquePiece implements IFabriquePiece {
         return piecesDepart;
     }
 
+    private ArrayList<IPiece> fabriqueFinale(boolean estBlanc) {
+        ArrayList<IPiece> piecesDepart = new ArrayList<>();
+        CouleurPiece couleur;
+        couleur = estBlanc ? CouleurPiece.BLANC : CouleurPiece.NOIR;
+        if (estBlanc) {
+            piecesDepart.add(new Roi(couleur, 2, 4));
+            piecesDepart.add(new Tour(couleur, 1, 2));
+
+        } else {
+            piecesDepart.add(new Roi(couleur, 0, 4));
+        }
+        return piecesDepart;
+    }
 }
