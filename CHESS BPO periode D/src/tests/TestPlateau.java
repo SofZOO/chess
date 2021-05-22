@@ -40,10 +40,7 @@ public class TestPlateau {
         IJoueur jNoir = new Humain(false,new FabriquePiece());
         Plateau p = new Plateau(jBlanc,jNoir);
         IPiece[][] echiquier = p.getEchiquier().clone();
-
         assertEquals(14,p.getListePieces().size());
-
-
         int compteurNbPieces = 0;
         for(IPiece[] tabPiece : echiquier){
             for (IPiece piece : tabPiece){
@@ -51,9 +48,99 @@ public class TestPlateau {
                     compteurNbPieces++;
             }
         }
-
         // On a donc 14 puisque l'on a implémenté plusieurs autres pièces, le cavalier et le fou
         assertEquals(14,compteurNbPieces);
+        Appli.setChoixPartieFinale(true);
+        echiquier = new Plateau(jBlanc,jNoir).getEchiquier().clone();
+        compteurNbPieces = 0;
+        for(IPiece[] tabPiece : echiquier){
+            for (IPiece piece : tabPiece){
+                if (piece != null)
+                    compteurNbPieces++;
+            }
+        }
+        assertEquals(3,compteurNbPieces);
+    }
+
+    @Test
+    public void vérificationMéthodeEchecPat(){
+        Appli.setChoixPartieFinale(true);
+        IJoueur jBlanc = new Humain(true, new FabriquePiece());
+        IJoueur jNoir = new Humain(false,new FabriquePiece());
+        Plateau p = new Plateau(jBlanc,jNoir);
+
+        jNoir.déplacer("e8f8",jBlanc,p);
+        jNoir.déplacer("f8g8",jBlanc,p);
+        jNoir.déplacer("g8h8",jBlanc,p);
+
+        jBlanc.déplacer("e6f6",jNoir,p);
+        jBlanc.déplacer("f6g6",jNoir,p);
+        jBlanc.déplacer("g6h6",jNoir,p);
+
+        jBlanc.déplacer("c7g7",jNoir,p);
+
+        // on imagine une finale ou le roi noir a réussi à faire un échec et pat
+        //     d     e     f     g     h
+        //    ---   ---   ---   ---   ---
+        // 8 |     |     |     |     |  r  |
+        //     ---   ---   ---   ---   ---
+        // 7 |     |     |     |  T  |     |
+        //     ---   ---   ---   ---   ---
+        // 6 |     |     |     |     |  R  |
+        //     ---   ---   ---   ---   ---
+
+        assertTrue(p.partieNulle(jBlanc,jNoir));
+    }
+
+    private int nbPièces(IPiece[][] tabPièces) {
+        int nbPièces = 0;
+        for (IPiece[] tabPiece : tabPièces) {
+            for (IPiece piece : tabPiece) {
+                if (piece != null)
+                    nbPièces++;
+            }
+        }
+            return nbPièces;
+    }
+
+    @Test
+    public void nbPièces(){
+        IJoueur jBlanc = new Humain(true, new FabriquePiece());
+        IJoueur jNoir = new Humain(false,new FabriquePiece());
+        Plateau p = new Plateau(jBlanc,jNoir);
+        IPiece[][] echiquier = p.getEchiquier().clone();
+        // on veut savoir combien on a de pièces sur une partie normale, on compte donc le nombre de pièces sur l'échiquier
+        assertEquals(14,nbPièces(echiquier));
+        // on vérifie qu'on a le même nombre dans la liste de pièces
+        assertEquals(14,p.getListePieces().size());
+        Appli.setChoixPartieFinale(true);
+        jBlanc = new Humain(true, new FabriquePiece());
+        jNoir = new Humain(false,new FabriquePiece());
+        Plateau plat = new Plateau(jBlanc,jNoir);
+        echiquier = plat.getEchiquier().clone();
+        nbPièces(echiquier);
+        // on veut savoir combien on a de pièces sur une partie de finale, on compte donc le nombre de pièces sur l'échiquier
+        assertEquals(3,nbPièces(echiquier));
+        // on vérifie qu'on a le même nombre dans la liste de pièces
+        assertEquals(3,plat.getListePieces().size());
+
+    }
+
+    @Test
+    public void testNbPieces(){
+        Appli.setChoixPartieFinale(true);
+        IJoueur jBlanc = new Humain(true, new FabriquePiece());
+        IJoueur jNoir = new Humain(false,new FabriquePiece());
+        Plateau p = new Plateau(jBlanc,jNoir);
+        IPiece[][] echiquier = p.getEchiquier().clone();
+        int compteurNbPieces = 0;
+        for(IPiece[] tabPiece : echiquier){
+            for (IPiece piece : tabPiece){
+                if (piece != null)
+                    compteurNbPieces++;
+            }
+        }
+        assertEquals(3,compteurNbPieces);
     }
 
     @Test
@@ -190,27 +277,6 @@ public class TestPlateau {
         jBlanc.déplacer("c7c8",jNoir,p);
         assertTrue(p.chessmat(jNoir));
     }
-
-    @Test
-    public void vérificationMéthodeEchecPat(){
-        Appli.setChoixPartieFinale(true);
-        IJoueur jBlanc = new Humain(true, new FabriquePiece());
-        IJoueur jNoir = new Humain(false,new FabriquePiece());
-        Plateau p = new Plateau(jBlanc,jNoir);
-
-        // on imagine une finale ou le roi noir a réussi à faire un échec et pat
-        //     d     e     f     g     h
-        //    ---   ---   ---   ---   ---
-        // 8 |     |     |     |     |  r  |
-        //     ---   ---   ---   ---   ---
-        // 7 |     |     |     |  T  |     |
-        //     ---   ---   ---   ---   ---
-        // 6 |     |     |     |     |  R  |
-        //     ---   ---   ---   ---   ---
-
-        assertTrue();
-    }
-
 
     @Test
     public void vérificationMéthodeDoitRejouer(){
