@@ -204,33 +204,21 @@ public class Plateau {
                 }
             }
         }
+        System.out.println("La partie est finie sur un échec et pat pour le joueur " + joueur.getNom() + ". Il ne peut plus jouer de coups sans être échec.");
         return true;
     }
 
     /**
-     * Permet de retourner une chaine de caractères définie en fonction de la valeur du paramètre index
+     * Permet de retourner une chaine de caractères en cas d'échecs et mat
      *
-     * @param index    le choix de la chaine de caractères
      * @param nom      Le nom d'un joueur
      * @param autreNom Le nom d'un joueur
      * @return la chaine de caractere
      */
-    public String partieFinie(int index, String nom, String autreNom) {
-        switch (index) {
-            case (1): {
-                return "La partie est nulle : situation d'échecs et pat pour le joueur " + nom + ".";
-            }
-            case (2): {
-                return "Le joueur " + nom + " est vaincu par échecs et mat. Le joueur " + autreNom + " a gagné.";
-            }
-            case (3): {
-                return "La partie est nulle : il ne reste que 2 rois sur le plateau.";
-            }
-            default: {
-                return "";
-            }
-        }
+    public String partieFinieMat(String nom, String autreNom) {
+        return "Le joueur " + nom + " est vaincu par échecs et mat. Le joueur " + autreNom + " a gagné.";
     }
+
 
     /**
      * Permet de savoir si la partie se conclut par un match nul
@@ -331,7 +319,7 @@ public class Plateau {
             return true;
         }
         char x = coup.charAt(0);
-        char x2 = coup.charAt(2);/*b7b8*/
+        char x2 = coup.charAt(2);
         int y = intoInt(coup, 1);
         int y2 = intoInt(coup, 3);
         coordIni = getCoord(x, y);

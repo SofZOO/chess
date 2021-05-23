@@ -15,6 +15,9 @@ import static org.junit.Assert.assertEquals;
 
 public class TestFabriquePièce {
 
+    /**
+     * On vérifie que les joueurs ont bien des pièces de leur couleur et on vérifie leurs nombres de pièces
+     */
     @Test
     public void vérificationMéthodeFabrique(){
 
@@ -34,6 +37,9 @@ public class TestFabriquePièce {
             assertEquals(piece.getCouleur(), CouleurPiece.NOIR);
     }
 
+    /**
+     * On vérifie que les joueurs ont bien des pièces de leur couleur et on vérifie leurs nombres de pièces, ici c'est le cas de la finale
+     */
     @Test
     public void vérificationMéthodeFabriqueFinale(){
 

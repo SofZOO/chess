@@ -11,6 +11,9 @@ import static org.junit.Assert.*;
 
 public class TestPiece {
 
+    /**
+     * On vérifie les déplacements de la tour
+     */
     @Test
     public void testTour() {
         IJoueur jBlanc = new Humain(true, new FabriquePiece());
@@ -44,6 +47,9 @@ public class TestPiece {
         assertFalse(p.laPiece(new Coord(7,0)).peutJouer(new Coord(5,2),p));
     }
 
+    /**
+     * On vérifie les déplacements du fou
+     */
     @Test
     public void testFou() {
         IJoueur jBlanc = new Humain(true, new FabriquePiece());
@@ -77,6 +83,9 @@ public class TestPiece {
         assertFalse(p.laPiece(new Coord(7,2)).peutJouer(new Coord(5,2),p));
     }
 
+    /**
+     * On vérifie les déplacements du cavalier
+     */
     @Test
     public void testCavalier() {
         IJoueur jBlanc = new Humain(true, new FabriquePiece());
@@ -109,6 +118,9 @@ public class TestPiece {
 
     }
 
+    /**
+     * On vérifie les déplacements du roi
+     */
     @Test
     public void testRoi() {
         IJoueur jBlanc = new Humain(true, new FabriquePiece());

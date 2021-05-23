@@ -6,24 +6,21 @@ import joueurs.Bot;
 import joueurs.Humain;
 import piece.FabriquePiece;
 
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Appli {
     private static boolean choixPartie = false;
-
-
     public static boolean getChoixPartie(){ return choixPartie;}
     public static void setChoixPartieFinale(boolean choix){ choixPartie = choix;}
 
-    private static boolean erreurChoix(String choix){
+    private static boolean erreurChoix(String choix, int option){
         if (choix.length() !=1){
             return true;
         }
         if(!Character.isDigit(choix.charAt(0))){
          return true;
         }
-        return Integer.parseInt(choix) > 3 || Integer.parseInt(choix) < 1;
+        return Integer.parseInt(choix) > option || Integer.parseInt(choix) < 1;
     }
 
 
@@ -31,12 +28,11 @@ public class Appli {
 
         System.out.println(p.affichePlateau(jBlanc, jNoir));
         if (echecEtMat) {
-            System.out.println(p.partieFinie(2,nom,autreNom));
+            System.out.println(p.partieFinieMat(nom,autreNom));
             return true;
         }
         if (p.partieNulle(jBlanc,jNoir)) {
-            //todo:nul
-            System.out.println("la partie est nulle");
+            System.out.println("La partie est nulle");
             return true;
         }
         if(jBlanc.abandonne()){
@@ -63,7 +59,6 @@ public class Appli {
         System.out.println("Fin de la partie");
     }
 
-
     public static void main(String[] args) {
         IJoueur joueurBlanc;
         IJoueur joueurNoir;
@@ -72,7 +67,7 @@ public class Appli {
         System.out.println("Quelle disposition souhaitez avoir pour cette partie ? Taper 1 pour une finale avec seulement Roi et Tour"
                 + System.lineSeparator() + "Taper 2 pour une partie avec Cavalier, Fou, Tour, Roi");
         choix = sc.nextLine().trim();
-        while(erreurChoix(choix)){
+        while(erreurChoix(choix,2)){
             System.out.println("Vous venez de faire une erreur sur la saisie de votre choix, il faut entrer une des 2 options et vous avez marqué : " + choix);
             choix=sc.nextLine().trim();
         }
@@ -92,7 +87,7 @@ public class Appli {
                 "********************************************************************************************************");
 
         choix = sc.nextLine().trim();
-        while(erreurChoix(choix)){
+        while(erreurChoix(choix,3)){
             System.out.println("Vous venez de faire une erreur sur la saisie de votre choix, il faut entrer une des 3 options et vous avez marqué : " + choix);
             choix=sc.nextLine().trim();
         }

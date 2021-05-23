@@ -36,6 +36,9 @@ public class TestPlateau {
     }
 
 
+    /**
+     * On test la situation d'échecs et pat
+     */
     @Test
     public void vérificationMéthodeEchecPat(){
         Appli.setChoixPartieFinale(true);
@@ -66,6 +69,11 @@ public class TestPlateau {
         assertTrue(p.partieNulle(jBlanc,jNoir));
     }
 
+    /**
+     * Méthode qui permet de compter le nombre de pièces d'un échiquier
+     * @param tabPièces l'échiquier
+     * @return le nombre de pièces
+     */
     private int nbPièces(IPiece[][] tabPièces) {
         int nbPièces = 0;
         for (IPiece[] tabPiece : tabPièces) {
@@ -77,6 +85,9 @@ public class TestPlateau {
             return nbPièces;
     }
 
+    /**
+     * On vérifie le nombre de pièces sur l'échiquier
+     */
     @Test
     public void vérificationNombrePièces(){
         IJoueur jBlanc = new Humain(true, new FabriquePiece());
@@ -101,6 +112,9 @@ public class TestPlateau {
     }
 
 
+    /**
+     * On
+     */
     @Test
     public void testDéplacementPièce(){
         IJoueur jBlanc = new Humain(true, new FabriquePiece());
@@ -145,6 +159,9 @@ public class TestPlateau {
 
     }
 
+    /**
+     * On vérifie si notre conversion de string vers entier fonctionne
+     */
     @Test
     public void vérificationMethodeConversion() {
         String coup = "a8a4";
@@ -152,6 +169,9 @@ public class TestPlateau {
         assertEquals(Plateau.intoInt(coup,3),4);
     }
 
+    /**
+     * On vérifie si un coup est jouable ou non
+     */
     @Test
     public void vérificationMéthodeEstJouable() {
         Appli.setChoixPartieFinale(false);
@@ -227,6 +247,9 @@ public class TestPlateau {
 
     }
 
+    /**
+     * On vérifie la situation d'échecs et mat
+     */
     @Test
     public void vérificationMéthodeEchecMat(){
         Appli.setChoixPartieFinale(true);
@@ -250,6 +273,9 @@ public class TestPlateau {
         assertTrue(p.chessmat(jNoir));
     }
 
+    /**
+     * On vérifie si le joueur s'est trompé sur son coup.
+     */
     @Test
     public void vérificationMéthodeDoitRejouer(){
 
@@ -267,8 +293,6 @@ public class TestPlateau {
         assertTrue(p.doitRejouer("a1a2",jNoir));
 
     }
-
-
 
     }
 
