@@ -13,6 +13,9 @@ import piece.FabriquePiece;
 
 public class TestPlateau {
 
+
+
+
     /**
      * On test ici le nombre de cases que contient notre échiquier.
      */
@@ -198,6 +201,16 @@ public class TestPlateau {
         IJoueur jNoir = new Humain(false,new FabriquePiece());
         Plateau p = new Plateau(jBlanc,jNoir);
 
+        jNoir.déplacer("e8f8",jBlanc,p);
+        jNoir.déplacer("f8g8",jBlanc,p);
+        jNoir.déplacer("g8h8",jBlanc,p);
+
+        jBlanc.déplacer("e6f6",jNoir,p);
+        jBlanc.déplacer("f6g6",jNoir,p);
+        jBlanc.déplacer("g6h6",jNoir,p);
+
+        jBlanc.déplacer("c7g7",jNoir,p);
+
         // on imagine une finale ou le roi noir a réussi à faire un échec et pat
         //     d     e     f     g     h
         //    ---   ---   ---   ---   ---
@@ -208,7 +221,7 @@ public class TestPlateau {
         // 6 |     |     |     |     |  R  |
         //     ---   ---   ---   ---   ---
 
-        assertTrue();
+        assertTrue(p.partieNulle(jBlanc,jNoir));
     }
 
 
