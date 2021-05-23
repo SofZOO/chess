@@ -8,10 +8,14 @@ import echiquier.IPiece;
 import echiquier.Plateau;
 import joueurs.Humain;
 import org.junit.Test;
+
+
 import piece.FabriquePiece;
 
 
+
 public class TestPlateau {
+
 
     /**
      * On test ici le nombre de cases que contient notre échiquier.
@@ -31,36 +35,6 @@ public class TestPlateau {
         assertEquals(64,nbCases);
     }
 
-    /**
-     * On test ici le nombre de cases que contient notre échiquier.
-     */
-    @Test
-    public void vérificationNombrePièces() {
-        IJoueur jBlanc = new Humain(true, new FabriquePiece());
-        IJoueur jNoir = new Humain(false,new FabriquePiece());
-        Plateau p = new Plateau(jBlanc,jNoir);
-        IPiece[][] echiquier = p.getEchiquier().clone();
-        assertEquals(14,p.getListePieces().size());
-        int compteurNbPieces = 0;
-        for(IPiece[] tabPiece : echiquier){
-            for (IPiece piece : tabPiece){
-                if (piece != null)
-                    compteurNbPieces++;
-            }
-        }
-        // On a donc 14 puisque l'on a implémenté plusieurs autres pièces, le cavalier et le fou
-        assertEquals(14,compteurNbPieces);
-        Appli.setChoixPartieFinale(true);
-        echiquier = new Plateau(jBlanc,jNoir).getEchiquier().clone();
-        compteurNbPieces = 0;
-        for(IPiece[] tabPiece : echiquier){
-            for (IPiece piece : tabPiece){
-                if (piece != null)
-                    compteurNbPieces++;
-            }
-        }
-        assertEquals(3,compteurNbPieces);
-    }
 
     @Test
     public void vérificationMéthodeEchecPat(){
@@ -104,7 +78,7 @@ public class TestPlateau {
     }
 
     @Test
-    public void nbPièces(){
+    public void vérificationNombrePièces(){
         IJoueur jBlanc = new Humain(true, new FabriquePiece());
         IJoueur jNoir = new Humain(false,new FabriquePiece());
         Plateau p = new Plateau(jBlanc,jNoir);
@@ -113,12 +87,12 @@ public class TestPlateau {
         assertEquals(14,nbPièces(echiquier));
         // on vérifie qu'on a le même nombre dans la liste de pièces
         assertEquals(14,p.getListePieces().size());
+        // on imagine la situation de la finale
         Appli.setChoixPartieFinale(true);
         jBlanc = new Humain(true, new FabriquePiece());
         jNoir = new Humain(false,new FabriquePiece());
         Plateau plat = new Plateau(jBlanc,jNoir);
         echiquier = plat.getEchiquier().clone();
-        nbPièces(echiquier);
         // on veut savoir combien on a de pièces sur une partie de finale, on compte donc le nombre de pièces sur l'échiquier
         assertEquals(3,nbPièces(echiquier));
         // on vérifie qu'on a le même nombre dans la liste de pièces
@@ -126,29 +100,12 @@ public class TestPlateau {
 
     }
 
+
     @Test
-    public void testNbPieces(){
-        Appli.setChoixPartieFinale(true);
+    public void testDéplacementPièce(){
         IJoueur jBlanc = new Humain(true, new FabriquePiece());
         IJoueur jNoir = new Humain(false,new FabriquePiece());
         Plateau p = new Plateau(jBlanc,jNoir);
-        IPiece[][] echiquier = p.getEchiquier().clone();
-        int compteurNbPieces = 0;
-        for(IPiece[] tabPiece : echiquier){
-            for (IPiece piece : tabPiece){
-                if (piece != null)
-                    compteurNbPieces++;
-            }
-        }
-        assertEquals(3,compteurNbPieces);
-    }
-
-    @Test
-    public void horsDuPlateau(){
-        IJoueur jBlanc = new Humain(true, new FabriquePiece());
-        IJoueur jNoir = new Humain(false,new FabriquePiece());
-        Plateau p = new Plateau(jBlanc,jNoir);
-
 
         // Je fais un dessin pour illustrer la situation
         //
@@ -162,14 +119,29 @@ public class TestPlateau {
         //     ---   ---   ---
         //      a     b     c
         // On a la tour en a1 et on va tester ici de changer ses coordonnées
+
         IPiece pi = p.laPiece(new Coord(7,0));
 
-        assertEquals(pi.getCoord(), new Coord(7, 0));
+        assertTrue(pi.getCoord().compare(new Coord(7,0)));
+
+        assertEquals(pi.getCoord().toString(),new Coord(7,0).toString());
 
         // on effectue le coup a1a4
         p.placerNouvelleCoord(pi.getCoord(),new Coord(4,0));
 
-        assertEquals(pi.getCoord(),new Coord(4,0));
+        //
+        // 4 |  T  |     |
+        //     ---   ---   ---
+        // 3 |     |     |
+        //     ---   ---   ---
+        // 2 |     |     |
+        //     ---   ---   ---
+        // 1 |     |     |
+        //     ---   ---   ---
+        //      a     b     c
+
+        assertEquals(pi.getCoord().toString(),new Coord(4,0).toString());
+        assertTrue(pi.getCoord().compare(new Coord(4,0)));
 
     }
 
@@ -178,11 +150,11 @@ public class TestPlateau {
         String coup = "a8a4";
         assertEquals(Plateau.intoInt(coup,1),8);
         assertEquals(Plateau.intoInt(coup,3),4);
-
     }
 
     @Test
     public void vérificationMéthodeEstJouable() {
+        Appli.setChoixPartieFinale(false);
         //		1- La destination est libre ou est occupée par une pièce adverse
         IJoueur jBlanc = new Humain(true, new FabriquePiece());
         IJoueur jNoir = new Humain(false,new FabriquePiece());
