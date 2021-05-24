@@ -75,7 +75,7 @@ title __ECHIQUIER's Class Diagram__\n
         + getPropositionNulle()
         {static} + intoInt()
         + laPiece()
-        + partieFinie()
+        + partieFinieMat()
         + partieNulle()
         + placerNouvelleCoord()
         + setMAtchNul()

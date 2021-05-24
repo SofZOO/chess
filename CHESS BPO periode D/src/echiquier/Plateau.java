@@ -167,9 +167,9 @@ public class Plateau {
      * @return vrai si le joueur est echec et Mat
      */
     public boolean chessmat(IJoueur joueur) {
-        IPiece roiDuJou = joueur.leRoi();
+
         for (IPiece piece : listePieces) {
-            if (piece.getCouleur().equals(roiDuJou.getCouleur())) {
+            if (piece.getCouleur().equals(joueur.getCouleur())) {
                 for (int cmp1 = 0; cmp1 < LONGUEUR; cmp1++) {
                     for (int cmp2 = 0; cmp2 < HAUTEUR; cmp2++) {
                         if (estJouable(piece.getCoord(), new Coord(cmp1, cmp2), joueur)) {
@@ -189,9 +189,9 @@ public class Plateau {
      * @return vrai si le joueur est echec et Pat
      */
     public boolean chesspat(IJoueur joueur) {
-        IPiece roi = joueur.leRoi();
+
         for (IPiece piece : listePieces) {
-            if (piece.getCouleur().equals(roi.getCouleur())) {
+            if (piece.getCouleur().equals(joueur.getCouleur())) {
                 for (int i = 0; i < LONGUEUR; i++) {
                     for (int j = 0; j < HAUTEUR; j++) {
                         if (piece.getCoord().compare(new Coord(i, j))) {
@@ -244,7 +244,7 @@ public class Plateau {
      */
     public boolean echec(IJoueur courant, List<IPiece> list) {
         for (IPiece piece : list) {
-            if (!(piece.getCouleur().equals(courant.leRoi().getCouleur())) && piece.peutJouer(courant.leRoi().getCoord(), this)) {
+            if (!(piece.getCouleur().equals(courant.getCouleur())) && piece.peutJouer(courant.leRoi().getCoord(), this)) {
                 return true;
             }
         }
@@ -328,7 +328,7 @@ public class Plateau {
             return true;
         }
 
-        return !laPiece(coordIni).getCouleur().equals(joueur.leRoi().getCouleur());
+        return !laPiece(coordIni).getCouleur().equals(joueur.getCouleur());
     }
 
     /**

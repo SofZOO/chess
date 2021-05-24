@@ -4,7 +4,6 @@ title __TESTS's Class Diagram__\n
 
   namespace tests {
     class tests.TestFabriquePièce {
-        + TestFabriquePièce()
         + vérificationMéthodeFabrique()
         + vérificationMéthodeFabriqueFinale()
     }
@@ -12,8 +11,17 @@ title __TESTS's Class Diagram__\n
   
 
   namespace tests {
+    class tests.TestJoueur {
+        + vérificationDéfaiteJoueur()
+        + vérificationHumain()
+        + vérificationMéthodeDéplacer()
+        + vérificationMéthodeJoueUnTourDuBot()
+    }
+  }
+  
+
+  namespace tests {
     class tests.TestPiece {
-        + TestPiece()
         + testCavalier()
         + testFou()
         + testRoi()
@@ -24,8 +32,7 @@ title __TESTS's Class Diagram__\n
 
   namespace tests {
     class tests.TestPlateau {
-        + TestPlateau()
-        + horsDuPlateau()
+        + testDéplacementPièce()
         + vérificationMethodeConversion()
         + vérificationMéthodeDoitRejouer()
         + vérificationMéthodeEchecMat()
@@ -33,6 +40,7 @@ title __TESTS's Class Diagram__\n
         + vérificationMéthodeEstJouable()
         + vérificationNombreCases()
         + vérificationNombrePièces()
+        - nbPièces()
     }
   }
   

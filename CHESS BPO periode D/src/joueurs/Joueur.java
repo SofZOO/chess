@@ -10,6 +10,7 @@ public abstract class Joueur implements IJoueur {
     private final String nom; // Le nom du Joueur
     private final ArrayList<IPiece> pieces;// La liste de pièce du joueur
     private boolean echecEtMat; // Boolean pour savoir si le joueur est echec et mat
+    private CouleurPiece couleur;
 
 
     /**
@@ -20,6 +21,7 @@ public abstract class Joueur implements IJoueur {
      */
     protected Joueur(boolean blanc, IFabriquePiece fab) {
         this.nom = blanc ? "BLANC" : "NOIR";
+        this.couleur = blanc ? CouleurPiece.BLANC : CouleurPiece.NOIR;
         this.pieces = fab.fabrique(blanc);
         this.echecEtMat = false;
     }
@@ -99,4 +101,13 @@ public abstract class Joueur implements IJoueur {
         return this.echecEtMat;
     }
 
+    /**
+     * Permet de retourner la couleur du joueur
+     *
+     * @return la valeur de l'enum couleur
+     */
+    @Override
+    public CouleurPiece getCouleur() {
+        return couleur;
+    }
 }

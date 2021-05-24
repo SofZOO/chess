@@ -1,5 +1,7 @@
 package echiquier;
 
+import piece.CouleurPiece;
+
 import java.util.ArrayList;
 
 public interface IJoueur {
@@ -67,5 +69,12 @@ public interface IJoueur {
      * @return la valeur du boolean abandonne
      */
     boolean abandonne();
+
+    /**
+     * Permet de retourner la couleur du joueur
+     *
+     * @return la valeur de l'enum couleur
+     */
+    CouleurPiece getCouleur();
 
 }
