@@ -9,8 +9,8 @@ import java.util.ArrayList;
 public abstract class Joueur implements IJoueur {
     private final String nom; // Le nom du Joueur
     private final ArrayList<IPiece> pieces;// La liste de pièce du joueur
-    private boolean echecEtMat; // Boolean pour savoir si le joueur est echec et mat
     private final CouleurPiece couleur;
+    private boolean echecEtMat; // Boolean pour savoir si le joueur est echec et mat
 
 
     /**
