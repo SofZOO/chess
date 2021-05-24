@@ -1,7 +1,7 @@
 package joueurs;
 
-import appli.Appli;
 import echiquier.*;
+import piece.CouleurPiece;
 
 import java.util.ArrayList;
 

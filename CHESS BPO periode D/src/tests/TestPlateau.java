@@ -1,7 +1,7 @@
 package tests;
 import static org.junit.Assert.*;
 
-import appli.Appli;
+import appli.Application;
 import echiquier.Coord;
 import echiquier.IJoueur;
 import echiquier.IPiece;
@@ -41,7 +41,7 @@ public class TestPlateau {
      */
     @Test
     public void vérificationMéthodeEchecPat(){
-        Appli.setChoixPartieFinale(true);
+        Application.setChoixPartieFinale(true);
         IJoueur jBlanc = new Humain(true, new FabriquePiece());
         IJoueur jNoir = new Humain(false,new FabriquePiece());
         Plateau p = new Plateau(jBlanc,jNoir);
@@ -99,7 +99,7 @@ public class TestPlateau {
         // on vérifie qu'on a le même nombre dans la liste de pièces
         assertEquals(14,p.getListePieces().size());
         // on imagine la situation de la finale
-        Appli.setChoixPartieFinale(true);
+        Application.setChoixPartieFinale(true);
         jBlanc = new Humain(true, new FabriquePiece());
         jNoir = new Humain(false,new FabriquePiece());
         Plateau plat = new Plateau(jBlanc,jNoir);
@@ -174,7 +174,7 @@ public class TestPlateau {
      */
     @Test
     public void vérificationMéthodeEstJouable() {
-        Appli.setChoixPartieFinale(false);
+        Application.setChoixPartieFinale(false);
         //		1- La destination est libre ou est occupée par une pièce adverse
         IJoueur jBlanc = new Humain(true, new FabriquePiece());
         IJoueur jNoir = new Humain(false,new FabriquePiece());
@@ -252,7 +252,7 @@ public class TestPlateau {
      */
     @Test
     public void vérificationMéthodeEchecMat(){
-        Appli.setChoixPartieFinale(true);
+        Application.setChoixPartieFinale(true);
         IJoueur jBlanc = new Humain(true, new FabriquePiece());
         IJoueur jNoir = new Humain(false,new FabriquePiece());
         Plateau p = new Plateau(jBlanc,jNoir);

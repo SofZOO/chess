@@ -1,6 +1,6 @@
 package tests;
 
-import appli.Appli;
+import appli.Application;
 import echiquier.Coord;
 import echiquier.IJoueur;
 import echiquier.IPiece;
@@ -70,7 +70,7 @@ public class TestJoueur {
      */
     @Test
     public void vérificationMéthodeJoueUnTourDuBot(){
-        Appli.setChoixPartieFinale(true);
+        Application.setChoixPartieFinale(true);
         IJoueur jBlanc = new Bot(true,new FabriquePiece());
         IJoueur jNoir = new Bot(false, new FabriquePiece());
         Plateau p = new Plateau(jBlanc,jNoir);

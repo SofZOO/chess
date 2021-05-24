@@ -1,6 +1,6 @@
 package piece;
 
-import appli.Appli;
+import appli.Application;
 import echiquier.IFabriquePiece;
 import echiquier.IPiece;
 
@@ -16,7 +16,7 @@ public class FabriquePiece implements IFabriquePiece {
      */
     public ArrayList<IPiece> fabrique(boolean estBlanc) {
 
-        if (Appli.getChoixPartie()) {
+        if (Application.getChoixPartie()) {
             return fabriqueFinale(estBlanc);
         }
 

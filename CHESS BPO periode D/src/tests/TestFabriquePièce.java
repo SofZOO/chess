@@ -1,7 +1,7 @@
 package tests;
 
 
-import appli.Appli;
+import appli.Application;
 import echiquier.IFabriquePiece;
 import echiquier.IPiece;
 import org.junit.Test;
@@ -43,7 +43,7 @@ public class TestFabriquePièce {
     @Test
     public void vérificationMéthodeFabriqueFinale(){
 
-        Appli.setChoixPartieFinale(true);
+        Application.setChoixPartieFinale(true);
 
         IFabriquePiece fab = new FabriquePiece();
         ArrayList<IPiece> listeDePieces = fab.fabrique(true);

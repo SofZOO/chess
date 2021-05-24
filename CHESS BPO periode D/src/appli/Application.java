@@ -8,7 +8,7 @@ import piece.FabriquePiece;
 
 import java.util.Scanner;
 
-public class Appli {
+public class Application {
     private static boolean choixPartie = false;
     public static boolean getChoixPartie(){ return choixPartie;}
     public static void setChoixPartieFinale(boolean choix){ choixPartie = choix;}
