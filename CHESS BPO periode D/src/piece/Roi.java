@@ -18,7 +18,8 @@ public class Roi extends Piece {
 
     /**
      * Permet d'imaginer les déplacements du roi
-     * @param c les coordonnées de la pièce
+     *
+     * @param c       les coordonnées de la pièce
      * @param plateau le plateau
      * @return false si elle ne peut pas jouer
      */
