@@ -227,12 +227,14 @@ public class Plateau {
      * @param noir  le joueur NOIR
      * @return vrai si la partie est finie sur un match nul
      */
-    public boolean partieNulle(IJoueur blanc, IJoueur noir) {
-        if (matchNul)
+    public boolean partieNulle(IJoueur joueur) {
+        if (matchNul || listePieces.size() == 2) {
+            System.out.println("La partie est nulle");
             return true;
-        if (chesspat(blanc) || chesspat(noir))
-            return true;
-        return listePieces.size() == 2;
+        }
+
+        return chesspat(joueur);
+
     }
 
     /**

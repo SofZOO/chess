@@ -66,7 +66,7 @@ public class TestPlateau {
         // 6 |     |     |     |     |  R  |
         //     ---   ---   ---   ---   ---
 
-        assertTrue(p.partieNulle(jBlanc,jNoir));
+        assertTrue(p.partieNulle(jNoir));
     }
 
     /**
