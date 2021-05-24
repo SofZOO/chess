@@ -47,7 +47,7 @@ test 2 : echec et mat classique le roi ne peut rien faire
         p.déplacer("e5e6",joueurBlanc,joueurNoir);
         System.out.println(p);
         p.déplacer("a7a8",joueurBlanc,joueurNoir);
-        System.out.println(p);//TODO : c plus la merde
+        System.out.println(p);
 
 test 3 : echec puis prise de la piece qui fait echec puis contre attaque sur l'autre Roi
         p.déplacer("e1f1",joueurBlanc,joueurNoir);

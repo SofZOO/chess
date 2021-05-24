@@ -1,14 +1,22 @@
 package echiquier;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Plateau {
-    private static final int HAUTEUR = 8, LONGUEUR = 8;
-    private final IPiece[][] echiquier;
-    private final ArrayList<IPiece> listePieces;
-    private boolean propositionNulle;
-    private boolean matchNul;
+    private static final int HAUTEUR = 8; // Constante définissant la hauteur du plateau
+    private static final int LONGUEUR = 8;// Constante définissant la longueur du plateau
+    private final IPiece[][] echiquier; // Tableau de IPieces : l'échiquier
+    private final ArrayList<IPiece> listePieces;// Liste contenant toute les pieces encore jouables sur le plateau
+    private boolean propositionNulle; // Boolean, vrai si un joueur propose de finir en match nul
+    private boolean matchNul; // Boolean, vrai si la partie se conclut sur un match nul
 
+    /**
+     * Constructeur du plateau
+     *
+     * @param j1 Le premier joueur
+     * @param j2 le deuxième joueur
+     */
     public Plateau(IJoueur j1, IJoueur j2) {
         echiquier = new IPiece[LONGUEUR][HAUTEUR];
         for (int x = 0; x < LONGUEUR; x++) {
@@ -24,11 +32,23 @@ public class Plateau {
         matchNul = false;
     }
 
+    /**
+     * Fonction permettant la conversion d'un caractere d'une chaine de caractere en entier
+     *
+     * @param coup     le coup du joueur
+     * @param position la position du caractere que l'on veux convertir en entier
+     * @return le char convertit en int
+     */
     public static int intoInt(String coup, int position) {
         return Integer.parseInt(String.valueOf(coup.charAt(position)));
     }
 
-    private static String chaine() {
+    /**
+     * Permet de renvoyer une chaine de caractère allant de A à H pour les contours de l'échiquier
+     *
+     * @return la chaine de caratères
+     */
+    private static String chaineCaracteres() {
         StringBuilder sb = new StringBuilder();
         char u = 'a';
         for (int i = 0; i < LONGUEUR; i++) {
@@ -38,17 +58,49 @@ public class Plateau {
         return sb.toString();
     }
 
+    /**
+     * Permet de retourner toutes les pièces mangées d'un joueur
+     *
+     * @param j le joueur
+     * @return une chaine de caractères contenant les pieces mangées
+     */
+    private static String affichagePiecesMangees(IJoueur j) {
+        StringBuilder sb = new StringBuilder();
+        for (IPiece p : j.getPieces()) {
+            if (p.isMangé()) {
+                sb.append(p.toChar()).append(" ");
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Permet de :
+     * --> déplacer une piece dans le tableau de pièces
+     * --> changer les coordonnées de cette pièce
+     * --> et si une piece est mangée, de la retirer de la liste listePieces
+     *
+     * @param coordIni les coordonnées de la pièce que l'on va déplacer
+     * @param coordFin les coordonnes de destination de cette pièce
+     */
     public void placerNouvelleCoord(Coord coordIni, Coord coordFin) {
         if (laPiece(coordFin) != null) {
             listePieces.remove(laPiece(coordFin));
-
-            laPiece(coordFin).estMangé();
+            laPiece(coordFin).seFaitManger();
         }
         laPiece(coordIni).changeCoord(coordFin);
         echiquier[coordFin.getLigne()][coordFin.getColonne()] = laPiece(coordIni);
         echiquier[coordIni.getLigne()][coordIni.getColonne()] = null;
     }
 
+    /**
+     * Permet de savoir si un coup est possible en faisant passer ce dernier dans toutes les conditions
+     *
+     * @param caseSource la case de départ de la piece à déplacer
+     * @param caseDest   la case de destination de la pièce à déplacer
+     * @param courant    Le joueur qui propose le coup
+     * @return vrai si le coup est possible
+     */
     public boolean estJouable(Coord caseSource, Coord caseDest, IJoueur courant) {
         if ((caseDest.getLigne() > (LONGUEUR - 1) || caseDest.getLigne() < 0 || caseDest.getColonne() > (HAUTEUR - 1) || caseDest.getColonne() < 0)) {
             return false;
@@ -70,15 +122,12 @@ public class Plateau {
 //      4- si c'est un roi alors la destination n'est pas attaquable par une pièce adverse
         if (p.craintEchec()) {
             echiquier[p.getCoord().getLigne()][p.getCoord().getColonne()] = null;
-
             for (IPiece piece : listePieces) {
-                if (!piece.getCoord().compare(caseDest)) {
-                    if (!(piece.getCouleur().equals(p.getCouleur()))) {
-                        if (piece.peutJouer(caseDest, this)) {
-                            echiquier[p.getCoord().getLigne()][p.getCoord().getColonne()] = p;
-                            return false;
-                        }
-                    }
+                if (!piece.getCoord().compare(caseDest)
+                        && !(piece.getCouleur().equals(p.getCouleur()))
+                        && piece.peutJouer(caseDest, this)) {
+                    echiquier[p.getCoord().getLigne()][p.getCoord().getColonne()] = p;
+                    return false;
                 }
             }
             echiquier[p.getCoord().getLigne()][p.getCoord().getColonne()] = p;
@@ -88,40 +137,39 @@ public class Plateau {
 
             IPiece pieceSrc = laPiece(caseSource);
             IPiece pieceDst = laPiece(caseDest);
-
-            /*laPiece(caseSource).retirerPiece();*/
             echiquier[caseSource.getLigne()][caseSource.getColonne()] = null;
-            /*laPiece(caseDest).rajouterPiece(pieceSrc);*/
             echiquier[caseDest.getLigne()][caseDest.getColonne()] = pieceSrc;
-            ArrayList<IPiece> test2 = new ArrayList<>(listePieces);
+            ArrayList<IPiece> listeCopie = new ArrayList<>(listePieces);
             if (pieceDst != null)
-                test2.remove(pieceDst);
+                listeCopie.remove(pieceDst);
 
-            if (echec(courant, test2)) {//TODO a revoir
-                /*laPiece(caseSource).rajouterPiece(pieceSrc);*/
+            if (echec(courant, listeCopie)) {
                 echiquier[caseSource.getLigne()][caseSource.getColonne()] = pieceSrc;
-                /*laPiece(caseDest).rajouterPiece(pieceDst);*/
                 echiquier[caseDest.getLigne()][caseDest.getColonne()] = pieceDst;
 
                 if (pieceDst != null)
-                    test2.add(pieceDst);
+                    listeCopie.add(pieceDst);
                 return false;
             }
-            /*laPiece(caseSource).rajouterPiece(pieceSrc);*/
             echiquier[caseSource.getLigne()][caseSource.getColonne()] = pieceSrc;
-            /*laPiece(caseDest).rajouterPiece(pieceSr);*/
             echiquier[caseDest.getLigne()][caseDest.getColonne()] = pieceDst;
             if (pieceDst != null)
-                test2.add(pieceDst);
+                listeCopie.add(pieceDst);
             return true;
         }
 
     }
 
+    /**
+     * Permet de savoir si un joueur est en echec et Mat ou non
+     *
+     * @param joueur le joueur
+     * @return vrai si le joueur est echec et Mat
+     */
     public boolean chessmat(IJoueur joueur) {
-        IPiece roiDuJou = joueur.leRoi();
+
         for (IPiece piece : listePieces) {
-            if (piece.getCouleur().equals(roiDuJou.getCouleur())) {
+            if (piece.getCouleur().equals(joueur.getCouleur())) {
                 for (int cmp1 = 0; cmp1 < LONGUEUR; cmp1++) {
                     for (int cmp2 = 0; cmp2 < HAUTEUR; cmp2++) {
                         if (estJouable(piece.getCoord(), new Coord(cmp1, cmp2), joueur)) {
@@ -134,10 +182,16 @@ public class Plateau {
         return true;
     }
 
+    /**
+     * Permet de savoir si un joueur est en échec et pat ou non
+     *
+     * @param joueur le joueur courant
+     * @return vrai si le joueur est echec et Pat
+     */
     public boolean chesspat(IJoueur joueur) {
-        IPiece roi = joueur.leRoi();
+
         for (IPiece piece : listePieces) {
-            if (piece.getCouleur().equals(roi.getCouleur())) {
+            if (piece.getCouleur().equals(joueur.getCouleur())) {
                 for (int i = 0; i < LONGUEUR; i++) {
                     for (int j = 0; j < HAUTEUR; j++) {
                         if (piece.getCoord().compare(new Coord(i, j))) {
@@ -150,66 +204,93 @@ public class Plateau {
                 }
             }
         }
+        System.out.println("La partie est finie sur un échec et pat pour le joueur " + joueur.getNom() + ". Il ne peut plus jouer de coups sans être échec.");
         return true;
     }
 
-    public String partieFinie(int index, String nom, String autreNom){
-        String s;
-      switch (index){
-          case (1) : {
-              return "La partie est nulle : situation d'échecs et pat pour le joueur " + nom +".";
-          }
-          case (2) : {
-              return "Le joueur " + nom + " est vaincu par échecs et mat. Le joueur " + autreNom + " a gagné.";
-          }
-          case(3):{
-              return  "La partie est nulle : il ne reste que 2 rois sur le plateau.";
-          }
-          default:{
-              return "arvindo";
-          }
-
-      }
+    /**
+     * Permet de retourner une chaine de caractères en cas d'échecs et mat
+     *
+     * @param nom      Le nom d'un joueur
+     * @param autreNom Le nom d'un joueur
+     * @return la chaine de caractere
+     */
+    public String partieFinieMat(String nom, String autreNom) {
+        return "Le joueur " + nom + " est vaincu par échecs et mat. Le joueur " + autreNom + " a gagné.";
     }
 
 
-    public boolean partieNulle(IJoueur blanc,IJoueur noir){
+    /**
+     * Permet de savoir si la partie se conclut par un match nul
+     *
+     * @param blanc le joueur BLANC
+     * @param noir  le joueur NOIR
+     * @return vrai si la partie est finie sur un match nul
+     */
+    public boolean partieNulle(IJoueur blanc, IJoueur noir) {
         if (matchNul)
             return true;
         if (chesspat(blanc) || chesspat(noir))
             return true;
-        if (listePieces.size() == 2)
-            return true;
-
-        return false;
-
+        return listePieces.size() == 2;
     }
 
-    public boolean echec(IJoueur bangbang, ArrayList<IPiece> list) {
+    /**
+     * Permet de savoir si un joueur est échec
+     *
+     * @param courant le joueur courant
+     * @param list    une liste de pièces
+     * @return vrai si le joueur est échec
+     */
+    public boolean echec(IJoueur courant, List<IPiece> list) {
         for (IPiece piece : list) {
-            if (!(piece.getCouleur().equals(bangbang.leRoi().getCouleur()))) {
-                if (piece.peutJouer(bangbang.leRoi().getCoord(), this))
-                    return true;
+            if (!(piece.getCouleur().equals(courant.getCouleur())) && piece.peutJouer(courant.leRoi().getCoord(), this)) {
+                return true;
             }
         }
         return false;
     }
 
+    /**
+     * permet de savoir si une piece mange une pièce alliée
+     *
+     * @param coordIni la coordonnée de départ de la pièce
+     * @param coordFin la coordonnée de destination de la pièce
+     * @return faux si une pièce mange son allié
+     */
     private boolean coupValableSurPiece(Coord coordIni, Coord coordFin) {
         if (laPiece(coordFin) != null)
             return !(laPiece(coordIni).getCouleur().equals(laPiece(coordFin).getCouleur()));
-        /*si le roi est en echec, il est obligé de déplacer son roi*/
         return true;
     }
 
+    /**
+     * Permet de retourner la pièce avec ses coordonées
+     *
+     * @param c les coordonnées de la pièces
+     * @return la pièce
+     */
     public IPiece laPiece(Coord c) {
         return echiquier[c.getLigne()][c.getColonne()];
     }
 
+    /**
+     * Permet de récupérer les coordonnées de la pièce
+     *
+     * @param x2 la lettre sur le plateau
+     * @param y2 le chiffre sur le plateau
+     * @return la position de la pièce sur l'échiquier
+     */
     public Coord getCoord(char x2, int y2) {
         return new Coord(8 - y2, x2 - 'a');
     }
 
+    /**
+     * permet de savoir si le coup est valable sur le plateau
+     *
+     * @param coup le coup du joueur
+     * @return vrai si le coup est valable dans le plateau
+     */
     private boolean coupValableSurPlateau(String coup) {
         if (coup.length() != 4)
             return false;
@@ -224,44 +305,45 @@ public class Plateau {
         return intoInt(coup, 1) >= 1 && intoInt(coup, 1) <= 8 && intoInt(coup, 3) >= 1 && intoInt(coup, 3) <= 8;
     }
 
+    /**
+     * permet de savoir si le joueur a fait une erreur de frappe dans son coup
+     *
+     * @param coup   le coup du joueur
+     * @param joueur le joueur
+     * @return vrai si le joueur a fait une faute et doit rejouer
+     */
     public boolean doitRejouer(String coup, IJoueur joueur) {
-        Coord coordIni, coordFin;
+        Coord coordIni;
+        Coord coordFin;
         if (!coupValableSurPlateau(coup)) {
             return true;
         }
-        char x = coup.charAt(0), x2 = coup.charAt(2);/*b7b8*/
-        int y = intoInt(coup, 1), y2 = intoInt(coup, 3);
+        char x = coup.charAt(0);
+        char x2 = coup.charAt(2);
+        int y = intoInt(coup, 1);
+        int y2 = intoInt(coup, 3);
         coordIni = getCoord(x, y);
         coordFin = getCoord(x2, y2);
         if (!estJouable(coordIni, coordFin, joueur)) {
             return true;
         }
 
-        return !laPiece(coordIni).getCouleur().equals(joueur.leRoi().getCouleur());
+        return !laPiece(coordIni).getCouleur().equals(joueur.getCouleur());
     }
 
-    private String affichagePiecesMangees(IJoueur j) {
-        StringBuilder sb = new StringBuilder();
-        for (IPiece p : j.getPieces()) {
-            if (p.getEstMangé()) {
-                sb.append(p.toChar()).append(" ");
-            }
-        }
-        return sb.toString();
-    }
-
-//    public String abandon(String coup){
-//
-//    }
-
+    /**
+     * permet de retourner en String l'echiquier contenant les pieces
+     *
+     * @param joueurBlanc le joueur BLANC
+     * @param joueurNoir  le joueur NOIR
+     * @return l'echiquier
+     */
     public String affichePlateau(IJoueur joueurBlanc, IJoueur joueurNoir) {
         StringBuilder sb = new StringBuilder();
-        sb.append(chaine()).append("         Pièces mangées par le joueur ").append(joueurNoir.getNom()).append(" : ");
-        sb.append(affichagePiecesMangees(joueurBlanc));
-        sb.append("\n");
+        sb.append(chaineCaracteres()).append("         Pièces mangées par le joueur ").append(joueurNoir.getNom()).append(" : ");
+        sb.append(affichagePiecesMangees(joueurBlanc)).append(System.lineSeparator());
         for (int cmpHauteur = 0, cmp = 8; cmpHauteur < HAUTEUR; cmpHauteur++, cmp--) {
-            sb.append("    ---   ---   ---   ---   ---   ---   ---   ---\n");
-            sb.append(cmp).append(" | ");
+            sb.append("    ---   ---   ---   ---   ---   ---   ---   ---\n").append(cmp).append(" | ");
             for (int cmpLongueur = 0; cmpLongueur < LONGUEUR; cmpLongueur++) {
                 sb.append(" ");
                 if (laPiece(new Coord(cmpHauteur, cmpLongueur)) == null)
@@ -271,28 +353,38 @@ public class Plateau {
                 }
                 sb.append("  | ");
             }
-            if(cmp == 5 ){
+            if (cmp == 5) {
                 sb.append(cmp).append("    Si vous souhaitez abandonner veuillez écrire \"abandon\" à la place d'un coup\n");
-            }
-            else if(cmp == 4){
+            } else if (cmp == 4) {
                 sb.append(cmp).append("    Pour la propostion de la nulle veuillez écrire \"nulle\" à la place d'un coup que vous souhaitez entrer\n");
-            }
-            else{
+            } else {
                 sb.append(cmp).append("\n");
             }
         }
         sb.append("    ---   ---   ---   ---   ---   ---   ---   ---\n");
-        sb.append(chaine()).append("         Pièces mangées par le joueur ").append(joueurBlanc.getNom()).append(" : ");
-        sb.append(affichagePiecesMangees(joueurNoir));
-        sb.append("\n");
+        sb.append(chaineCaracteres()).append("         Pièces mangées par le joueur ").append(joueurBlanc.getNom()).append(" : ");
+        sb.append(affichagePiecesMangees(joueurNoir)).append(System.lineSeparator());
         return sb.toString();
     }
 
-    public ArrayList<IPiece> getListePieces() {
+
+    public List<IPiece> getListePieces() {
         return listePieces;
     }
 
-    public boolean getPropositionNulle(){return this.propositionNulle;}
-    public void setPropositionNulle(boolean change){this.propositionNulle = change;}
-    public void setMAtchNul(boolean change){this.matchNul=change;}
+    public boolean getPropositionNulle() {
+        return this.propositionNulle;
+    }
+
+    public void setPropositionNulle(boolean change) {
+        this.propositionNulle = change;
+    }
+
+    public void setMAtchNul(boolean change) {
+        this.matchNul = change;
+    }
+
+    public IPiece[][] getEchiquier() {
+        return echiquier;
+    }
 }
