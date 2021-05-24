@@ -10,7 +10,7 @@ public abstract class Joueur implements IJoueur {
     private final String nom; // Le nom du Joueur
     private final ArrayList<IPiece> pieces;// La liste de pièce du joueur
     private boolean echecEtMat; // Boolean pour savoir si le joueur est echec et mat
-    private CouleurPiece couleur;
+    private final CouleurPiece couleur;
 
 
     /**
@@ -109,5 +109,25 @@ public abstract class Joueur implements IJoueur {
     @Override
     public CouleurPiece getCouleur() {
         return couleur;
+    }
+
+    /**
+     * Permet de savoir que le bot n'est pas un humain
+     *
+     * @return false car le bot n'est pas humain
+     */
+    @Override
+    public boolean estHumain() {
+        return false;
+    }
+
+    /**
+     * Permet de savoir si le joueur abandonne
+     *
+     * @return false car le bot n'abandonne jamais
+     */
+    @Override
+    public boolean abandonne() {
+        return false;
     }
 }

@@ -32,6 +32,7 @@ title __JOUEURS's Class Diagram__\n
         - pieces : ArrayList<IPiece>
         + aPerdu()
         + déplacer()
+        + getCouleur()
         + getNom()
         + getPieces()
         + isChessMat()
@@ -44,6 +45,7 @@ title __JOUEURS's Class Diagram__\n
   joueurs.Bot -up-|> joueurs.Joueur
   joueurs.Humain -up-|> joueurs.Joueur
   joueurs.Joueur .up.|> echiquier.IJoueur
+  joueurs.Joueur o-- piece.CouleurPiece : couleur
 
 
 right footer

@@ -20,6 +20,7 @@ title __PIECE's Class Diagram__\n
 
   namespace piece {
     class piece.FabriquePiece {
+        + FabriquePiece()
         + fabrique()
         - fabriqueFinale()
     }

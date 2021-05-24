@@ -48,25 +48,6 @@ public class Bot extends Joueur {
         déplacer(tabCoups.get(0), autreJoueur, p);
     }
 
-    /**
-     * Permet de savoir que le bot n'est pas un humain
-     *
-     * @return false car le bot n'est pas humain
-     */
-    @Override
-    public boolean estHumain() {
-        return false;
-    }
-
-    /**
-     * Permet de savoir si le joueur abandonne
-     *
-     * @return false car le bot n'abandonne jamais
-     */
-    @Override
-    public boolean abandonne() {
-        return false;
-    }
 }
 
 

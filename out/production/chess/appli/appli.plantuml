@@ -5,6 +5,7 @@ title __APPLI's Class Diagram__\n
   namespace appli {
     class appli.Application {
         {static} - choixPartie : boolean
+        + Application()
         {static} + getChoixPartie()
         {static} + jouer()
         {static} + main()
