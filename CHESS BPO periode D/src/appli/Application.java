@@ -9,7 +9,8 @@ import piece.FabriquePiece;
 import java.util.Scanner;
 
 public class Application {
-    private static boolean choixPartie = false;
+    private static boolean choixPartie = false; // permet de définir le type de partie jouée : une finale ou alors une partie avec nos autres pièces
+
 
     public static boolean getChoixPartie() {
         return choixPartie;
@@ -19,6 +20,13 @@ public class Application {
         choixPartie = choix;
     }
 
+    /**
+     * Permet d'éviter les erreur du choix de la partie pour l'utilisateur
+     *
+     * @param choix  le choix de l'utilisateur
+     * @param option le nombre de choix possibles pour l'utilisateur
+     * @return
+     */
     private static boolean erreurChoix(String choix, int option) {
         if (choix.length() != 1) {
             return true;
@@ -29,7 +37,14 @@ public class Application {
         return Integer.parseInt(choix) > option || Integer.parseInt(choix) < 1;
     }
 
-
+    /**
+     * Permet d'illustrer tous les cas qui provoquent une fin de partie
+     *
+     * @param courant    le IJoueur qui joue
+     * @param pasCourant l'autre IJoueur
+     * @param p          le plateau
+     * @return true si c'est une fin de partie
+     */
     private static boolean finPartie(IJoueur courant, IJoueur pasCourant, Plateau p) {
 
         if (pasCourant.isChessMat()) {
@@ -47,6 +62,13 @@ public class Application {
         return false;
     }
 
+    /**
+     * Algo de jeu d'une partie pour un joueur
+     *
+     * @param jBlanc le joueur BLANC
+     * @param jNoir  le joueur NOIR
+     * @param p      le plateau
+     */
     public static void jouer(IJoueur jBlanc, IJoueur jNoir, Plateau p) {
 
         System.out.println(p.affichePlateau(jBlanc, jNoir));

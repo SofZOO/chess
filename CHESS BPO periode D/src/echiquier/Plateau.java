@@ -223,8 +223,7 @@ public class Plateau {
     /**
      * Permet de savoir si la partie se conclut par un match nul
      *
-     * @param blanc le joueur BLANC
-     * @param noir  le joueur NOIR
+     * @param joueur le joueur courant
      * @return vrai si la partie est finie sur un match nul
      */
     public boolean partieNulle(IJoueur joueur) {

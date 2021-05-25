@@ -59,5 +59,6 @@ public class TestFabriquePièce {
 
         for (IPiece piece : listeDePieces)
             assertEquals(piece.getCouleur(), CouleurPiece.NOIR);
+        Application.setChoixPartieFinale(false);
     }
 }
