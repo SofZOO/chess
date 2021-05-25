@@ -30,25 +30,20 @@ public class Application {
     }
 
 
-    private static boolean finPartie(IJoueur jBlanc, IJoueur jNoir, Plateau p, boolean echecEtMat, String nom, String autreNom) {
+    private static boolean finPartie(IJoueur courant, IJoueur pasCourant, Plateau p) {
 
-        System.out.println(p.affichePlateau(jBlanc, jNoir));
-        if (echecEtMat) {
-            System.out.println(p.partieFinieMat(nom, autreNom));
+        if (pasCourant.isChessMat()) {
+            System.out.println(p.partieFinieMat(pasCourant.getNom(), courant.getNom()));
             return true;
         }
-        if (p.partieNulle(jBlanc, jNoir)) {
-            System.out.println("La partie est nulle");
+        if (p.partieNulle(pasCourant)) {
             return true;
         }
-        if (jBlanc.abandonne()) {
-            System.out.println("Le joueur " + jBlanc.getNom() + " a décidé d'abandonner la partie.  Le joueur " + jNoir.getNom() + " a gagné par \"forfait\"!");
+        if (courant.abandonne()) {
+            System.out.println("Le joueur " + courant.getNom() + " a décidé d'abandonner la partie.  Le joueur " + pasCourant.getNom() + " a gagné par \"forfait\"!");
             return true;
         }
-        if (jNoir.abandonne()) {
-            System.out.println("Le joueur " + jNoir.getNom() + " a décidé d'abandonner la partie. Le joueur " + jBlanc.getNom() + " a gagné par \"forfait\"!");
-            return true;
-        }
+
         return false;
     }
 
@@ -58,9 +53,11 @@ public class Application {
 
         while (!(jBlanc.isChessMat() || jNoir.isChessMat())) {
             jBlanc.joueUnTour(jNoir, p);
-            if (finPartie(jBlanc, jNoir, p, jNoir.isChessMat(), jNoir.getNom(), jBlanc.getNom())) break;
+            System.out.println(p.affichePlateau(jBlanc, jNoir));
+            if (finPartie(jBlanc, jNoir, p)) break;
             jNoir.joueUnTour(jBlanc, p);
-            if (finPartie(jBlanc, jNoir, p, jBlanc.isChessMat(), jBlanc.getNom(), jNoir.getNom())) break;
+            System.out.println(p.affichePlateau(jBlanc, jNoir));
+            if (finPartie(jNoir, jBlanc, p)) break;
         }
         System.out.println("Fin de la partie");
     }
